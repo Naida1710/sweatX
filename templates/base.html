@@ -46,9 +46,19 @@
     <header class="container-fluid fixed-top">
       <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0 text-center text-lg-left">
-          <a href="{% url 'home' %}" class="nav-link main-logo-link">
-            <h2 class="logo-font text-black my-0"><strong>sweat</strong>X</h2>
-          </a>
+            <a href="{% url 'home' %}"
+            class="nav-link main-logo-link d-flex align-items-center">
+         
+             <img
+                 src="{{ MEDIA_URL }}flow.png"
+                 alt="sweatX logo"
+                 class="logo-img mr-2"
+             >
+         
+             <h2 class="logo-font text-black my-0">
+                 <strong>sweat</strong>X
+             </h2>
+         </a>
         </div>
         <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
           <form method="GET" action="">
