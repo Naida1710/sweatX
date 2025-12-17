@@ -34,7 +34,7 @@ body {
 }
 
 .shop-now-button {
-    background: black;
+    background: linear-gradient(90deg, #F527A9, #FF79C6);
     color: white;
     min-width: 260px;
 }
