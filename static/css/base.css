@@ -90,7 +90,17 @@ a.category-badge > span.badge:hover {
 }
 .btt-link {
     cursor: pointer;
+    color: black;
 }
+
+.btt-link {
+    color: black;
+}
+
+.btt-link i {
+    color: black;
+}
+
 
 
 /* -------------------------------- Media Queries */
