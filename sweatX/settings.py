@@ -17,7 +17,10 @@ SECRET_KEY = 'django-insecure-bf_nx7m0sd(kbofoqv1g*ba))$ux)2(ju#mr-kr5#21@5iql_d
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+]
 
 
 # Application definition
@@ -179,5 +182,3 @@ STRIPE_WH_SECRET = os.getenv('STRIPE_WH_SECRET', '')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
