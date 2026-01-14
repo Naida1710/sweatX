@@ -50,7 +50,6 @@
                         </p>
                     </div>
                 </div>
-                
                 <div class="row">
                     {% for product in products %}
                         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
@@ -82,6 +81,12 @@
                                                 <small class="text-muted"><i class="fas fa-star mr-1"></i>{{ product.rating }} / 5</small>
                                             {% else %}
                                                 <small class="text-muted">No Rating</small>
+                                            {% endif %}
+                                            {% if request.user.is_superuser %}
+                                                <small class="ml-3">
+                                                    <a href="{% url 'edit_product' product.id %}">Edit</a> | 
+                                                    <a class="text-danger" href="{% url 'delete_product' product.id %}">Delete</a>
+                                                </small>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -115,7 +120,7 @@
     </div>
     <div class="btt-button shadow-sm rounded-0 border border-black">
         <a class="btt-link d-flex h-100">
-            <i class="fa fa-arrow-up text-black mx-auto my-auto"></i>
+            <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
         </a>	
     </div>
 {% endblock %}
