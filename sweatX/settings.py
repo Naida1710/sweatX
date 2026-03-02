@@ -1,6 +1,7 @@
 
 import os
 from pathlib import Path
+import dj_database_url
 if os.path.isfile('env.py'):
     import env
 
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'profiles',
     'crispy_forms',
     'django_countries',
+    'quizzes',
 
 
 ]

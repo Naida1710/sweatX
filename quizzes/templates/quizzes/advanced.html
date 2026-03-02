@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Advanced Quiz</title>
+</head>
+<body>
+  <h1>Advanced Quiz</h1>
+  <div id="question">Solve: 12 * 12</div>
+  <button onclick="checkAnswer(144)">144</button>
+  <button onclick="checkAnswer(154)">154</button>
+  <div id="result"></div>
+
+  <script src="{% static 'quizzes/quiz.js' %}"></script>
+</body>
+</html>
+

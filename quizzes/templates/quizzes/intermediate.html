@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Intermediate Quiz</title>
+</head>
+<body>
+  <h1>Intermediate Quiz</h1>
+  <div id="question">Which is a prime number?</div>
+  <button onclick="checkAnswer(7)">7</button>
+  <button onclick="checkAnswer(9)">9</button>
+  <div id="result"></div>
+
+  <script src="{% static 'quizzes/quiz.js' %}"></script>
+</body>
+</html>
+

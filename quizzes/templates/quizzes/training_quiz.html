@@ -1,0 +1,18 @@
+<h2>Find Your Ideal Training Plan</h2>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <p>How long have you been training?</p>
+    <input type="radio" name="experience" value="0-6"> 0-6 months<br>
+    <input type="radio" name="experience" value="6-24"> 6 months - 2 years<br>
+    <input type="radio" name="experience" value="24+"> 2+ years<br>
+
+    <p>How many push-ups can you do?</p>
+    <input type="radio" name="pushups" value="low"> Less than 10<br>
+    <input type="radio" name="pushups" value="medium"> 10-25<br>
+    <input type="radio" name="pushups" value="high"> 25+<br>
+
+    <br>
+    <button type="submit">Get My Plan</button>
+</form>

@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Beginner Quiz</title>
+</head>
+<body>
+
+  <h1>Beginner Quiz</h1>
+
+  <div id="question">What is 2 + 2?</div>
+
+  <button onclick="checkAnswer(4)">4</button>
+  <button onclick="checkAnswer(4)">5</button>
+
+  <div id="result"></div>
+
+  <script src="{% static 'quizzes/quiz.js' %}"></script>
+</body>
+</html>
