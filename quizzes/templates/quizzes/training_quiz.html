@@ -1,18 +1,37 @@
-<h2>Find Your Ideal Training Plan</h2>
+{% extends "base.html" %}
+{% block content %}
 
-<form method="POST">
-    {% csrf_token %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Find Your Ideal Training Plan</h2>
 
-    <p>How long have you been training?</p>
-    <input type="radio" name="experience" value="0-6"> 0-6 months<br>
-    <input type="radio" name="experience" value="6-24"> 6 months - 2 years<br>
-    <input type="radio" name="experience" value="24+"> 2+ years<br>
+    <form method="POST" class="card p-4 shadow">
+        {% csrf_token %}
 
-    <p>How many push-ups can you do?</p>
-    <input type="radio" name="pushups" value="low"> Less than 10<br>
-    <input type="radio" name="pushups" value="medium"> 10-25<br>
-    <input type="radio" name="pushups" value="high"> 25+<br>
+        <h5>1. How long have you been training?</h5>
+        <input type="radio" name="experience" value="0-6" required> 0-6 months<br>
+        <input type="radio" name="experience" value="6-24"> 6 months - 2 years<br>
+        <input type="radio" name="experience" value="24+"> 2+ years<br>
 
-    <br>
-    <button type="submit">Get My Plan</button>
-</form>
+        <hr>
+
+        <h5>2. How many push-ups can you do?</h5>
+        <input type="radio" name="pushups" value="low" required> Less than 10<br>
+        <input type="radio" name="pushups" value="medium"> 10-25<br>
+        <input type="radio" name="pushups" value="high"> 25+<br>
+
+        <hr>
+
+        <h5>3. How many days per week can you train?</h5>
+        <input type="radio" name="days" value="1-2" required> 1-2 days<br>
+        <input type="radio" name="days" value="3-4"> 3-4 days<br>
+        <input type="radio" name="days" value="5+"> 5+ days<br>
+
+        <br>
+
+        <button type="submit" class="btn btn-dark w-100">
+            Get My Training Plan
+        </button>
+    </form>
+</div>
+
+{% endblock %}

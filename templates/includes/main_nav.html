@@ -32,9 +32,12 @@
                 Training Program
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="homeware-link">
-                <a href="" class="dropdown-item">Beginner</a>
-                <a href="" class="dropdown-item">Intermediate</a>
-                <a href="" class="dropdown-item">Advanced</a>
+                <a href="{% url 'training_quiz' %}" class="dropdown-item">
+                    🎯 Find My Ideal Training Plan
+                </a>
+                <a href="{% url 'beginner_quiz' %}" class="dropdown-item">Beginner</a>
+                <a href="{% url 'intermediate_quiz' %}" class="dropdown-item">Intermediate</a>
+                <a href="{% url 'advanced_quiz' %}" class="dropdown-item">Advanced</a>
                 <a href="" class="dropdown-item">All Programs</a>
             </div>
         </li>

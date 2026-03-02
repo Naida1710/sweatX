@@ -1,17 +1,25 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Intermediate Quiz</title>
-</head>
-<body>
-  <h1>Intermediate Quiz</h1>
-  <div id="question">Which is a prime number?</div>
-  <button onclick="checkAnswer(7)">7</button>
-  <button onclick="checkAnswer(9)">9</button>
-  <div id="result"></div>
+{% extends "base.html" %}
+{% block content %}
 
-  <script src="{% static 'quizzes/quiz.js' %}"></script>
-</body>
-</html>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Beginner Training Plan</h2>
 
+    <div class="card p-4 shadow">
+        <h4>Focus: Build Foundation</h4>
+        <ul>
+            <li>Full Body Workout – 3x per week</li>
+            <li>Bodyweight squats – 3x12</li>
+            <li>Push-ups (knees if needed) – 3x8</li>
+            <li>Plank – 20 seconds</li>
+            <li>Light cardio – 15 minutes</li>
+        </ul>
+
+        <hr>
+
+        <a href="{% url 'products' %}" class="btn btn-outline-dark">
+            View Recommended Plans
+        </a>
+    </div>
+</div>
+
+{% endblock %}
