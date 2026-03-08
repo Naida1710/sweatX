@@ -1,8 +1,15 @@
-{% extends "base.html" %}
+{% extends "account/auth_base.html" %}
 {% load i18n %}
 
 {% block extra_css %}
 <style>
+       body {
+        background: #000 !important;
+        background-image: none !important;
+        height: auto !important;
+        min-height: 100vh;
+    }
+    
     .auth-page {
         min-height: calc(100vh - 164px);
         display: flex;
