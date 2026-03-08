@@ -1,30 +1,98 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
+        <div class="col-12 col-lg-8">
             <div class="card p-4 shadow border-0">
-                <h2 class="text-center mb-4">Choose Your Program</h2>
-                <p class="text-center text-muted mb-4">Question 1 of 1</p>
+                <h2 class="text-center mb-4">Find Your Perfect Program</h2>
+                <p class="text-center text-muted mb-4">
+                    Answer a few quick questions to get your personalised recommendation.
+                </p>
 
                 <form method="POST">
                     {% csrf_token %}
 
                     <h5 class="mb-3">1. Where do you want to train?</h5>
-
-                    <div class="custom-control custom-radio mb-3">
-                        <input type="radio" id="train_home" name="location" value="home" class="custom-control-input" required>
-                        <label class="custom-control-label" for="train_home">I want to train at home</label>
+                    <div class="mb-4">
+                        <input type="radio" name="location" value="home" required> At home<br>
+                        <input type="radio" name="location" value="gym"> At a gym
                     </div>
 
-                    <div class="custom-control custom-radio mb-4">
-                        <input type="radio" id="train_gym" name="location" value="gym" class="custom-control-input" required>
-                        <label class="custom-control-label" for="train_gym">I want to train at a gym</label>
+                    <h5 class="mb-3">2. Choose your goal</h5>
+                    <div class="mb-4">
+                        <input type="radio" name="goal" value="weight_loss" required> Weight loss<br>
+                        <input type="radio" name="goal" value="wellness_longevity"> Wellness and longevity<br>
+                        <input type="radio" name="goal" value="energy_vitality"> Energy and vitality<br>
+                        <input type="radio" name="goal" value="balance_mobility"> Balance and mobility
                     </div>
 
-                    <button type="submit" class="btn btn-dark btn-block rounded-0">
-                        Continue
+                    <h5 class="mb-3">3. What else motivates you to exercise?</h5>
+                    <div class="mb-4">
+                        <input type="radio" name="motivation" value="muscle_strength" required> Support muscle strength<br>
+                        <input type="radio" name="motivation" value="reduce_stress"> Reduce stress<br>
+                        <input type="radio" name="motivation" value="enhance_posture"> Enhance posture
+                    </div>
+
+                    <h5 class="mb-3">4. How long ago were you in the best shape of your life?</h5>
+                    <div class="mb-4">
+                        <input type="radio" name="best_shape" value="less_than_year" required> Less than a year ago<br>
+                        <input type="radio" name="best_shape" value="1_3_years"> 1–3 years ago<br>
+                        <input type="radio" name="best_shape" value="never"> Never
+                    </div>
+
+                    <h5 class="mb-3">5. How flexible are you?</h5>
+                    <div class="mb-4">
+                        <input type="radio" name="flexibility" value="very_flexible" required> Very flexible<br>
+                        <input type="radio" name="flexibility" value="pretty_flexible"> Pretty flexible<br>
+                        <input type="radio" name="flexibility" value="not_good"> Not that good
+                    </div>
+
+                    <h5 class="mb-3">6. Choose your experience level</h5>
+                    <div class="mb-4">
+                        <input type="radio" name="experience_level" value="beginner" required> Beginner (I have never trained before)<br>
+                        <input type="radio" name="experience_level" value="intermediate"> Intermediate (I have trained regularly for at least one year)<br>
+                        <input type="radio" name="experience_level" value="advanced"> Advanced (I have trained consistently for years and have better than average strength and muscle development)
+                    </div>
+
+                    <h5 class="mb-3">7. Select gender</h5>
+                    <div class="mb-4">
+                        <input type="radio" name="gender" value="male" required> Male<br>
+                        <input type="radio" name="gender" value="female"> Female<br>
+                        <input type="radio" name="gender" value="prefer_not_to_say"> Prefer not to say
+                    </div>
+
+                    <h5 class="mb-3">8. Choose age range</h5>
+                    <div class="mb-4">
+                        <input type="radio" name="age_range" value="16_20" required> 16–20<br>
+                        <input type="radio" name="age_range" value="21_30"> 21–30<br>
+                        <input type="radio" name="age_range" value="31_40"> 31–40<br>
+                        <input type="radio" name="age_range" value="41_50"> 41–50<br>
+                        <input type="radio" name="age_range" value="51_plus"> 51+
+                    </div>
+
+                    <h5 class="mb-3">9. How many push-ups can you do in a single set?</h5>
+                    <div class="mb-4">
+                        <input type="radio" name="pushups" value="10_or_less" required> 10 or less<br>
+                        <input type="radio" name="pushups" value="11_25"> 11–25<br>
+                        <input type="radio" name="pushups" value="26_40"> 26–40<br>
+                        <input type="radio" name="pushups" value="41_65"> 41–65<br>
+                        <input type="radio" name="pushups" value="65_plus"> More than 65
+                    </div>
+
+                    <h5 class="mb-3">10. How would you like to focus your training?</h5>
+                    <p>I want to burn fat and build muscle.</p>
+                    <p class="text-muted">Move the slider left or right to personalise your training focus.</p>
+                    <div class="mb-2 d-flex justify-content-between">
+                        <span>Burn fat</span>
+                        <span>Build muscle</span>
+                    </div>
+                    <div class="mb-4">
+                        <input type="range" name="training_focus" min="0" max="100" value="50" class="w-100">
+                    </div>
+
+                    <button type="submit" class="btn btn-dark btn-block rounded-0 py-3">
+                        Get My Recommendation
                     </button>
                 </form>
             </div>
