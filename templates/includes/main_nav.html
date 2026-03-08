@@ -38,7 +38,9 @@
                 <a href="{% url 'beginner_quiz' %}" class="dropdown-item">Beginner</a>
                 <a href="{% url 'intermediate_quiz' %}" class="dropdown-item">Intermediate</a>
                 <a href="{% url 'advanced_quiz' %}" class="dropdown-item">Advanced</a>
-                <a href="" class="dropdown-item">All Programs</a>
+                <a href="{% url 'products' %}?category=programs" class="dropdown-item">
+                    All Programs
+                </a>
             </div>
         </li>
 
