@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extra_css %}
+<style>
+    .auth-page {
+        min-height: calc(100vh - 164px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3rem 0;
+    }
+
+    .auth-overlay {
+        background: rgba(255, 255, 255, 0.82);
+        border-radius: 0;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+        overflow: hidden;
+    }
+
+    .auth-hero {
+        background: linear-gradient(135deg, rgba(245,39,169,0.92), rgba(255,121,198,0.82));
+        color: #fff;
+        padding: 3rem 2rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .auth-hero h1,
+    .auth-box h2 {
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+
+    .auth-hero p {
+        margin-bottom: 0;
+        opacity: .95;
+    }
+
+    .auth-box {
+        padding: 3rem 2rem;
+        background: rgba(255,255,255,0.92);
+    }
+
+    .auth-box .form-control {
+        border-radius: 0;
+        border: 1px solid #000;
+        min-height: 48px;
+    }
+
+    .auth-box .form-control:focus {
+        border-color: #F527A9;
+        box-shadow: 0 0 0 0.15rem rgba(245,39,169,0.18);
+    }
+
+    .auth-box button,
+    .auth-box .btn {
+        min-height: 48px;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+    }
+
+    .auth-links a {
+        color: #17a2b8;
+    }
+
+    .auth-links a:hover {
+        color: #000;
+        text-decoration: none;
+    }
+
+    .auth-icon {
+        width: 70px;
+        height: 70px;
+        border: 2px solid rgba(255,255,255,0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+    }
+
+    @media (max-width: 991px) {
+        .auth-page {
+            min-height: calc(100vh - 116px);
+            padding: 2rem 0;
+        }
+
+        .auth-hero {
+            padding: 2rem 1.5rem;
+        }
+
+        .auth-box {
+            padding: 2rem 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container header-container auth-page">
+    <div class="row justify-content-center w-100">
+        <div class="col-12 col-lg-10 col-xl-9">
+            <div class="row no-gutters auth-overlay">
+                <div class="col-lg-5 d-none d-lg-block">
+                    <div class="auth-hero">
+                        <div class="auth-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <h1 class="logo-font mb-3"><strong>sweat</strong>X</h1>
+                        <p class="lead">Push harder. Shop smarter. Sign in and continue your journey.</p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-7">
+                    <div class="auth-box">
+                        <h2 class="mb-3 text-center logo-font">Login</h2>
+                        <p class="text-muted text-center mb-4">Welcome back to sweatX.</p>
+
+                        <form method="POST" action="{% url 'account_login' %}" class="allauth-form-inner-content">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+
+                            {% if redirect_field_value %}
+                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                            {% endif %}
+
+                            <button type="submit" class="btn btn-black w-100">
+                                Login
+                            </button>
+                        </form>
+
+                        <div class="auth-links text-center mt-4">
+                            <p class="mb-1">
+                                Don’t have an account?
+                                <a href="{% url 'account_signup' %}">Register here</a>
+                            </p>
+                            <p class="mb-0">
+                                <a href="{% url 'home' %}">Back to home</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
