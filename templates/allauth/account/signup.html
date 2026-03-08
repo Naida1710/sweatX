@@ -1,147 +1,286 @@
 {% extends "account/auth_base.html" %}
-{% load i18n %}
+{% load static %}
 
 {% block extra_css %}
 <style>
-       body {
+    body {
         background: #000 !important;
         background-image: none !important;
-        height: auto !important;
         min-height: 100vh;
+        height: auto !important;
     }
-    
-    .auth-page {
+
+    .signup-page {
         min-height: calc(100vh - 164px);
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 3rem 0;
+        padding: 3rem 1rem;
     }
 
-    .auth-overlay {
-        background: rgba(255, 255, 255, 0.84);
-        box-shadow: 0 15px 40px rgba(0,0,0,0.18);
+    .signup-shell {
+        width: 100%;
+        max-width: 1050px;
+        border-radius: 18px;
         overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+        background: #111;
+        border: 1px solid rgba(255,255,255,0.08);
     }
 
-    .auth-hero {
-        background: linear-gradient(135deg, #000, #222);
+    .signup-left {
+        position: relative;
+        min-height: 100%;
+        padding: 3rem;
         color: #fff;
-        padding: 3rem 2rem;
-        height: 100%;
+        background:
+            linear-gradient(145deg, rgba(245,39,169,0.92), rgba(255,121,198,0.82)),
+            radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 35%);
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
-    .auth-hero h1,
-    .auth-box h2 {
-        text-transform: uppercase;
-        letter-spacing: .08em;
+    .signup-left::after {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        right: -80px;
+        bottom: -80px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.08);
+        filter: blur(8px);
     }
 
-    .auth-box {
-        padding: 3rem 2rem;
-        background: rgba(255,255,255,0.94);
-    }
-
-    .auth-box .form-control {
-        border-radius: 0;
-        border: 1px solid #000;
-        min-height: 48px;
-    }
-
-    .auth-box .form-control:focus {
-        border-color: #F527A9;
-        box-shadow: 0 0 0 0.15rem rgba(245,39,169,0.18);
-    }
-
-    .auth-box button,
-    .auth-box .btn {
-        min-height: 48px;
-        font-weight: 700;
-        letter-spacing: .04em;
-        text-transform: uppercase;
-    }
-
-    .auth-links a {
-        color: #17a2b8;
-    }
-
-    .auth-links a:hover {
-        color: #000;
-        text-decoration: none;
-    }
-
-    .auth-badge {
+    .signup-badge {
         display: inline-block;
-        padding: .4rem .75rem;
-        background: linear-gradient(90deg, #F527A9, #FF79C6);
+        padding: 0.45rem 0.9rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(255,255,255,0.25);
+        background: rgba(255,255,255,0.08);
         color: #fff;
-        font-size: .8rem;
         text-transform: uppercase;
         letter-spacing: .08em;
+        font-size: .75rem;
+        width: fit-content;
+    }
+
+    .signup-left h1 {
+        font-size: 2.4rem;
+        line-height: 1.05;
         margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+    }
+
+    .signup-left p {
+        color: rgba(255,255,255,0.92);
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        max-width: 420px;
+    }
+
+    .signup-points {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .signup-points li {
+        margin-bottom: 0.9rem;
+        font-size: 0.95rem;
+        color: rgba(255,255,255,0.92);
+    }
+
+    .signup-points li span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background: rgba(0,0,0,0.2);
+        font-size: 0.85rem;
+    }
+
+    .signup-right {
+        background: #111;
+        padding: 3rem 2.4rem;
+        color: #fff;
+    }
+
+    .signup-card-title {
+        text-align: center;
+        margin-bottom: 0.4rem;
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+    }
+
+    .signup-card-subtitle {
+        text-align: center;
+        color: #aaa;
+        margin-bottom: 2rem;
+        font-size: 0.95rem;
+    }
+
+    .allauth-form-inner-content p {
+        margin-bottom: 1rem;
+        color: #ccc;
+    }
+
+    .allauth-form-inner-content label {
+        display: block !important;
+        margin-bottom: 0.45rem;
+        color: #fff;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+
+    .allauth-form-inner-content input[type="text"],
+    .allauth-form-inner-content input[type="email"],
+    .allauth-form-inner-content input[type="password"] {
+        width: 100%;
+        height: 50px;
+        padding: 0.8rem 1rem;
+        background: #1a1a1a;
+        border: 1px solid #2c2c2c;
+        color: #fff;
+        border-radius: 10px;
+        box-shadow: none;
+        transition: all 0.25s ease;
+    }
+
+    .allauth-form-inner-content input::placeholder {
+        color: #888;
+    }
+
+    .allauth-form-inner-content input:focus {
+        outline: none;
+        border-color: #F527A9;
+        box-shadow: 0 0 0 4px rgba(245,39,169,0.14);
+        background: #202020;
+    }
+
+    .allauth-form-inner-content ul,
+    .allauth-form-inner-content .errorlist {
+        list-style: none;
+        padding-left: 0;
+        margin-bottom: 0.75rem;
+        color: #ff8fbf;
+        font-size: 0.88rem;
+    }
+
+    .signup-btn {
+        width: 100%;
+        border: none;
+        min-height: 52px;
+        border-radius: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .06em;
+        color: #fff;
+        background: linear-gradient(90deg, #F527A9, #FF79C6);
+        box-shadow: 0 10px 25px rgba(245,39,169,0.2);
+        transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+        margin-top: 0.5rem;
+    }
+
+    .signup-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px rgba(245,39,169,0.28);
+        opacity: 0.98;
+    }
+
+    .signup-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        color: #bdbdbd;
+        font-size: 0.95rem;
+    }
+
+    .signup-footer a {
+        color: #fff;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .signup-footer a:hover {
+        color: #FF79C6;
+        border-bottom-color: #FF79C6;
     }
 
     @media (max-width: 991px) {
-        .auth-page {
+        .signup-page {
             min-height: calc(100vh - 116px);
-            padding: 2rem 0;
+            padding: 2rem 1rem;
         }
 
-        .auth-box,
-        .auth-hero {
-            padding: 2rem 1.5rem;
+        .signup-left,
+        .signup-right {
+            padding: 2rem 1.4rem;
+        }
+
+        .signup-left h1 {
+            font-size: 2rem;
         }
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container header-container auth-page">
+<div class="container header-container signup-page">
     <div class="row justify-content-center w-100">
-        <div class="col-12 col-lg-10 col-xl-9">
-            <div class="row no-gutters auth-overlay">
-                <div class="col-lg-5 d-none d-lg-block">
-                    <div class="auth-hero">
-                        <span class="auth-badge">Join sweatX</span>
-                        <h1 class="logo-font mb-3"><strong>sweat</strong>X</h1>
-                        <p class="lead mb-0">Create your account and get access to your next fitness essentials.</p>
+        <div class="col-12 col-xl-10">
+            <div class="signup-shell">
+                <div class="row no-gutters">
+                    <div class="col-lg-5">
+                        <div class="signup-left">
+                            <span class="signup-badge">Join sweatX</span>
+                            <h1><strong>sweat</strong>X starts here</h1>
+                            <p>
+                                Create your account and step into a stronger, sharper and more premium fitness experience.
+                            </p>
+
+                            <ul class="signup-points">
+                                <li><span>✓</span> Fast access to your account</li>
+                                <li><span>✓</span> Easier shopping experience</li>
+                                <li><span>✓</span> Built for a bold gym lifestyle</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
 
-                <div class="col-12 col-lg-7">
-                    <div class="auth-box">
-                        <h2 class="mb-3 text-center logo-font">Create Account</h2>
-                        <p class="text-muted text-center mb-4">Register and become part of the sweatX experience.</p>
+                    <div class="col-lg-7">
+                        <div class="signup-right">
+                            <h2 class="signup-card-title">Create account</h2>
+                            <p class="signup-card-subtitle">
+                                Start your sweatX journey today.
+                            </p>
 
-                        <form method="POST" action="{% url 'account_signup' %}" class="allauth-form-inner-content">
-                            {% csrf_token %}
-                            {{ form.as_p }}
+                            <form method="POST" action="{% url 'account_signup' %}" class="allauth-form-inner-content">
+                                {% csrf_token %}
+                                {{ form.as_p }}
 
-                            {% if redirect_field_value %}
-                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                            {% endif %}
+                                {% if redirect_field_value %}
+                                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+                                {% endif %}
 
-                            <button type="submit" class="btn shop-now-button w-100 border-0">
-                                Register
-                            </button>
-                        </form>
+                                <button type="submit" class="signup-btn">
+                                    Register
+                                </button>
+                            </form>
 
-                        <div class="auth-links text-center mt-4">
-                            <p class="mb-1">
+                            <div class="signup-footer">
                                 Already have an account?
                                 <a href="{% url 'account_login' %}">Login here</a>
-                            </p>
-                            <p class="mb-0">
-                                <a href="{% url 'home' %}">Back to home</a>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+     </div>
 </div>
 {% endblock %}
