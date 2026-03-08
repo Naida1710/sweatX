@@ -8,13 +8,20 @@
                 <div class="mb-4">
                     <p class="text-muted mb-2">Question {{ step }} of {{ total_steps }}</p>
                     <div class="progress" style="height: 10px;">
-                        <div class="progress-bar bg-dark" role="progressbar" style="width: {{ progress_percent }}%;" aria-valuenow="{{ progress_percent }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div
+                            class="progress-bar bg-dark"
+                            role="progressbar"
+                            style="width: {{ progress_percent }}%;"
+                            aria-valuenow="{{ progress_percent }}"
+                            aria-valuemin="0"
+                            aria-valuemax="100">
+                        </div>
                     </div>
                 </div>
 
                 <h2 class="mb-4">{{ question_data.question }}</h2>
 
-                <form method="POST">
+                <form method="POST" id="quiz-form">
                     {% csrf_token %}
 
                     {% if question_data.type == "radio" %}
@@ -27,7 +34,6 @@
                                     id="{{ question_data.key }}_{{ forloop.counter }}"
                                     value="{{ value }}"
                                     {% if saved_value == value %}checked{% endif %}
-                                    required
                                 >
                                 <label class="form-check-label" for="{{ question_data.key }}_{{ forloop.counter }}">
                                     {{ label }}
@@ -49,19 +55,25 @@
                             type="range"
                             class="w-100"
                             name="{{ question_data.key }}"
+                            id="{{ question_data.key }}"
                             min="{{ question_data.min }}"
                             max="{{ question_data.max }}"
-                            value="{{ saved_value }}"
+                            value="{{ saved_value|default:question_data.default }}"
+                            oninput="updateRangeValue(this.value)"
                         >
 
                         <div class="text-center mt-3">
-                            <strong>Selected value: {{ saved_value }}</strong>
+                            <strong>Selected value: <span id="range-value">{{ saved_value|default:question_data.default }}</span></strong>
                         </div>
                     {% endif %}
 
                     <div class="d-flex justify-content-between mt-4">
                         {% if step > 1 %}
-                            <button type="submit" name="action" value="back" class="btn btn-outline-dark rounded-0 px-4">
+                            <button
+                                type="submit"
+                                name="action"
+                                value="back"
+                                class="btn btn-outline-dark rounded-0 px-4">
                                 ← Back
                             </button>
                         {% else %}
@@ -69,11 +81,21 @@
                         {% endif %}
 
                         {% if step < total_steps %}
-                            <button type="submit" name="action" value="continue" class="btn btn-dark rounded-0 px-4">
+                            <button
+                                type="submit"
+                                name="action"
+                                value="continue"
+                                class="btn btn-dark rounded-0 px-4"
+                                onclick="return validateAnswer('{{ question_data.key }}', '{{ question_data.type }}')">
                                 Continue →
                             </button>
                         {% else %}
-                            <button type="submit" name="action" value="continue" class="btn btn-dark rounded-0 px-4">
+                            <button
+                                type="submit"
+                                name="action"
+                                value="continue"
+                                class="btn btn-dark rounded-0 px-4"
+                                onclick="return validateAnswer('{{ question_data.key }}', '{{ question_data.type }}')">
                                 See My Result →
                             </button>
                         {% endif %}
@@ -83,5 +105,29 @@
         </div>
     </div>
 </div>
+
+<script>
+    function validateAnswer(questionKey, questionType) {
+        if (questionType === "range") {
+            return true;
+        }
+
+        const selected = document.querySelector('input[name="' + questionKey + '"]:checked');
+
+        if (!selected) {
+            alert("Please select an answer before continuing.");
+            return false;
+        }
+
+        return true;
+    }
+
+    function updateRangeValue(value) {
+        const rangeValue = document.getElementById("range-value");
+        if (rangeValue) {
+            rangeValue.textContent = value;
+        }
+    }
+</script>
 
 {% endblock %}
