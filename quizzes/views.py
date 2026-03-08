@@ -44,3 +44,8 @@ def intermediate_quiz(request):
 def advanced_quiz(request):
     return render(request, "quizzes/advanced.html")
 
+def choose_plans(request):
+    return render(request, "quizzes/choose_plans.html")
+
+def all_programs(request):
+    return render(request, "training/all_programs.html")
