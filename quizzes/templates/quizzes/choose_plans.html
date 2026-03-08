@@ -1,41 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container mt-5 text-center">
-    <h2 class="mb-4">Choose Your Training Plan</h2>
-
+<div class="container mt-5">
     <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card p-4 shadow border-0">
+                <h2 class="text-center mb-4">Choose a Program</h2>
+                <p class="text-center text-muted mb-4">
+                    Answer a few quick questions to find the right plan.
+                </p>
 
-        <div class="col-md-4 mb-3">
-            <div class="card p-4 shadow">
-                <h4>Beginner</h4>
-                <p>Perfect if you are new to training.</p>
-                <a href="{% url 'beginner_quiz' %}" class="btn btn-dark">
-                    View Plan
-                </a>
+                <div class="text-center">
+                    <a href="{% url 'training_quiz' %}" class="btn btn-dark btn-lg rounded-0">
+                        Start →
+                    </a>
+                </div>
             </div>
         </div>
-
-        <div class="col-md-4 mb-3">
-            <div class="card p-4 shadow">
-                <h4>Intermediate</h4>
-                <p>For consistent gym-goers.</p>
-                <a href="{% url 'intermediate_quiz' %}" class="btn btn-dark">
-                    View Plan
-                </a>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-3">
-            <div class="card p-4 shadow">
-                <h4>Advanced</h4>
-                <p>High intensity & strength focused.</p>
-                <a href="{% url 'advanced_quiz' %}" class="btn btn-dark">
-                    View Plan
-                </a>
-            </div>
-        </div>
-
     </div>
 </div>
 

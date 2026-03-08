@@ -2,36 +2,34 @@
 {% block content %}
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Find Your Ideal Training Plan</h2>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card p-4 shadow border-0">
+                <h2 class="text-center mb-4">Choose Your Program</h2>
+                <p class="text-center text-muted mb-4">Question 1 of 1</p>
 
-    <form method="POST" class="card p-4 shadow">
-        {% csrf_token %}
+                <form method="POST">
+                    {% csrf_token %}
 
-        <h5>1. How long have you been training?</h5>
-        <input type="radio" name="experience" value="0-6" required> 0-6 months<br>
-        <input type="radio" name="experience" value="6-24"> 6 months - 2 years<br>
-        <input type="radio" name="experience" value="24+"> 2+ years<br>
+                    <h5 class="mb-3">1. Where do you want to train?</h5>
 
-        <hr>
+                    <div class="custom-control custom-radio mb-3">
+                        <input type="radio" id="train_home" name="location" value="home" class="custom-control-input" required>
+                        <label class="custom-control-label" for="train_home">I want to train at home</label>
+                    </div>
 
-        <h5>2. How many push-ups can you do?</h5>
-        <input type="radio" name="pushups" value="low" required> Less than 10<br>
-        <input type="radio" name="pushups" value="medium"> 10-25<br>
-        <input type="radio" name="pushups" value="high"> 25+<br>
+                    <div class="custom-control custom-radio mb-4">
+                        <input type="radio" id="train_gym" name="location" value="gym" class="custom-control-input" required>
+                        <label class="custom-control-label" for="train_gym">I want to train at a gym</label>
+                    </div>
 
-        <hr>
-
-        <h5>3. How many days per week can you train?</h5>
-        <input type="radio" name="days" value="1-2" required> 1-2 days<br>
-        <input type="radio" name="days" value="3-4"> 3-4 days<br>
-        <input type="radio" name="days" value="5+"> 5+ days<br>
-
-        <br>
-
-        <button type="submit" class="btn btn-dark w-100">
-            Get My Training Plan
-        </button>
-    </form>
+                    <button type="submit" class="btn btn-dark btn-block rounded-0">
+                        Continue
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
