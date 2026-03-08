@@ -6,8 +6,8 @@
             </a>
             <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
                 <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
-                <a href="{% url 'products' %}?sort=rating&direction=desc" class="dropdown-item ">By Rating</a>
-                <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item ">By Category</a>
+                <a href="{% url 'products' %}?sort=rating&direction=desc" class="dropdown-item">By Rating</a>
+                <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item">By Category</a>
                 <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
             </div>
         </li>
@@ -28,16 +28,13 @@
         </li>
 
         <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="homeware-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="logo-font font-weight-bold nav-link text-black mr-5" href="#" id="training-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Training Program
             </a>
-            <div class="dropdown-menu border-0" aria-labelledby="homeware-link">
+            <div class="dropdown-menu border-0" aria-labelledby="training-link">
                 <a href="{% url 'training_quiz' %}" class="dropdown-item">
-                    🎯 Find My Ideal Training Plan
+                    Choose a Program
                 </a>
-                <a href="{% url 'beginner_quiz' %}" class="dropdown-item">Beginner</a>
-                <a href="{% url 'intermediate_quiz' %}" class="dropdown-item">Intermediate</a>
-                <a href="{% url 'advanced_quiz' %}" class="dropdown-item">Advanced</a>
                 <a href="{% url 'products' %}?category=programs" class="dropdown-item">
                     All Programs
                 </a>
