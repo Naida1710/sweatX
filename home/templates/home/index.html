@@ -14,14 +14,18 @@
         <div class="row h-100">
             <div class="col-12 col-md-7 my-auto">
                 <h1 class="display-4 logo-font text-black">
-                    Find the right training program for you
+                    Welcome to sweatX
                 </h1>
                 <p class="lead text-black mt-3">
-                    Answer a few quick questions and get a personalised recommendation.
+                    Choose your program and find the right supplements for your fitness journey.
                 </p>
+
                 <div class="my-5">
-                    <a href="{% url 'training_quiz' %}" class="btn btn-dark btn-lg rounded-0 text-uppercase py-3">
-                        Choose a Program →
+                    <a href="{% url 'training_quiz' %}" class="btn btn-dark btn-lg rounded-0 text-uppercase py-3 mr-3">
+                        Choose Program
+                    </a>
+                    <a href="{% url 'products' %}" class="btn btn-outline-dark btn-lg rounded-0 text-uppercase py-3">
+                        Buy Supplements
                     </a>
                 </div>
             </div>
