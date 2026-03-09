@@ -90,6 +90,11 @@ body{
 
 <div class="auth-card">
 
+    <a href="{% url 'home' %}" class="auth-back">
+        <span class="back-icon">←</span>
+        Back
+    </a>
+
 <h2>Login</h2>
 
 <form method="POST" action="{% url 'account_login' %}">
