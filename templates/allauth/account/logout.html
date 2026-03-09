@@ -3,34 +3,212 @@
 
 {% block extra_css %}
 <style>
-body{
-background:#0f0f0f !important;
-background-image:none !important;
-}
+    body {
+        background: #050505 !important;
+        background-image: none !important;
+        min-height: 100vh;
+    }
+
+    .logout-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .logout-page::before,
+    .logout-page::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+        z-index: 0;
+    }
+
+    .logout-page::before {
+        width: 280px;
+        height: 280px;
+        background: rgba(245, 39, 169, 0.22);
+        top: 8%;
+        left: 8%;
+    }
+
+    .logout-page::after {
+        width: 240px;
+        height: 240px;
+        background: rgba(255, 121, 198, 0.16);
+        bottom: 10%;
+        right: 10%;
+    }
+
+    .logout-card {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        max-width: 540px;
+        background: rgba(18, 18, 18, 0.96);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 24px;
+        box-shadow: 0 25px 60px rgba(0,0,0,0.45);
+        padding: 3rem 2.2rem;
+        text-align: center;
+        overflow: hidden;
+    }
+
+    .logout-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, #F527A9, #FF79C6);
+    }
+
+    .logout-icon-wrap {
+        width: 92px;
+        height: 92px;
+        margin: 0 auto 1.5rem;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #F527A9, #FF79C6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 14px 35px rgba(245, 39, 169, 0.28);
+    }
+
+    .logout-icon {
+        font-size: 2rem;
+        color: #fff;
+        line-height: 1;
+    }
+
+    .logout-title {
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        margin-bottom: 0.8rem;
+    }
+
+    .logout-text {
+        color: #bdbdbd;
+        font-size: 1rem;
+        max-width: 400px;
+        margin: 0 auto 2rem;
+        line-height: 1.6;
+    }
+
+    .logout-highlight {
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .logout-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .logout-secondary,
+    .logout-primary {
+        min-width: 170px;
+        min-height: 50px;
+        border-radius: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .05em;
+        transition: all .25s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logout-secondary {
+        background: transparent;
+        color: #fff;
+        border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .logout-secondary:hover {
+        color: #fff;
+        text-decoration: none;
+        border-color: rgba(255,255,255,0.35);
+        background: rgba(255,255,255,0.04);
+        transform: translateY(-2px);
+    }
+
+    .logout-primary {
+        border: none;
+        color: #fff;
+        background: linear-gradient(90deg, #F527A9, #FF79C6);
+        box-shadow: 0 12px 28px rgba(245, 39, 169, 0.24);
+    }
+
+    .logout-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 34px rgba(245, 39, 169, 0.32);
+    }
+
+    .logout-note {
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        color: #8e8e8e;
+    }
+
+    @media (max-width: 576px) {
+        .logout-card {
+            padding: 2.2rem 1.2rem;
+            border-radius: 18px;
+        }
+
+        .logout-title {
+            font-size: 1.6rem;
+        }
+
+        .logout-actions {
+            flex-direction: column;
+        }
+
+        .logout-secondary,
+        .logout-primary {
+            width: 100%;
+        }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
+<div class="logout-page">
+    <div class="logout-card">
+        <div class="logout-icon-wrap">
+            <span class="logout-icon">⇠</span>
+        </div>
 
-<div class="auth-wrapper">
+        <h2 class="logout-title">Log Out</h2>
 
-<div class="auth-card text-center">
+        <p class="logout-text">
+            Are you sure you want to leave your <span class="logout-highlight">sweatX</span> session?
+            You can always come back and keep pushing forward.
+        </p>
 
-<h2>Logout</h2>
+        <form method="POST" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <div class="logout-actions">
+                <a href="{% url 'home' %}" class="logout-secondary">Stay Here</a>
+                <button type="submit" class="logout-primary">Log Out</button>
+            </div>
+        </form>
 
-<p style="color:#aaa;">Are you sure you want to logout?</p>
-
-<form method="POST" action="{% url 'account_logout' %}">
-{% csrf_token %}
-
-<button class="auth-btn">
-Logout
-</button>
-
-</form>
-
+        <div class="logout-note">
+            Your progress starts again when you come back.
+        </div>
+    </div>
 </div>
-
-</div>
-
 {% endblock %}
