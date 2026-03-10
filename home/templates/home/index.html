@@ -85,7 +85,7 @@
         align-items: center;
         gap: 1rem;
         flex-wrap: wrap;
-        margin-bottom: 3rem;
+        margin-bottom: 2rem;
     }
 
     .hero-btn-primary,
@@ -131,6 +131,30 @@
         background: rgba(255,255,255,0.1);
     }
 
+    .hero-goal-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        padding: 0.7rem 1rem;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.14);
+        color: rgba(255,255,255,0.88);
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+
+    .hero-goal-pill a {
+        color: #FF79C6;
+        text-decoration: none;
+        margin-left: 6px;
+    }
+
+    .hero-goal-pill a:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
+
     .hero-phone-wrap {
         position: relative;
         display: flex;
@@ -162,6 +186,33 @@
         color: rgba(255,255,255,0.55);
         font-size: 0.92rem;
         letter-spacing: 0.02em;
+    }
+
+    .personalised-section {
+        background: #070707;
+        padding: 28px 20px 10px;
+    }
+
+    .personalised-box {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px 24px;
+        text-align: center;
+        background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 20px 45px rgba(0,0,0,0.28);
+    }
+
+    .personalised-box h3 {
+        color: #fff;
+        font-size: 1.4rem;
+        margin-bottom: 0.7rem;
+    }
+
+    .personalised-box p {
+        color: rgba(255,255,255,0.72);
+        margin-bottom: 0;
+        line-height: 1.6;
     }
 
     .newsletter-section {
@@ -221,7 +272,7 @@
     .newsletter-btn {
         padding: 14px 22px;
         border: none;
-        background: linear-gradient(90deg,#F527A9,#FF79C6);
+        background: linear-gradient(90deg, #F527A9, #FF79C6);
         color: #fff;
         font-weight: 700;
         text-transform: uppercase;
@@ -231,6 +282,12 @@
     .newsletter-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 12px 24px rgba(245,39,169,0.25);
+    }
+
+    .newsletter-small {
+        margin-top: 1rem;
+        color: rgba(255,255,255,0.48);
+        font-size: 0.92rem;
     }
 
     .social-footer {
@@ -330,6 +387,68 @@
         font-size: 0.9rem;
     }
 
+    .newsletter-modal .modal-content {
+        background: linear-gradient(180deg, #0d111a 0%, #07090f 100%);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 0;
+        color: #fff;
+        box-shadow: 0 24px 70px rgba(0,0,0,0.45);
+    }
+
+    .newsletter-modal .modal-header {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    .newsletter-modal .btn-close {
+        filter: invert(1);
+        opacity: 0.9;
+    }
+
+    .newsletter-modal .modal-title {
+        font-weight: 800;
+        font-size: 1.2rem;
+        letter-spacing: 0.02em;
+    }
+
+    .newsletter-modal .modal-body h3 {
+        font-size: 2rem;
+        font-weight: 800;
+        margin-bottom: 0.8rem;
+    }
+
+    .newsletter-modal .modal-body p {
+        color: rgba(255,255,255,0.78);
+        line-height: 1.6;
+    }
+
+    .newsletter-modal-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 220px;
+        padding: 14px 20px;
+        background: linear-gradient(90deg, #F527A9, #FF79C6);
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+        border: none;
+        transition: 0.25s ease;
+    }
+
+    .newsletter-modal-btn:hover {
+        color: #fff;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 14px 28px rgba(245,39,169,0.25);
+    }
+
+    .newsletter-modal-note {
+        font-size: 0.92rem;
+        color: rgba(255,255,255,0.52);
+        margin-top: 1rem;
+    }
+
     @media (max-width: 991px) {
         .hero-sweatx {
             min-height: calc(100vh - 116px);
@@ -368,7 +487,8 @@
             width: 260px;
         }
 
-        .newsletter-box {
+        .newsletter-box,
+        .personalised-box {
             padding: 24px 18px;
         }
 
@@ -391,16 +511,20 @@
             width: 52px;
             height: 52px;
         }
+
+        .newsletter-modal .modal-body h3 {
+            font-size: 1.6rem;
+        }
     }
 </style>
 {% endblock %}
 
 {% block page_header %}
-    <div class="container header-container">
-        <div class="row">
-            <div class="col"></div>
-        </div>
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
     </div>
+</div>
 {% endblock %}
 
 {% block content %}
@@ -410,17 +534,25 @@
             <span class="hero-brand-badge">sweatX</span>
         </div>
 
+        {% if selected_goal %}
+            <div class="hero-goal-pill">
+                Personalised for your goal:
+                <strong class="ms-2">{{ selected_goal|title }}</strong>
+                <a href="{% url 'training_quiz' %}">Retake quiz</a>
+            </div>
+        {% endif %}
+
         <h1 class="hero-title">
-            sweatX makes fitness sharper, stronger and easier to follow
+            {{ homepage_content.headline }}
         </h1>
 
         <p class="hero-text">
-            Choose your program, build your routine, and shop the supplements that support your journey.
+            {{ homepage_content.subheadline }}
         </p>
 
         <div class="hero-buttons">
-            <a href="{% url 'training_quiz' %}" class="hero-btn-primary">
-                Choose a program
+            <a href="{{ homepage_content.cta_url }}" class="hero-btn-primary">
+                {{ homepage_content.cta_text }}
                 <span>&rarr;</span>
             </a>
 
@@ -440,18 +572,52 @@
     </div>
 </section>
 
+{% if selected_goal == 'weight_loss' %}
+<section class="personalised-section">
+    <div class="personalised-box">
+        <h3>Top picks for weight loss</h3>
+        <p>Support your routine with products and training choices matched to your current goal.</p>
+    </div>
+</section>
+{% elif selected_goal == 'energy_vitality' %}
+<section class="personalised-section">
+    <div class="personalised-box">
+        <h3>Top picks for energy and vitality</h3>
+        <p>Discover products and routines that help you feel sharper, stronger, and more active.</p>
+    </div>
+</section>
+{% elif selected_goal == 'wellness_longevity' %}
+<section class="personalised-section">
+    <div class="personalised-box">
+        <h3>Top picks for wellness and longevity</h3>
+        <p>Build better daily habits with support for long-term health, recovery, and balance.</p>
+    </div>
+</section>
+{% elif selected_goal == 'balance_mobility' %}
+<section class="personalised-section">
+    <div class="personalised-box">
+        <h3>Top picks for balance and mobility</h3>
+        <p>Improve movement, flexibility, and recovery with a more focused sweatX journey.</p>
+    </div>
+</section>
+{% endif %}
+
 <section class="newsletter-section">
     <div class="newsletter-box">
-        <h2 class="newsletter-title">Join the sweatX newsletter</h2>
+        <h2 class="newsletter-title">Get your free 7-day starter plan</h2>
         <p class="newsletter-text">
-            Get exclusive offers, new drops, fitness tips, and sweatX updates before everyone else.
+            Join the sweatX newsletter and get exclusive offers, new drops, fitness tips, and your free 7-day starter plan.
         </p>
 
         <form method="POST" action="{% url 'subscribe_newsletter' %}" class="newsletter-form">
             {% csrf_token %}
             <input type="email" name="email" class="newsletter-input" placeholder="Enter your email" required>
-            <button type="submit" class="newsletter-btn">Subscribe</button>
+            <button type="submit" class="newsletter-btn">Get my free plan</button>
         </form>
+
+        <p class="newsletter-small">
+            No spam. Just sweatX updates, fitness tips, and your starter plan.
+        </p>
     </div>
 </section>
 
@@ -488,4 +654,54 @@
         <p class="social-footer-copy">© 2026 sweatX</p>
     </div>
 </footer>
+
+<div class="modal fade newsletter-modal" id="newsletterSuccessModal" tabindex="-1" aria-labelledby="newsletterSuccessModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-3 p-md-4">
+            <div class="modal-header">
+                <h5 class="modal-title w-100" id="newsletterSuccessModalLabel">Thanks for subscribing!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body pt-2">
+                <h3>Your free 7-day starter plan is ready</h3>
+                <p class="mb-4">
+                    Welcome to sweatX. Your 7-day starter plan is ready to help you kick off your journey with a stronger routine.
+                </p>
+
+                <a href="{% url 'starter_plan' %}" class="newsletter-modal-btn">
+                    View my 7-day plan
+                </a>
+
+                <p class="newsletter-modal-note">
+                    You’ll also receive sweatX updates, fitness tips, and product drops by email.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const subscribed = urlParams.get('subscribed');
+
+        if (subscribed === '1') {
+            const modalElement = document.getElementById('newsletterSuccessModal');
+
+            if (modalElement && typeof bootstrap !== 'undefined') {
+                const newsletterModal = new bootstrap.Modal(modalElement);
+                newsletterModal.show();
+            }
+
+            if (window.history.replaceState) {
+                const cleanUrl = window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
+            }
+        }
+    });
+</script>
 {% endblock %}

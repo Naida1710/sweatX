@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.urls import reverse
 from .forms import NewsletterForm
 from .models import NewsletterSubscriber
+
 
 def subscribe_newsletter(request):
     if request.method == 'POST':
@@ -24,16 +26,10 @@ def subscribe_newsletter(request):
                 subscriber.goal = subscriber.goal or selected_goal
                 subscriber.wants_starter_plan = True
                 subscriber.save()
-                messages.warning(
-                    request,
-                    'This email is already subscribed, but we have updated your starter plan request.'
-                )
-            else:
-                messages.success(
-                    request,
-                    'Thanks! Your 7-day starter plan is on its way.'
-                )
-        else:
-            messages.error(request, 'Please enter a valid email address.')
 
-    return redirect(request.META.get('HTTP_REFERER', 'home'))
+            return redirect(f"{reverse('home')}?subscribed=1")
+
+        messages.error(request, 'Please enter a valid email address.')
+        return redirect(reverse('home'))
+
+    return redirect(reverse('home'))
