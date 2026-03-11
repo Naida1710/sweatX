@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django_countries',
     'quizzes',
     'newsletter',
+    'reviews',
+
 
 
 ]

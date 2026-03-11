@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1>Customer Reviews</h1>
+        <p>See what the sweatX community is saying and share your own experience.</p>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7 mb-5">
+            <h2 class="mb-4">What our customers say</h2>
+
+            {% for review in reviews %}
+                <div class="card mb-4 p-3">
+                    <h4>{{ review.title }}</h4>
+                    <p class="mb-1"><strong>{{ review.user.username }}</strong></p>
+                    <p class="mb-2">Rating: {{ review.rating }}/5</p>
+                    <p>{{ review.comment }}</p>
+
+                    {% if review.image %}
+                        <img src="{{ review.image.url }}" alt="Review image" class="img-fluid rounded mt-2" style="max-width: 300px;">
+                    {% endif %}
+
+                    <small class="text-muted">{{ review.created_at|date:"M d, Y" }}</small>
+                </div>
+            {% empty %}
+                <p>No reviews yet. Be the first to share your experience.</p>
+            {% endfor %}
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card p-4">
+                <h2 class="mb-4">Leave a review</h2>
+
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'add_review' %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-dark">Submit review</button>
+                    </form>
+                {% else %}
+                    <p>You need to be logged in to leave a review.</p>
+                    <a href="{% url 'account_login' %}" class="btn btn-dark">Log in</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
