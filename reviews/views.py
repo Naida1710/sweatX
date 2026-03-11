@@ -93,3 +93,38 @@ def vote_review_comment(request, comment_id, vote_type):
         vote.save()
 
     return redirect('reviews')
+
+@login_required
+def edit_review_comment(request, comment_id):
+    review_comment = get_object_or_404(ReviewComment, id=comment_id)
+
+    if review_comment.user != request.user:
+        messages.error(request, "You can only edit your own comments.")
+        return redirect('reviews')
+
+    if request.method == 'POST':
+        updated_comment = request.POST.get('comment')
+
+        if updated_comment and updated_comment.strip():
+            review_comment.comment = updated_comment.strip()
+            review_comment.save()
+            messages.success(request, 'Your comment has been updated.')
+        else:
+            messages.error(request, 'Comment cannot be empty.')
+
+    return redirect('reviews')
+
+
+@login_required
+def delete_review_comment(request, comment_id):
+    review_comment = get_object_or_404(ReviewComment, id=comment_id)
+
+    if review_comment.user != request.user:
+        messages.error(request, "You can only delete your own comments.")
+        return redirect('reviews')
+
+    if request.method == 'POST':
+        review_comment.delete()
+        messages.success(request, 'Your comment has been deleted.')
+
+    return redirect('reviews')

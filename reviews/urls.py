@@ -7,4 +7,6 @@ urlpatterns = [
     path('<int:review_id>/comment/', views.add_review_comment, name='add_review_comment'),
     path('<int:review_id>/vote/<str:vote_type>/', views.vote_review, name='vote_review'),
     path('comment/<int:comment_id>/vote/<str:vote_type>/', views.vote_review_comment, name='vote_review_comment'),
+    path('comment/<int:comment_id>/edit/', views.edit_review_comment, name='edit_review_comment'),
+    path('comment/<int:comment_id>/delete/', views.delete_review_comment, name='delete_review_comment'),
 ]
