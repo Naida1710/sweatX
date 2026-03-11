@@ -24,16 +24,48 @@
 
                     <small class="text-muted d-block mb-3">{{ review.created_at|date:"M d, Y" }}</small>
 
+                    <div class="mb-3">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'vote_review' review.id 'like' %}" class="btn btn-sm btn-outline-success mr-2">
+                                👍 Like ({{ review.total_likes }})
+                            </a>
+                            <a href="{% url 'vote_review' review.id 'dislike' %}" class="btn btn-sm btn-outline-danger">
+                                👎 Dislike ({{ review.total_dislikes }})
+                            </a>
+                        {% else %}
+                            <p class="text-muted mb-0">
+                                <a href="{% url 'account_login' %}">Log in</a> to like or dislike this review.
+                            </p>
+                        {% endif %}
+                    </div>
+
                     <hr>
 
                     <h6 class="mb-3">Comments</h6>
 
                     {% for review_comment in review.comments.all %}
                         {% if review_comment.approved %}
-                            <div class="border rounded p-3 mb-2">
+                            <div class="border rounded p-3 mb-3">
                                 <p class="mb-1"><strong>{{ review_comment.user.username }}</strong></p>
-                                <p class="mb-1">{{ review_comment.comment }}</p>
-                                <small class="text-muted">{{ review_comment.created_at|date:"M d, Y H:i" }}</small>
+                                <p class="mb-2">{{ review_comment.comment }}</p>
+                                <small class="text-muted d-block mb-2">
+                                    {{ review_comment.created_at|date:"M d, Y H:i" }}
+                                </small>
+
+                                <div class="mt-2">
+                                    {% if user.is_authenticated %}
+                                        <a href="{% url 'vote_review_comment' review_comment.id 'like' %}" class="btn btn-sm btn-outline-success mr-2">
+                                            👍 Like ({{ review_comment.total_likes }})
+                                        </a>
+                                        <a href="{% url 'vote_review_comment' review_comment.id 'dislike' %}" class="btn btn-sm btn-outline-danger">
+                                            👎 Dislike ({{ review_comment.total_dislikes }})
+                                        </a>
+                                    {% else %}
+                                        <p class="text-muted mb-0">
+                                            <a href="{% url 'account_login' %}">Log in</a> to react.
+                                        </p>
+                                    {% endif %}
+                                </div>
                             </div>
                         {% endif %}
                     {% empty %}
