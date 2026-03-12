@@ -3,218 +3,193 @@
 
 {% block content %}
 <style>
-    /* Instagram-inspired UI with Enhanced Colors */
-    .reviews-page {
-        background-color: #fafafa;
-        min-height: 100vh;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    .reviews-page { background-color: #fafafa; min-height: 100vh; position: relative; z-index: 1; }
+    .review-card { background: #fff; border: 1px solid #dbdbdb; border-radius: 12px; margin-bottom: 24px; padding: 0; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .review-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .review-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(45deg, #f09433, #dc2743, #bc1888); padding: 2px; margin-right: 12px; }
+    .avatar-inner { background: #fff; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #262626; }
+    .review-main-image { width: 100%; max-height: 500px; object-fit: cover; }
+
+    .action-bar { padding: 10px 16px; display: flex; gap: 20px; align-items: center; }
+    .action-icon-btn { background: none !important; border: none !important; padding: 0 !important; cursor: pointer; display: flex; align-items: center; }
+
+    .heart-red { color: #ed4956 !important; }
+    .heart-empty { color: #262626 !important; }
+    .btn-comment { color: #0095f6; }
+
+    .likes-count { font-weight: 700; font-size: 14px; margin: 0 16px 5px; color: #262626; }
+    .review-content-body { padding: 0 16px 12px; font-size: 14px; }
+    .username { font-weight: 600; font-size: 14px; color: #262626; }
+
+    .comments-wrapper { padding: 12px 16px; background-color: #f9f9f9; border-top: 1px solid #efefef; }
+    .comment-meta { font-size: 12px; color: #8e8e8e; display: flex; gap: 12px; margin-top: 4px; align-items: center; }
+    .comment-meta button, .comment-meta form button { background: none !important; border: none !important; padding: 0 !important; font-weight: 600; color: #8e8e8e; cursor: pointer; }
+
+    .btn-edit { color: #ffc107 !important; }
+    .btn-delete { color: #dc3545 !important; }
+
+    .comment-input-area { border-top: 1px solid #efefef; padding: 12px 16px; display: flex; align-items: center; }
+    .insta-input { border: none; flex-grow: 1; outline: none; font-size: 14px; }
+    .post-btn { color: #0095f6; font-weight: 700; background: none; border: none; cursor: pointer; }
+    .dropdown-toggle::after { display: none; }
+
+    .login-prompt {
+        padding: 12px 16px;
+        border-top: 1px solid #efefef;
+        font-size: 14px;
+        color: #6c757d;
+        background: #fff;
     }
 
-    .review-card {
+    .login-prompt a {
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .guest-action {
+        display: flex;
+        align-items: center;
+        color: #8e8e8e;
+        font-size: 14px;
+        gap: 8px;
+    }
+
+    .review-stars {
+        padding: 0 16px 8px;
+        font-size: 14px;
+        color: #f4b400;
+        letter-spacing: 2px;
+    }
+
+    .empty-state {
         background: #fff;
         border: 1px solid #dbdbdb;
         border-radius: 12px;
-        margin-bottom: 24px;
-        padding: 0;
-        overflow: hidden;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    }
-
-    .review-header {
-        padding: 12px 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    /* Avatar with Gradient Border */
-    .review-avatar {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-        padding: 2px;
-        margin-right: 12px;
-    }
-
-    .avatar-inner {
-        background: #fff;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        color: #262626;
-    }
-
-    .review-main-image {
-        width: 100%;
-        max-height: 500px;
-        object-fit: cover;
-    }
-
-    /* Visually Appealing Action Buttons */
-    .action-bar {
-        padding: 10px 16px;
-        display: flex;
-        gap: 20px;
-    }
-
-    .btn-like { color: #ed4956; } /* Heart Red */
-    .btn-comment { color: #0095f6; } /* Messenger Blue */
-    .btn-dislike { color: #8e8e8e; } /* Neutral Grey */
-
-    .action-icon-btn {
-        background: none;
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        transition: transform 0.1s ease;
-    }
-
-    .action-icon-btn:active { transform: scale(1.2); }
-
-    /* Content Styling */
-    .review-content-body { padding: 0 16px 12px; }
-    .username { font-weight: 600; font-size: 14px; }
-    .review-title-text { font-weight: 700; color: #111; }
-
-    /* Comments Section */
-    .comments-wrapper {
-        padding: 12px 16px;
-        background-color: #f9f9f9;
-        border-top: 1px solid #efefef;
-    }
-
-    .comment-item { font-size: 13.5px; margin-bottom: 12px; }
-
-    /* Metadata & Action Colors */
-    .comment-meta {
-        font-size: 12px;
-        color: #8e8e8e;
-        display: flex;
-        gap: 12px;
-        margin-top: 4px;
-        align-items: center;
-    }
-
-    .comment-meta button, .comment-meta a {
-        background: none;
-        border: none;
-        padding: 0;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .btn-reply { color: #0095f6; }
-    .btn-edit { color: #ffc107; } /* Warning Orange */
-    .btn-delete { color: #dc3545; } /* Danger Red */
-
-    /* Input Area */
-    .comment-input-area {
-        border-top: 1px solid #efefef;
-        padding: 12px 16px;
-        display: flex;
-    }
-
-    .insta-input {
-        border: none;
-        flex-grow: 1;
-        outline: none;
-        font-size: 14px;
-    }
-
-    .post-btn {
-        color: #0095f6;
-        font-weight: 700;
-        background: none;
-        border: none;
+        padding: 32px 24px;
+        text-align: center;
+        color: #6c757d;
     }
 </style>
 
 <div class="reviews-page py-5">
     <div class="container" style="max-width: 550px;">
-        
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="font-weight-bold mb-0">SweatX Feed</h4>
-            <button class="btn btn-primary rounded-pill px-4" data-toggle="modal" data-target="#addReviewModal">
-                <i class="fas fa-plus mr-2"></i>New Post
-            </button>
+        <div class="d-flex justify-content-between align-items-center mb-4 px-2">
+            <div>
+                <h4 class="font-weight-bold mb-0">Sweat X Reviews</h4>
+                <small class="text-muted">See what the Sweat X community is saying</small>
+            </div>
+
+            {% if request.user.is_authenticated %}
+                <button class="btn btn-primary rounded-pill px-4" data-toggle="modal" data-target="#addReviewModal">
+                    Leave a Review
+                </button>
+            {% else %}
+                <a href="{% url 'account_login' %}" class="btn btn-outline-primary rounded-pill px-4">
+                    Log in
+                </a>
+            {% endif %}
         </div>
 
-        {% for review in reviews %}
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-author-info">
-                        <div class="review-avatar">
-                            <div class="avatar-inner">{{ review.user.username|slice:":1"|upper }}</div>
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-author-info d-flex align-items-center">
+                            <div class="review-avatar">
+                                <div class="avatar-inner">{{ review.user.username|slice:":1"|upper }}</div>
+                            </div>
+                            <span class="username">{{ review.user.username }}</span>
                         </div>
-                        <span class="username">{{ review.user.username }}</span>
-                    </div>
-                    {% if request.user == review.user %}
-                    <div class="dropdown">
-                        <button class="action-icon-btn dropdown-toggle" data-toggle="dropdown">
-                            <i class="fas fa-ellipsis-v text-muted"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-right border-0 shadow">
-                            <form method="POST" action="{% url 'delete_review' review.id %}">
-                                {% csrf_token %}
-                                <button type="submit" class="dropdown-item text-danger font-weight-bold">Delete Post</button>
-                            </form>
+
+                        {% if request.user == review.user %}
+                        <div class="dropdown">
+                            <button class="action-icon-btn dropdown-toggle" data-toggle="dropdown">
+                                <i class="fas fa-ellipsis-h text-muted"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right border-0 shadow">
+                                <form method="POST" action="{% url 'delete_review' review.id %}" onsubmit="return confirm('Delete this entire post?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="dropdown-item text-danger font-weight-bold">
+                                        <i class="fas fa-trash-alt mr-2"></i> Delete Post
+                                    </button>
+                                </form>
+                            </div>
                         </div>
+                        {% endif %}
                     </div>
+
+                    {% if review.image %}
+                        <img src="{{ review.image.url }}" class="review-main-image" alt="{{ review.title }}">
                     {% endif %}
-                </div>
 
-                {% if review.image %}
-                    <img src="{{ review.image.url }}" alt="Review" class="review-main-image">
-                {% endif %}
+                    {% if review.rating %}
+                        <div class="review-stars">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= review.rating %}
+                                    ★
+                                {% else %}
+                                    ☆
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
 
-                <div class="action-bar">
-                    <form method="POST" action="{% url 'vote_review' review.id 'like' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="action-icon-btn btn-like">
-                            <i class="fas fa-heart fa-lg"></i>
-                        </button>
-                    </form>
-                    
-                    <button class="action-icon-btn btn-comment" onclick="focusComment('{{ review.id }}')">
-                        <i class="fas fa-comment fa-lg"></i>
-                    </button>
+                    <div class="action-bar">
+                        {% if request.user.is_authenticated %}
+                            <form method="POST" action="{% url 'vote_review' review.id 'like' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="action-icon-btn">
+                                    {% if review.id in user_liked_reviews %}
+                                        <i class="fas fa-heart fa-lg heart-red"></i>
+                                    {% else %}
+                                        <i class="far fa-heart fa-lg heart-empty"></i>
+                                    {% endif %}
+                                    <span class="ml-2 font-weight-bold" style="color: #262626;">{{ review.total_likes }}</span>
+                                </button>
+                            </form>
 
-                    <form method="POST" action="{% url 'vote_review' review.id 'dislike' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="action-icon-btn btn-dislike">
-                            <i class="fas fa-thumbs-down fa-lg"></i>
-                        </button>
-                    </form>
-                </div>
+                            <button type="button" class="action-icon-btn btn-comment" onclick="focusComment('{{ review.id }}')">
+                                <i class="far fa-comment fa-lg"></i>
+                            </button>
+                        {% else %}
+                            <div class="guest-action">
+                                <i class="far fa-heart fa-lg heart-empty"></i>
+                                <span class="font-weight-bold" style="color: #262626;">{{ review.total_likes }}</span>
+                            </div>
 
-                <div class="review-content-body">
-                    <div class="likes-count text-dark">{{ review.total_likes }} likes</div>
-                    <div class="review-text-content mb-1">
-                        <span class="review-title-text">{{ review.title }}</span>
-                        {{ review.comment }}
+                            <div class="guest-action">
+                                <i class="far fa-comment fa-lg"></i>
+                            </div>
+                        {% endif %}
                     </div>
-                    <small class="text-muted text-uppercase" style="font-size: 10px;">{{ review.created_at|timesince }} ago</small>
-                </div>
 
-                <div class="comments-wrapper">
-                    {% for comment in review.comments.all %}
-                        <div class="comment-item" id="comment-{{ comment.id }}">
-                            <div class="d-flex justify-content-between align-items-start">
+                    <div class="review-content-body">
+                        <span class="username mr-1">{{ review.user.username }}</span>
+                        <strong>{{ review.title }}</strong> {{ review.comment }}
+                        <div class="mt-1">
+                            <small class="text-muted text-uppercase" style="font-size: 10px;">
+                                {{ review.created_at|timesince }} ago
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="comments-wrapper">
+                        {% for comment in review.comments.all %}
+                            {% if comment.approved %}
+                            <div class="comment-item d-flex justify-content-between align-items-start mb-2">
                                 <div class="flex-grow-1">
                                     <span class="username mr-1">{{ comment.user.username }}</span>
                                     <span id="comment-text-{{ comment.id }}">{{ comment.comment }}</span>
-                                    
+
                                     <div class="comment-meta">
                                         <span>{{ comment.total_likes }} likes</span>
-                                        <button class="btn-reply" onclick="focusComment('{{ review.id }}')">Reply</button>
-                                        
+
+                                        {% if request.user.is_authenticated %}
+                                            <button type="button" onclick="focusComment('{{ review.id }}')">Reply</button>
+                                        {% endif %}
+
                                         {% if request.user == comment.user %}
-                                            <button class="btn-edit" onclick="toggleEdit('{{ comment.id }}')">Edit</button>
+                                            <button type="button" class="btn-edit" onclick="toggleEdit('{{ comment.id }}')">Edit</button>
                                             <form method="POST" action="{% url 'delete_review_comment' comment.id %}" class="d-inline">
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn-delete">Delete</button>
@@ -222,66 +197,82 @@
                                         {% endif %}
                                     </div>
 
-                                    <form id="edit-form-{{ comment.id }}" method="POST" action="{% url 'edit_review_comment' comment.id %}" class="d-none mt-2">
-                                        {% csrf_token %}
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" name="comment" value="{{ comment.comment }}" class="form-control rounded-pill border-warning">
-                                            <div class="input-group-append">
-                                                <button type="submit" class="btn btn-warning btn-sm rounded-pill ml-1 px-3">Save</button>
+                                    {% if request.user == comment.user %}
+                                        <form id="edit-form-{{ comment.id }}" method="POST" action="{% url 'edit_review_comment' comment.id %}" class="d-none mt-2">
+                                            {% csrf_token %}
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" name="comment" value="{{ comment.comment }}" class="form-control rounded-pill">
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-primary btn-sm rounded-pill ml-1">Save</button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    {% endif %}
                                 </div>
 
-                                <form method="POST" action="{% url 'vote_review_comment' comment.id 'like' %}">
-                                    {% csrf_token %}
-                                    <button type="submit" class="action-icon-btn btn-like">
-                                        <i class="fas fa-heart fa-xs"></i>
-                                    </button>
-                                </form>
+                                {% if request.user.is_authenticated %}
+                                    <form method="POST" action="{% url 'vote_review_comment' comment.id 'like' %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="action-icon-btn">
+                                            {% if comment.id in user_liked_comments %}
+                                                <i class="fas fa-heart fa-xs heart-red"></i>
+                                            {% else %}
+                                                <i class="far fa-heart fa-xs heart-empty"></i>
+                                            {% endif %}
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <div class="guest-action">
+                                        <i class="far fa-heart fa-xs heart-empty"></i>
+                                    </div>
+                                {% endif %}
                             </div>
+                            {% endif %}
+                        {% empty %}
+                            <small class="text-muted">No comments yet.</small>
+                        {% endfor %}
+                    </div>
+
+                    {% if request.user.is_authenticated %}
+                        <form class="comment-input-area" method="POST" action="{% url 'add_review_comment' review.id %}">
+                            {% csrf_token %}
+                            <input type="text" name="comment" id="input-{{ review.id }}" class="insta-input" placeholder="Add a comment..." required>
+                            <button type="submit" class="post-btn">Post</button>
+                        </form>
+                    {% else %}
+                        <div class="login-prompt">
+                            <a href="{% url 'account_login' %}">Log in</a> to leave a review, like posts, or comment.
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
-
-                <form class="comment-input-area" method="POST" action="{% url 'add_review_comment' review.id %}">
-                    {% csrf_token %}
-                    <input type="text" name="comment" id="input-{{ review.id }}" class="insta-input" placeholder="Add a comment..." required>
-                    <button type="submit" class="post-btn">Post</button>
-                </form>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <h5 class="mb-2">No reviews yet</h5>
+                <p class="mb-0">Be the first to share your Sweat X experience.</p>
             </div>
-        {% endfor %}
-    </div>
-</div>
-
-<div class="modal fade" id="addReviewModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 rounded-lg">
-            <div class="modal-header border-bottom-0">
-                <h5 class="modal-title font-weight-bold">Share Your Experience</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" action="{% url 'add_review' %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary btn-block rounded-pill font-weight-bold py-2">Post to Feed</button>
-                </form>
-            </div>
-        </div>
+        {% endif %}
     </div>
 </div>
 
 <script>
     function focusComment(reviewId) {
-        document.getElementById('input-' + reviewId).focus();
+        const input = document.getElementById('input-' + reviewId);
+        if (input) {
+            input.focus();
+        }
     }
 
     function toggleEdit(commentId) {
-        const text = document.getElementById('comment-text-' + commentId);
-        const form = document.getElementById('edit-form-' + commentId);
-        form.classList.toggle('d-none');
-        text.classList.toggle('d-none');
+        const commentText = document.getElementById('comment-text-' + commentId);
+        const editForm = document.getElementById('edit-form-' + commentId);
+
+        if (commentText) {
+            commentText.classList.toggle('d-none');
+        }
+        if (editForm) {
+            editForm.classList.toggle('d-none');
+        }
     }
 </script>
 {% endblock %}

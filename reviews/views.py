@@ -6,18 +6,34 @@ from .forms import ReviewCommentForm, ReviewForm
 from .models import Review, ReviewComment, ReviewCommentVote, ReviewVote
 
 
+
 def review_list(request):
+    """
+    Displays all approved reviews and identifies which reviews/comments 
+    the current user has already liked for heart toggling.
+    """
     reviews = Review.objects.filter(approved=True)
-    review_form = ReviewForm()
-    comment_form = ReviewCommentForm()
+    user_liked_reviews = []
+    user_liked_comments = []
+
+    if request.user.is_authenticated:
+        # Get list of IDs for reviews the user has liked
+        user_liked_reviews = ReviewVote.objects.filter(
+            user=request.user, vote_type='like'
+        ).values_list('review_id', flat=True)
+        
+        # Get list of IDs for comments the user has liked
+        user_liked_comments = ReviewCommentVote.objects.filter(
+            user=request.user, vote_type='like'
+        ).values_list('comment_id', flat=True)
 
     context = {
         'reviews': reviews,
-        'form': review_form,
-        'comment_form': comment_form,
+        'form': ReviewForm(),
+        'user_liked_reviews': user_liked_reviews,
+        'user_liked_comments': user_liked_comments,
     }
     return render(request, 'reviews/review_list.html', context)
-
 
 @login_required
 def add_review(request):
