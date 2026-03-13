@@ -1,185 +1,152 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views.decorators.http import require_POST
 
 from .forms import ReviewCommentForm, ReviewForm
-from .models import Review, ReviewComment, ReviewCommentVote, ReviewVote
-
+from .models import Review, ReviewComment, ReviewVote, ReviewCommentVote
 
 
 def review_list(request):
     """
-    Displays all approved reviews and identifies which reviews/comments 
-    the current user has already liked for heart toggling.
+    Public review page:
+    - Anyone can see approved reviews
+    - Tracks likes for both reviews and comments to toggle red hearts
     """
     reviews = Review.objects.filter(approved=True)
     user_liked_reviews = []
     user_liked_comments = []
 
     if request.user.is_authenticated:
-        # Get list of IDs for reviews the user has liked
+        # Get IDs of reviews the user liked
         user_liked_reviews = ReviewVote.objects.filter(
-            user=request.user, vote_type='like'
+            user=request.user,
+            vote_type='like'
         ).values_list('review_id', flat=True)
-        
-        # Get list of IDs for comments the user has liked
+
+        # Get IDs of comments the user liked
         user_liked_comments = ReviewCommentVote.objects.filter(
-            user=request.user, vote_type='like'
+            user=request.user,
+            vote_type='like'
         ).values_list('comment_id', flat=True)
 
     context = {
         'reviews': reviews,
-        'form': ReviewForm(),
+        'form': ReviewForm() if request.user.is_authenticated else None,
+        'comment_form': ReviewCommentForm() if request.user.is_authenticated else None,
         'user_liked_reviews': user_liked_reviews,
-        'user_liked_comments': user_liked_comments,
+        'user_liked_comments': user_liked_comments, # Added this
     }
     return render(request, 'reviews/review_list.html', context)
 
+
 @login_required
+@require_POST
 def add_review(request):
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES)
-
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.save()
-            messages.success(request, 'Thanks! Your review has been submitted.')
-        else:
-            messages.error(request, 'Please correct the form and try again.')
-
+    form = ReviewForm(request.POST, request.FILES)
+    if form.is_valid():
+        review = form.save(commit=False)
+        review.user = request.user
+        review.save()
+        messages.success(request, 'Thanks! Your review has been submitted.')
     return redirect('reviews')
 
 
 @login_required
+@require_POST
 def edit_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
-
     if review.user != request.user:
         messages.error(request, 'You can only edit your own review.')
         return redirect('reviews')
 
-    if request.method == 'POST':
-        form = ReviewForm(request.POST, request.FILES, instance=review)
-
-        if form.is_valid():
-            updated_review = form.save(commit=False)
-            updated_review.user = request.user
-            updated_review.save()
-            messages.success(request, 'Your review has been updated.')
-        else:
-            messages.error(request, 'Please correct the form and try again.')
-
+    form = ReviewForm(request.POST, request.FILES, instance=review)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Your review has been updated.')
     return redirect('reviews')
 
 
 @login_required
+@require_POST
 def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
-
-    if review.user != request.user:
-        messages.error(request, 'You can only delete your own review.')
-        return redirect('reviews')
-
-    if request.method == 'POST':
+    if review.user == request.user:
         review.delete()
         messages.success(request, 'Your review has been deleted.')
-
     return redirect('reviews')
 
 
 @login_required
+@require_POST
 def add_review_comment(request, review_id):
     review = get_object_or_404(Review, id=review_id, approved=True)
-
-    if request.method == 'POST':
-        form = ReviewCommentForm(request.POST)
-
-        if form.is_valid():
-            review_comment = form.save(commit=False)
-            review_comment.review = review
-            review_comment.user = request.user
-            review_comment.save()
-            messages.success(request, 'Your comment has been added.')
-        else:
-            messages.error(request, 'Please write a valid comment.')
-
+    form = ReviewCommentForm(request.POST)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.review = review
+        comment.user = request.user
+        comment.save()
+        messages.success(request, 'Your comment has been added.')
     return redirect('reviews')
 
 
 @login_required
+@require_POST
 def vote_review(request, review_id, vote_type):
+    """Handles liking/disliking the main post"""
     review = get_object_or_404(Review, id=review_id, approved=True)
-
-    if vote_type not in ['like', 'dislike']:
-        messages.error(request, 'Invalid vote.')
-        return redirect('reviews')
-
     vote, created = ReviewVote.objects.get_or_create(
         review=review,
         user=request.user,
         defaults={'vote_type': vote_type}
     )
-
     if not created:
-        vote.vote_type = vote_type
-        vote.save()
-
+        if vote.vote_type == vote_type:
+            vote.delete()
+        else:
+            vote.vote_type = vote_type
+            vote.save()
     return redirect('reviews')
 
 
 @login_required
+@require_POST
 def vote_review_comment(request, comment_id, vote_type):
+    """THE MISSING FUNCTION: Handles liking/disliking comments"""
     comment = get_object_or_404(ReviewComment, id=comment_id, approved=True)
-
-    if vote_type not in ['like', 'dislike']:
-        messages.error(request, 'Invalid vote.')
-        return redirect('reviews')
-
     vote, created = ReviewCommentVote.objects.get_or_create(
         comment=comment,
         user=request.user,
         defaults={'vote_type': vote_type}
     )
-
     if not created:
-        vote.vote_type = vote_type
-        vote.save()
-
-    return redirect('reviews')
-
-
-@login_required
-def edit_review_comment(request, comment_id):
-    review_comment = get_object_or_404(ReviewComment, id=comment_id)
-
-    if review_comment.user != request.user:
-        messages.error(request, 'You can only edit your own comments.')
-        return redirect('reviews')
-
-    if request.method == 'POST':
-        updated_comment = request.POST.get('comment')
-
-        if updated_comment and updated_comment.strip():
-            review_comment.comment = updated_comment.strip()
-            review_comment.save()
-            messages.success(request, 'Your comment has been updated.')
+        if vote.vote_type == vote_type:
+            vote.delete()
         else:
-            messages.error(request, 'Comment cannot be empty.')
-
+            vote.vote_type = vote_type
+            vote.save()
     return redirect('reviews')
 
 
 @login_required
+@require_POST
+def edit_review_comment(request, comment_id):
+    comment = get_object_or_404(ReviewComment, id=comment_id)
+    if comment.user == request.user:
+        text = request.POST.get('comment', '').strip()
+        if text:
+            comment.comment = text
+            comment.save()
+            messages.success(request, 'Comment updated.')
+    return redirect('reviews')
+
+
+@login_required
+@require_POST
 def delete_review_comment(request, comment_id):
-    review_comment = get_object_or_404(ReviewComment, id=comment_id)
-
-    if review_comment.user != request.user:
-        messages.error(request, 'You can only delete your own comments.')
-        return redirect('reviews')
-
-    if request.method == 'POST':
-        review_comment.delete()
-        messages.success(request, 'Your comment has been deleted.')
-
+    comment = get_object_or_404(ReviewComment, id=comment_id)
+    if comment.user == request.user:
+        comment.delete()
+        messages.success(request, 'Comment deleted.')
     return redirect('reviews')

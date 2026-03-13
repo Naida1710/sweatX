@@ -3,6 +3,7 @@
 
 {% block content %}
 <style>
+    /* UI Branding & Feed Layout */
     .reviews-page { background-color: #fafafa; min-height: 100vh; position: relative; z-index: 1; }
     .review-card { background: #fff; border: 1px solid #dbdbdb; border-radius: 12px; margin-bottom: 24px; padding: 0; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
     .review-header { padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
@@ -10,17 +11,26 @@
     .avatar-inner { background: #fff; width: 100%; height: 100%; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: #262626; }
     .review-main-image { width: 100%; max-height: 500px; object-fit: cover; }
 
+    /* Interactive Elements */
     .action-bar { padding: 10px 16px; display: flex; gap: 20px; align-items: center; }
-    .action-icon-btn { background: none !important; border: none !important; padding: 0 !important; cursor: pointer; display: flex; align-items: center; }
+    .action-icon-btn { background: none !important; border: none !important; padding: 0 !important; cursor: pointer; display: flex; align-items: center; outline: none !important; }
+    .action-icon-btn i { transition: transform 0.1s ease; }
+    .action-icon-btn:active i { transform: scale(1.3); }
 
-    .heart-red { color: #ed4956 !important; }
+    .heart-red { color: #ed4956 !important; } /* Instagram Red */
     .heart-empty { color: #262626 !important; }
     .btn-comment { color: #0095f6; }
+    .dislike-active { color: #262626 !important; }
 
-    .likes-count { font-weight: 700; font-size: 14px; margin: 0 16px 5px; color: #262626; }
+    /* Rubric Star Styling */
+    .rating-star-display { color: #ffc107; font-size: 14px; letter-spacing: 2px; }
+    .rating-star-input { cursor: pointer; font-size: 1.8rem; color: #dbdbdb; transition: color 0.2s; }
+    .rating-star-input.active { color: #ffc107; }
+
     .review-content-body { padding: 0 16px 12px; font-size: 14px; }
     .username { font-weight: 600; font-size: 14px; color: #262626; }
 
+    /* Comments Section */
     .comments-wrapper { padding: 12px 16px; background-color: #f9f9f9; border-top: 1px solid #efefef; }
     .comment-meta { font-size: 12px; color: #8e8e8e; display: flex; gap: 12px; margin-top: 4px; align-items: center; }
     .comment-meta button, .comment-meta form button { background: none !important; border: none !important; padding: 0 !important; font-weight: 600; color: #8e8e8e; cursor: pointer; }
@@ -31,61 +41,28 @@
     .comment-input-area { border-top: 1px solid #efefef; padding: 12px 16px; display: flex; align-items: center; }
     .insta-input { border: none; flex-grow: 1; outline: none; font-size: 14px; }
     .post-btn { color: #0095f6; font-weight: 700; background: none; border: none; cursor: pointer; }
-    .dropdown-toggle::after { display: none; }
-
-    .login-prompt {
-        padding: 12px 16px;
-        border-top: 1px solid #efefef;
-        font-size: 14px;
-        color: #6c757d;
-        background: #fff;
-    }
-
-    .login-prompt a {
-        font-weight: 700;
-        text-decoration: none;
-    }
-
-    .guest-action {
-        display: flex;
-        align-items: center;
-        color: #8e8e8e;
-        font-size: 14px;
-        gap: 8px;
-    }
-
-    .review-stars {
-        padding: 0 16px 8px;
-        font-size: 14px;
-        color: #f4b400;
-        letter-spacing: 2px;
-    }
-
-    .empty-state {
-        background: #fff;
-        border: 1px solid #dbdbdb;
-        border-radius: 12px;
-        padding: 32px 24px;
-        text-align: center;
-        color: #6c757d;
-    }
+    
+    .review-cta-card { background: #fff; border: 1px solid #dbdbdb; border-radius: 12px; padding: 28px 24px; text-align: center; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 </style>
 
 <div class="reviews-page py-5">
     <div class="container" style="max-width: 550px;">
-        <div class="d-flex justify-content-between align-items-center mb-4 px-2">
-            <div>
-                <h4 class="font-weight-bold mb-0">Sweat X Reviews</h4>
-                <small class="text-muted">See what the Sweat X community is saying</small>
-            </div>
+        
+        <div class="mb-4 px-2 text-center">
+            <h4 class="font-weight-bold mb-1">Sweat X Community Feed</h4>
+            <small class="text-muted">Join the journey and share your progress</small>
+        </div>
 
+        <div class="review-cta-card">
+            <h3>Leave a Review</h3>
+            <p>Loved your Sweat X experience? Share your feedback with the community.</p>
             {% if request.user.is_authenticated %}
-                <button class="btn btn-primary rounded-pill px-4" data-toggle="modal" data-target="#addReviewModal">
-                    Leave a Review
+                <button class="btn btn-primary rounded-pill px-5 shadow-sm" data-toggle="modal" data-target="#addReviewModal">
+                    <i class="fas fa-plus mr-2"></i>New Post
                 </button>
             {% else %}
                 <a href="{% url 'account_login' %}" class="btn btn-outline-primary rounded-pill px-4">
-                    Log in
+                    Log in to share a review
                 </a>
             {% endif %}
         </div>
@@ -96,7 +73,13 @@
                     <div class="review-header">
                         <div class="review-author-info d-flex align-items-center">
                             <div class="review-avatar">
-                                <div class="avatar-inner">{{ review.user.username|slice:":1"|upper }}</div>
+                                <div class="avatar-inner">
+                                    {% if review.user.profile.image %}
+                                        <img src="{{ review.user.profile.image.url }}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+                                    {% else %}
+                                        {{ review.user.username|slice:":1"|upper }}
+                                    {% endif %}
+                                </div>
                             </div>
                             <span class="username">{{ review.user.username }}</span>
                         </div>
@@ -107,7 +90,7 @@
                                 <i class="fas fa-ellipsis-h text-muted"></i>
                             </button>
                             <div class="dropdown-menu dropdown-menu-right border-0 shadow">
-                                <form method="POST" action="{% url 'delete_review' review.id %}" onsubmit="return confirm('Delete this entire post?');">
+                                <form method="POST" action="{% url 'delete_review' review.id %}" onsubmit="return confirm('Delete this post permanently?');">
                                     {% csrf_token %}
                                     <button type="submit" class="dropdown-item text-danger font-weight-bold">
                                         <i class="fas fa-trash-alt mr-2"></i> Delete Post
@@ -122,17 +105,17 @@
                         <img src="{{ review.image.url }}" class="review-main-image" alt="{{ review.title }}">
                     {% endif %}
 
-                    {% if review.rating %}
-                        <div class="review-stars">
+                    <div class="px-3 pt-3">
+                        <div class="rating-star-display">
                             {% for i in "12345" %}
                                 {% if forloop.counter <= review.rating %}
-                                    ★
+                                    <i class="fas fa-star"></i>
                                 {% else %}
-                                    ☆
+                                    <i class="far fa-star text-muted"></i>
                                 {% endif %}
                             {% endfor %}
                         </div>
-                    {% endif %}
+                    </div>
 
                     <div class="action-bar">
                         {% if request.user.is_authenticated %}
@@ -152,13 +135,9 @@
                                 <i class="far fa-comment fa-lg"></i>
                             </button>
                         {% else %}
-                            <div class="guest-action">
-                                <i class="far fa-heart fa-lg heart-empty"></i>
-                                <span class="font-weight-bold" style="color: #262626;">{{ review.total_likes }}</span>
-                            </div>
-
-                            <div class="guest-action">
-                                <i class="far fa-comment fa-lg"></i>
+                            <div class="d-flex gap-3">
+                                <span class="text-muted small"><i class="far fa-heart mr-1"></i> {{ review.total_likes }}</span>
+                                <span class="text-muted small"><i class="far fa-comment mr-1"></i> {{ review.comments.count }}</span>
                             </div>
                         {% endif %}
                     </div>
@@ -166,28 +145,20 @@
                     <div class="review-content-body">
                         <span class="username mr-1">{{ review.user.username }}</span>
                         <strong>{{ review.title }}</strong> {{ review.comment }}
-                        <div class="mt-1">
-                            <small class="text-muted text-uppercase" style="font-size: 10px;">
-                                {{ review.created_at|timesince }} ago
-                            </small>
+                        <div class="mt-2">
+                            <small class="text-muted text-uppercase" style="font-size: 10px;">{{ review.created_at|timesince }} ago</small>
                         </div>
                     </div>
 
                     <div class="comments-wrapper">
                         {% for comment in review.comments.all %}
                             {% if comment.approved %}
-                            <div class="comment-item d-flex justify-content-between align-items-start mb-2">
+                            <div class="comment-item d-flex justify-content-between mb-2">
                                 <div class="flex-grow-1">
                                     <span class="username mr-1">{{ comment.user.username }}</span>
                                     <span id="comment-text-{{ comment.id }}">{{ comment.comment }}</span>
-
+                                    
                                     <div class="comment-meta">
-                                        <span>{{ comment.total_likes }} likes</span>
-
-                                        {% if request.user.is_authenticated %}
-                                            <button type="button" onclick="focusComment('{{ review.id }}')">Reply</button>
-                                        {% endif %}
-
                                         {% if request.user == comment.user %}
                                             <button type="button" class="btn-edit" onclick="toggleEdit('{{ comment.id }}')">Edit</button>
                                             <form method="POST" action="{% url 'delete_review_comment' comment.id %}" class="d-inline">
@@ -196,40 +167,9 @@
                                             </form>
                                         {% endif %}
                                     </div>
-
-                                    {% if request.user == comment.user %}
-                                        <form id="edit-form-{{ comment.id }}" method="POST" action="{% url 'edit_review_comment' comment.id %}" class="d-none mt-2">
-                                            {% csrf_token %}
-                                            <div class="input-group input-group-sm">
-                                                <input type="text" name="comment" value="{{ comment.comment }}" class="form-control rounded-pill">
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-primary btn-sm rounded-pill ml-1">Save</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    {% endif %}
                                 </div>
-
-                                {% if request.user.is_authenticated %}
-                                    <form method="POST" action="{% url 'vote_review_comment' comment.id 'like' %}">
-                                        {% csrf_token %}
-                                        <button type="submit" class="action-icon-btn">
-                                            {% if comment.id in user_liked_comments %}
-                                                <i class="fas fa-heart fa-xs heart-red"></i>
-                                            {% else %}
-                                                <i class="far fa-heart fa-xs heart-empty"></i>
-                                            {% endif %}
-                                        </button>
-                                    </form>
-                                {% else %}
-                                    <div class="guest-action">
-                                        <i class="far fa-heart fa-xs heart-empty"></i>
-                                    </div>
-                                {% endif %}
                             </div>
                             {% endif %}
-                        {% empty %}
-                            <small class="text-muted">No comments yet.</small>
                         {% endfor %}
                     </div>
 
@@ -239,40 +179,85 @@
                             <input type="text" name="comment" id="input-{{ review.id }}" class="insta-input" placeholder="Add a comment..." required>
                             <button type="submit" class="post-btn">Post</button>
                         </form>
-                    {% else %}
-                        <div class="login-prompt">
-                            <a href="{% url 'account_login' %}">Log in</a> to leave a review, like posts, or comment.
-                        </div>
                     {% endif %}
                 </div>
             {% endfor %}
-        {% else %}
-            <div class="empty-state">
-                <h5 class="mb-2">No reviews yet</h5>
-                <p class="mb-0">Be the first to share your Sweat X experience.</p>
-            </div>
         {% endif %}
     </div>
 </div>
 
+<div class="modal fade" id="addReviewModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header">
+                <h5 class="modal-title font-weight-bold">Share Your Experience</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body p-4">
+                <form method="POST" action="{% url 'add_review' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group mb-3">
+                        <input type="text" name="title" class="form-control rounded-pill border-light bg-light" placeholder="Summary Title" required>
+                    </div>
+
+                    <div class="form-group text-center mb-4">
+                        <label class="small font-weight-bold text-muted d-block">Overall Rating</label>
+                        <div class="star-rating-input">
+                            <i class="far fa-star rating-star-input" data-value="1"></i>
+                            <i class="far fa-star rating-star-input" data-value="2"></i>
+                            <i class="far fa-star rating-star-input" data-value="3"></i>
+                            <i class="far fa-star rating-star-input" data-value="4"></i>
+                            <i class="far fa-star rating-star-input active fas" data-value="5"></i>
+                        </div>
+                        <input type="hidden" name="rating" id="id_rating" value="5">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <textarea name="comment" class="form-control border-light bg-light" rows="3" placeholder="Tell us more about your workout or results..." required></textarea>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="small font-weight-bold text-muted">Add a Progress Photo</label>
+                        <input type="file" name="image" class="form-control-file">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block rounded-pill py-2 font-weight-bold shadow">
+                        Post to Community
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    // Focus comment input
     function focusComment(reviewId) {
-        const input = document.getElementById('input-' + reviewId);
-        if (input) {
-            input.focus();
-        }
+        document.getElementById('input-' + reviewId).focus();
     }
 
+    // Toggle inline comment edit
     function toggleEdit(commentId) {
-        const commentText = document.getElementById('comment-text-' + commentId);
-        const editForm = document.getElementById('edit-form-' + commentId);
-
-        if (commentText) {
-            commentText.classList.toggle('d-none');
-        }
-        if (editForm) {
-            editForm.classList.toggle('d-none');
-        }
+        document.getElementById('comment-text-' + commentId).classList.toggle('d-none');
+        document.getElementById('edit-form-' + commentId).classList.toggle('d-none');
     }
+
+    // Star Rating Rubric Interaction
+    document.querySelectorAll('.rating-star-input').forEach(star => {
+        star.addEventListener('click', function() {
+            const val = this.getAttribute('data-value');
+            document.getElementById('id_rating').value = val;
+            
+            document.querySelectorAll('.rating-star-input').forEach(s => {
+                if(s.getAttribute('data-value') <= val) {
+                    s.classList.add('fas', 'active');
+                    s.classList.remove('far');
+                } else {
+                    s.classList.add('far');
+                    s.classList.remove('fas', 'active');
+                }
+            });
+        });
+    });
 </script>
 {% endblock %}
