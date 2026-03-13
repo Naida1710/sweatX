@@ -19,7 +19,7 @@
 
     .heart-red { color: #ed4956 !important; } /* Instagram Red */
     .heart-empty { color: #262626 !important; }
-    .btn-comment { color: #0095f6; }
+    .btn-comment { color: #43e97b; }
     .dislike-active { color: #262626 !important; }
 
     /* Rubric Star Styling */
@@ -40,9 +40,90 @@
 
     .comment-input-area { border-top: 1px solid #efefef; padding: 12px 16px; display: flex; align-items: center; }
     .insta-input { border: none; flex-grow: 1; outline: none; font-size: 14px; }
-    .post-btn { color: #0095f6; font-weight: 700; background: none; border: none; cursor: pointer; }
+    .post-btn { color: #43e97b; font-weight: 700; background: none; border: none; cursor: pointer; }
     
-    .review-cta-card { background: #fff; border: 1px solid #dbdbdb; border-radius: 12px; padding: 28px 24px; text-align: center; margin-bottom: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    /* Leave Review Card (UPDATED DESIGN ONLY) */
+.review-cta-card {
+    background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+    border: none;
+    border-radius: 16px;
+    padding: 34px 28px;
+    text-align: center;
+    margin-bottom: 28px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+}
+
+.review-cta-card::after {
+    content: "";
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
+}
+
+.review-cta-card h3 {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.review-cta-card p {
+    color: rgba(255,255,255,0.75);
+    font-size: 14px;
+    margin-bottom: 22px;
+}
+
+.review-cta-card .btn-primary {
+    background: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%);
+    border: none;
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+.review-cta-card .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(221,36,118,0.45);
+}
+
+.review-cta-card .btn-outline-primary {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.review-cta-card .btn-outline-primary:hover {
+    background: #ffffff;
+    color: #111;
+}
+
+.btn-mint-post {
+    background: linear-gradient(45deg, #43e97b 0%, #38f9d7 100%);
+    border: none;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 15px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
+}
+
+.btn-mint-post:hover {
+    box-shadow: 0 10px 20px rgba(56, 249, 215, 0.5);
+    transform: translateY(-2px);
+    color: white;
+    opacity: 0.9;
+}
+
+.btn-mint-post:active {
+    transform: translateY(0);
+}
+
 </style>
 
 <div class="reviews-page py-5">
@@ -221,7 +302,7 @@
                         <input type="file" name="image" class="form-control-file">
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-block rounded-pill py-2 font-weight-bold shadow">
+                    <button type="submit" class="btn btn-mint-post btn-block rounded-pill py-2 font-weight-bold shadow">
                         Post to Community
                     </button>
                 </form>
