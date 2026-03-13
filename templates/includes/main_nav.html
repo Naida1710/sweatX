@@ -1,7 +1,6 @@
 <div class="collapse navbar-collapse" id="main-nav">
     <ul class="navbar-nav w-auto mx-auto">
 
-        <!-- ALL PRODUCTS -->
         <li class="nav-item dropdown">
             <a class="logo-font font-weight-bold nav-link text-black mr-5"
                href="#"
@@ -20,7 +19,6 @@
             </div>
         </li>
 
-        <!-- SUPPLEMENTS -->
         <li class="nav-item dropdown">
             <a class="logo-font font-weight-bold nav-link text-black mr-5"
                href="#"
@@ -45,7 +43,6 @@
             </div>
         </li>
 
-        <!-- TRAINING PROGRAM -->
         <li class="nav-item dropdown">
             <a class="logo-font font-weight-bold nav-link text-black mr-5"
                href="#"
@@ -66,73 +63,10 @@
             </div>
         </li>
 
-        <!-- MEMBERSHIP -->
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5"
-               href="#"
-               id="specials-link"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                MEMBERSHIP
-            </a>
-
-            <div class="dropdown-menu border-0" aria-labelledby="specials-link">
-                <a href="{% url 'products' %}?category=new_arrivals" class="dropdown-item">New Arrivals</a>
-                <a href="{% url 'products' %}?category=deals" class="dropdown-item">Deals</a>
-                <a href="{% url 'products' %}?category=clearance" class="dropdown-item">Clearance</a>
-                <a href="{% url 'products' %}?category=new_arrivals,deals,clearance"
-                   class="dropdown-item">
-                    All Specials
-                </a>
-            </div>
-        </li>
-
-        <!-- REVIEWS -->
         <li class="nav-item">
             <a class="logo-font font-weight-bold nav-link text-black mr-5" href="{% url 'reviews' %}">
                 Reviews
             </a>
-        </li>
-
-        <!-- MY ACCOUNT -->
-        <li class="nav-item dropdown">
-            <a class="logo-font font-weight-bold nav-link text-black mr-5"
-               href="#"
-               id="account-link"
-               data-toggle="dropdown"
-               aria-haspopup="true"
-               aria-expanded="false">
-                My Account
-            </a>
-
-            <div class="dropdown-menu border-0" aria-labelledby="account-link">
-                {% if request.user.is_authenticated %}
-
-                    <a href="{% url 'profile' %}" class="dropdown-item">My Profile</a>
-
-                    {% if request.user.is_superuser %}
-                        <a href="{% url 'add_product' %}" class="dropdown-item">
-                            Product Management
-                        </a>
-                    {% endif %}
-
-                    <a href="{% url 'account_logout' %}" class="dropdown-item">
-                        Logout
-                    </a>
-
-                {% else %}
-
-                    <a href="{% url 'account_login' %}" class="dropdown-item">
-                        Login
-                    </a>
-
-                    <a href="{% url 'account_signup' %}" class="dropdown-item">
-                        Register
-                    </a>
-
-                {% endif %}
-            </div>
         </li>
 
     </ul>
