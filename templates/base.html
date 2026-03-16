@@ -4,9 +4,23 @@
 <html lang="en">
 <head>
     {% block meta %}
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <meta name="description" content="{% block meta_description %}sweatX - Premium supplements and elite training programs for athletes. Unleash your potential with our scientifically backed nutrition and coaching.{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}fitness, supplements, training programs, athlete nutrition, gym gear, sweatX{% endblock %}">
+        <meta name="author" content="sweatX">
+
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+        <meta property="og:title" content="sweatX {% block extra_title %}{% endblock %}">
+        <meta property="og:description" content="{% block og_description %}Elite athlete gear and training. Join the sweatX community today.{% endblock %}">
+        <meta property="og:image" content="{% block og_image %}{{ MEDIA_URL }}og-image.png{% endblock %}">
+
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:title" content="sweatX {% block twitter_title %}{% endblock %}">
+
     {% endblock %}
 
     {% block corecss %}
