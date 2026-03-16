@@ -10,7 +10,6 @@
                aria-expanded="false">
                 All Products
             </a>
-
             <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
                 <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
                 <a href="{% url 'products' %}?sort=rating&direction=desc" class="dropdown-item">By Rating</a>
@@ -28,14 +27,14 @@
                aria-expanded="false">
                 Supplements
             </a>
-
             <div class="dropdown-menu border-0" aria-labelledby="supplements-link">
                 <a href="{% url 'products' %}?category=PREWORKOUT" class="dropdown-item">Pre-workout</a>
                 <a href="{% url 'products' %}?category=PROTEIN" class="dropdown-item">Protein</a>
                 <a href="{% url 'products' %}?category=CREATINE" class="dropdown-item">Creatine</a>
                 <a href="{% url 'products' %}?category=RECOVERY" class="dropdown-item">Recovery</a>
                 <a href="{% url 'products' %}?category=STACKS" class="dropdown-item">Stacks</a>
-                <a href="{% url 'products' %}?category=DEALS" class="dropdown-item">Deals</a>
+                <a href="{% url 'products' %}?category=DEALS" class="dropdown-item font-weight-bold text-success">Deals</a>
+                
                 <a href="{% url 'products' %}?category=PREWORKOUT,PROTEIN,CREATINE,RECOVERY,STACKS,DEALS"
                    class="dropdown-item">
                     All Supplements
@@ -52,14 +51,9 @@
                aria-expanded="false">
                 Training Program
             </a>
-
             <div class="dropdown-menu border-0" aria-labelledby="training-link">
-                <a href="{% url 'training_quiz' %}" class="dropdown-item">
-                    Choose a Program
-                </a>
-                <a href="{% url 'products' %}?category=programs" class="dropdown-item">
-                    All Programs
-                </a>
+                <a href="{% url 'training_quiz' %}" class="dropdown-item">Choose a Program</a>
+                <a href="{% url 'products' %}?category=programs" class="dropdown-item">All Programs</a>
             </div>
         </li>
 
@@ -68,6 +62,5 @@
                 Reviews
             </a>
         </li>
-
     </ul>
 </div>
