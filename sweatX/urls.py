@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 from django.contrib.sitemaps.views import sitemap
 from .sitemaps import ProductSitemap, StaticViewSitemap # Import your classes
 
+
 sitemaps = {
     'products': ProductSitemap,
     'static': StaticViewSitemap,
@@ -28,4 +29,7 @@ urlpatterns = [
     ),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+handler404 = 'home.views.handler404'

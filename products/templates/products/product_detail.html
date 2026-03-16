@@ -1,6 +1,24 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_title %}- {{ product.name }}{% endblock %}
+
+{% block meta_description %}
+    Buy {{ product.name }} at sweatX. {{ product.description|truncatechars:150 }}
+{% endblock %}
+
+{% block og_description %}
+    Check out {{ product.name }} on sweatX. Rating: {{ product.rating|default:"5" }}/5. Elite gear for elite athletes.
+{% endblock %}
+
+{% block og_image %}
+    {% if product.image %}
+        {{ product.image.url }}
+    {% else %}
+        {{ MEDIA_URL }}noimage.png
+    {% endif %}
+{% endblock %}
+
 {% block page_header %}
 <div class="container header-container">
     <div class="row">

@@ -57,3 +57,4 @@ def starter_plan(request):
         'selected_goal': selected_goal,
     }
     return render(request, 'home/starter_plan.html', context)
+
