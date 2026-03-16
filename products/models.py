@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse  # <--- Added import at the top
 
 class Category(models.Model):
 
@@ -28,3 +28,8 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    # --- ADDED THIS METHOD ---
+    def get_absolute_url(self):
+        """ Returns the unique URL for a specific product detail page """
+        return reverse('product_detail', args=[str(self.id)])
