@@ -15,7 +15,7 @@
     {% if product.image %}
         {{ product.image.url }}
     {% else %}
-        {{ MEDIA_URL }}noimage.png
+        {% static 'images/noimage.png' %}
     {% endif %}
 {% endblock %}
 
@@ -39,7 +39,7 @@
                 </a>
                 {% else %}
                 <a href="">
-                    <img class="card-img-top img-fluid" src="{{ MEDIA_URL }}noimage.png" alt="{{ product.name }}">
+                    <img class="card-img-top img-fluid" src="{% static 'images/noimage.png' %}" alt="{{ product.name }}">
                 </a>
                 {% endif %}
             </div>
