@@ -1,6 +1,5 @@
 from decimal import Decimal
 from django.conf import settings
-from django.shortcuts import get_object_or_404
 from products.models import Product
 
 
@@ -13,8 +12,12 @@ def bag_contents(request):
 
     for item_id, item_data in bag.items():
 
+        try:
+            product = Product.objects.get(pk=item_id)
+        except Product.DoesNotExist:
+            continue
+
         if isinstance(item_data, int):
-            product = get_object_or_404(Product, pk=item_id)
             total += item_data * product.price
             product_count += item_data
             bag_items.append({
@@ -24,7 +27,6 @@ def bag_contents(request):
             })
 
         else:
-            product = get_object_or_404(Product, pk=item_id)
             for size, quantity in item_data['items_by_size'].items():
                 total += quantity * product.price
                 product_count += quantity
