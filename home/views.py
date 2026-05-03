@@ -58,3 +58,7 @@ def starter_plan(request):
     }
     return render(request, 'home/starter_plan.html', context)
 
+
+def handler404(request, exception):
+    return render(request, '404.html', status=404)
+
