@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     path('', views.review_list, name='reviews'),
     path('add/', views.add_review, name='add_review'),
+    path('edit/<int:review_id>/', views.edit_review, name='edit_review'),
     path('delete/<int:review_id>/', views.delete_review, name='delete_review'),
     
     # These are the missing patterns causing your error:
