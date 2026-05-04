@@ -4,5 +4,6 @@
 {"pk": 3, "model": "products.category", "fields": {"name": "CREATINE", "friendly_name": "Creatine"}},
 {"pk": 4, "model": "products.category", "fields": {"name": "RECOVERY", "friendly_name": "Recovery"}},
 {"pk": 5, "model": "products.category", "fields": {"name": "STACKS", "friendly_name": "Stacks"}},
-{"pk": 6, "model": "products.category", "fields": {"name": "DEALS", "friendly_name": "Deals"}}
+{"pk": 6, "model": "products.category", "fields": {"name": "DEALS", "friendly_name": "Deals"}},
+{"pk": 7, "model": "products.category", "fields": {"name": "programs", "friendly_name": "Training Programs"}}
 ]
