@@ -1,0 +1,8 @@
+[
+{"pk": 1, "model": "products.category", "fields": {"name": "PREWORKOUT", "friendly_name": "Pre-Workout"}},
+{"pk": 2, "model": "products.category", "fields": {"name": "PROTEIN", "friendly_name": "Protein"}},
+{"pk": 3, "model": "products.category", "fields": {"name": "CREATINE", "friendly_name": "Creatine"}},
+{"pk": 4, "model": "products.category", "fields": {"name": "RECOVERY", "friendly_name": "Recovery"}},
+{"pk": 5, "model": "products.category", "fields": {"name": "STACKS", "friendly_name": "Stacks"}},
+{"pk": 6, "model": "products.category", "fields": {"name": "DEALS", "friendly_name": "Deals"}}
+]
