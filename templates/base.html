@@ -129,6 +129,8 @@
         </div>
     </header>
 
+    {% block page_header %}{% endblock %}
+
     {% if messages %}
     <div class="message-container">
         {% for message in messages %}
