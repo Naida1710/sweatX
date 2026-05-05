@@ -4,3 +4,6 @@
 __pycache__
 env.py
 staticfiles/
+.claude/
+CLAUDE.md
+audit_report.md
