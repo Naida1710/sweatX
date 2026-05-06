@@ -8,6 +8,5 @@ Disallow: /media/
 
 # Allow search engines to find your products and programs
 Allow: /products/
-Allow: /training/
 
 Sitemap: https://yourdomain.com/sitemap.xml
