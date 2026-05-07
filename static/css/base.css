@@ -413,3 +413,11 @@ input[name='q']::placeholder {
 #topnav .navbar-nav .nav-link:focus {
     color: #e91e63 !important;
 }
+
+#topnav .navbar-nav .dropdown-toggle::after {
+    transition: transform 0.2s ease;
+}
+
+#topnav .navbar-nav .dropdown-toggle.show::after {
+    transform: rotate(180deg);
+}
