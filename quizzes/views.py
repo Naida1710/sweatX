@@ -212,9 +212,9 @@ def quiz_result(request):
         advanced_score += 1
 
     result_level = "Beginner"
-    if advanced_score >= intermediate_score and advanced_score >= beginner_score:
+    if advanced_score > intermediate_score and advanced_score > beginner_score:
         result_level = "Advanced"
-    elif intermediate_score >= beginner_score:
+    elif intermediate_score > beginner_score:
         result_level = "Intermediate"
 
     goal_labels = {
