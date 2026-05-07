@@ -64,30 +64,70 @@
 </head>
 <body>
     <header class="container-fluid fixed-top">
-        <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex">
-            <div class="col-12 col-lg-4 my-auto py-1 text-center text-lg-left">
-                <a href="{% url 'home' %}" class="nav-link main-logo-link d-flex align-items-center">
-                    <img src="{% static 'images/flow.png' %}" alt="sweatX logo" class="logo-img mr-2" style="height: 40px;">
-                    <h2 class="logo-font text-black my-0"><strong>sweat</strong>X</h2>
+        <div id="topnav" class="row bg-white pt-lg-2 d-none d-lg-flex align-items-center py-2">
+            <div class="col-auto">
+                <a href="{% url 'home' %}" class="nav-link main-logo-link">
+                    <img src="{% static 'images/flow.png' %}" alt="sweatX logo" class="logo-img">
                 </a>
             </div>
-            
-            <div class="col-12 col-lg-4 my-auto py-1">
-                <form method="GET" action="{% url 'products' %}">
-                    <div class="input-group w-100">
-                        <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site" required>
-                        <div class="input-group-append">
-                            <button class="form-control btn btn-black border border-black rounded-0" type="submit">
-                                <span class="icon"><i class="fas fa-search"></i></span>
-                            </button>
+
+            <div class="col">
+                <ul class="navbar-nav flex-row align-items-center">
+                    <li class="nav-item dropdown mr-3">
+                        <a class="nav-link dropdown-toggle text-black" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Products</a>
+                        <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
+                            <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
+                            <a href="{% url 'products' %}?sort=rating&direction=desc" class="dropdown-item">By Rating</a>
+                            <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item">By Category</a>
+                            <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
                         </div>
-                    </div>
-                </form>
+                    </li>
+                    <li class="nav-item dropdown mr-3">
+                        <a class="nav-link dropdown-toggle text-black" href="#" id="supplements-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Supplements</a>
+                        <div class="dropdown-menu border-0" aria-labelledby="supplements-link">
+                            <a href="{% url 'products' %}?category=preworkout" class="dropdown-item">Pre-Workout</a>
+                            <a href="{% url 'products' %}?category=protein" class="dropdown-item">Protein</a>
+                            <a href="{% url 'products' %}?category=creatine" class="dropdown-item">Creatine</a>
+                            <a href="{% url 'products' %}?category=recovery" class="dropdown-item">Recovery</a>
+                            <a href="{% url 'products' %}?category=stacks" class="dropdown-item">Stacks</a>
+                            <a href="{% url 'products' %}?category=deals" class="dropdown-item text-success">Deals</a>
+                            <a href="{% url 'products' %}?category=preworkout,protein,creatine,recovery,stacks" class="dropdown-item">All Supplements</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown mr-3">
+                        <a class="nav-link dropdown-toggle text-black" href="#" id="program-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+                        <div class="dropdown-menu border-0" aria-labelledby="program-link">
+                            <a href="{% url 'training_quiz' %}" class="dropdown-item">Choose a Program</a>
+                            <a href="{% url 'products' %}?category=programs" class="dropdown-item">All Programs</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black" href="{% url 'reviews' %}">Reviews</a>
+                    </li>
+                </ul>
             </div>
 
-            <div class="col-12 col-lg-4 my-auto py-1">
-                <ul class="list-inline list-unstyled text-center text-lg-right my-0">
-                    <li class="list-inline-item dropdown">
+            <div class="col-auto">
+                <ul class="list-inline list-unstyled my-0 d-flex align-items-center">
+                    <li class="list-inline-item dropdown mr-3">
+                        <a class="text-black nav-link" href="#" id="search-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-search fa-lg"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right border-0 p-3" aria-labelledby="search-toggle" style="min-width: 320px;">
+                            <form method="GET" action="{% url 'products' %}">
+                                <div class="input-group">
+                                    <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site" required>
+                                    <div class="input-group-append">
+                                        <button class="form-control btn btn-black border border-black rounded-0" type="submit">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+                    <li class="list-inline-item dropdown mr-3">
                         <a class="text-black nav-link" href="#" id="user-options" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="text-center">
                                 <div><i class="fas fa-user fa-lg"></i></div>
@@ -98,7 +138,7 @@
                                 {% endif %}
                             </div>
                         </a>
-                        <div class="dropdown-menu border-0" aria-labelledby="user-options">
+                        <div class="dropdown-menu dropdown-menu-right border-0" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
                                     <a href="{% url 'add_product' %}" class="dropdown-item">Product Management</a>
@@ -111,11 +151,12 @@
                             {% endif %}
                         </div>
                     </li>
+
                     <li class="list-inline-item">
                         <a class="{% if grand_total %}text-info font-weight-bold{% else %}text-black{% endif %} nav-link" href="{% url 'view_bag' %}">
                             <div class="text-center">
                                 <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-                                <p class="my-0">${{ grand_total|default:"0.00"|floatformat:2 }}</p>
+                                <small class="d-block">{% if grand_total %}${{ grand_total|floatformat:2 }}{% else %}$0.00{% endif %}</small>
                             </div>
                         </a>
                     </li>
@@ -123,13 +164,11 @@
             </div>
         </div>
 
-        <div class="row bg-white">
+        <div class="row bg-white d-lg-none">
             <nav class="navbar navbar-expand-lg navbar-light w-100">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
-                {% include 'includes/main_nav.html' %}
                 {% include 'includes/mobile_top_header.html' %}
             </nav>
         </div>
