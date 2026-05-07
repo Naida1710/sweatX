@@ -418,6 +418,6 @@ input[name='q']::placeholder {
     transition: transform 0.2s ease;
 }
 
-#topnav .navbar-nav .dropdown-toggle.show::after {
+#topnav .navbar-nav .dropdown-toggle[aria-expanded="true"]::after {
     transform: rotate(180deg);
 }
