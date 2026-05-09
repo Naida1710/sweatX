@@ -427,3 +427,9 @@ input[name='q']::placeholder {
     object-fit: contain;
     object-position: center;
 }
+
+.image-container .card-img-top {
+    height: auto;
+    max-height: 500px;
+    width: 100%;
+}
