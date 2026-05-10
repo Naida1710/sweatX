@@ -69,19 +69,19 @@
     "category": 7, "sku": "PRG001",
     "name": "12-Week Strength Program (PDF)",
     "description": "Programmable strength building plan with progressive overload, exercise videos, and weekly check-ins.",
-    "price": "39.99", "rating": "4.8", "image_url": null, "image": "strength.png"}},
+    "price": "99.99", "rating": "4.8", "image_url": null, "image": "strength.png"}},
 
   {"pk": 13, "model": "products.product", "fields": {
     "category": 7, "sku": "PRG002",
     "name": "Beginner Home Workout Plan",
     "description": "8 weeks of home workouts requiring minimal equipment, perfect for getting started.",
-    "price": "19.99", "rating": "4.6", "image_url": null, "image": "beginner.png"}},
+    "price": "50.99", "rating": "4.6", "image_url": null, "image": "beginner.png"}},
 
   {"pk": 14, "model": "products.product", "fields": {
     "category": 7, "sku": "PRG003",
     "name": "Marathon Training 16 Weeks",
     "description": "Complete marathon prep program from base building to taper, with weekly mileage and pace targets.",
-    "price": "49.99", "rating": "4.9", "image_url": null, "image": "marathon.png"}},
+    "price": "149.99", "rating": "4.9", "image_url": null, "image": "marathon.png"}},
 
   {"pk": 15, "model": "products.product", "fields": {
     "category": 2, "sku": "PRO003",
