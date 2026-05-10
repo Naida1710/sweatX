@@ -9,4 +9,4 @@ Disallow: /media/
 # Allow search engines to find your products and programs
 Allow: /products/
 
-Sitemap: https://yourdomain.com/sitemap.xml
+Sitemap: https://sweatx-5364775215dc.herokuapp.com/sitemap.xml
