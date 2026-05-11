@@ -435,13 +435,14 @@ input[name='q']::placeholder {
 }
 
 /* Animated pink gradient delivery banner */
-#delivery-banner .col {
-    background: linear-gradient(90deg, #F527A9 0%, #FF79C6 25%, #ffffff 50%, #FF79C6 75%, #F527A9 100%) !important;
-    background-size: 300% 100%;
+#delivery-banner.row.text-center .col.bg-black {
+    background: linear-gradient(90deg, #F527A9 0%, #FF79C6 30%, #FFB8DC 50%, #FF79C6 70%, #F527A9 100%) !important;
+    background-size: 300% 100% !important;
+    background-color: transparent !important;
     color: #fff !important;
-    animation: banner-shimmer 4s linear infinite;
-    position: relative;
-    overflow: hidden;
+    animation: banner-shimmer 4s linear infinite !important;
+    position: relative !important;
+    overflow: hidden !important;
 }
 
 #delivery-banner .col h4 {
@@ -451,10 +452,6 @@ input[name='q']::placeholder {
 }
 
 @keyframes banner-shimmer {
-    0% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 200% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
 }
