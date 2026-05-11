@@ -548,6 +548,69 @@
         opacity: 1;
         transform: translateY(0);
     }
+
+    .feature-section {
+        background: #050505;
+        padding: 4rem 1rem;
+    }
+
+    .feature-row {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+        max-width: 1100px;
+        margin: 0 auto 4rem;
+    }
+
+    .feature-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .feature-row-reverse {
+        flex-direction: row-reverse;
+    }
+
+    .feature-text {
+        flex: 1;
+    }
+
+    .feature-text h2 {
+        color: #fff;
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 1rem;
+    }
+
+    .feature-text p {
+        color: rgba(255,255,255,0.88);
+        font-size: 1.1rem;
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+
+    .feature-image {
+        flex: 1;
+    }
+
+    .feature-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    @media (max-width: 991px) {
+        .feature-row,
+        .feature-row-reverse {
+            flex-direction: column-reverse;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-text h2 {
+            font-size: 2rem;
+        }
+    }
 </style>
 {% endblock %}
 
@@ -633,6 +696,27 @@
     </div>
 </section>
 {% endif %}
+
+<section class="feature-section reveal-on-scroll">
+    <div class="feature-row">
+        <div class="feature-text">
+            <h2>Fuel your training</h2>
+            <p>Clean supplements built around real goals. Whey isolate, creatine, pre-workout, and recovery formulas — chosen for athletes who care about what goes into their body.</p>
+        </div>
+        <div class="feature-image">
+            <img src="/media/RXVP-CHOC-DELICIOUS.jpeg" alt="sweatX supplement">
+        </div>
+    </div>
+    <div class="feature-row feature-row-reverse">
+        <div class="feature-text">
+            <h2>Train with intention</h2>
+            <p>Not sure where to start? Take our quick quiz and we'll match you to the right program. Or browse all programs and pick what fits — your call.</p>
+        </div>
+        <div class="feature-image">
+            <img src="/media/karsten.jpg" alt="sweatX training program">
+        </div>
+    </div>
+</section>
 
 <section class="newsletter-section reveal-on-scroll">
     <div class="newsletter-box">
