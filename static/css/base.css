@@ -433,3 +433,31 @@ input[name='q']::placeholder {
     max-height: 500px;
     width: 100%;
 }
+
+/* Pink gradient delivery banner with subtle shimmer */
+#delivery-banner .col {
+    background: linear-gradient(90deg, #ff1493 0%, #c71585 50%, #ff1493 100%);
+    background-size: 200% 100%;
+    color: #fff !important;
+    animation: banner-shimmer 6s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+#delivery-banner .col h4 {
+    position: relative;
+    z-index: 2;
+    letter-spacing: 0.5px;
+}
+
+@keyframes banner-shimmer {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
