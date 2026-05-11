@@ -537,6 +537,17 @@
         opacity: 1;
         transform: translateY(0);
     }
+
+    .reveal-on-load {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-on-load.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
 </style>
 {% endblock %}
 
@@ -549,7 +560,7 @@
 {% endblock %}
 
 {% block content %}
-<section class="hero-sweatx">
+<section class="hero-sweatx reveal-on-load">
     <div class="hero-inner">
         <div class="hero-brand">
             <span class="hero-brand-badge">sweatX</span>
@@ -728,6 +739,13 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+            const loadElements = document.querySelectorAll('.reveal-on-load');
+            loadElements.forEach(function (element) {
+                element.classList.add('is-visible');
+            });
+        }, 50);
+
         const elements = document.querySelectorAll('.reveal-on-scroll');
 
         const observer = new IntersectionObserver(function (entries) {
