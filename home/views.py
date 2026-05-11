@@ -8,7 +8,7 @@ def index(request):
     homepage_content = {
         'headline': 'Find your perfect fitness path',
         'subheadline': 'Shop supplements, discover training plans, and build your sweatX journey.',
-        'cta_text': 'Take the quiz',
+        'cta_text': 'Discover my plan',
         'cta_url': '/quizzes/training-quiz/',
     }
 
