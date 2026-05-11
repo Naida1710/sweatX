@@ -436,7 +436,7 @@ input[name='q']::placeholder {
 
 /* Pink gradient delivery banner with subtle shimmer */
 #delivery-banner .col {
-    background: linear-gradient(90deg, #ff1493 0%, #c71585 50%, #ff1493 100%);
+background: linear-gradient(90deg, #F527A9 0%, #FF79C6 50%, #F527A9 100%) !important;
     background-size: 200% 100%;
     color: #fff !important;
     animation: banner-shimmer 6s ease-in-out infinite;
