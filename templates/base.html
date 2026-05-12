@@ -74,14 +74,8 @@
 
             <div class="col">
                 <ul class="navbar-nav flex-row align-items-center">
-                    <li class="nav-item dropdown mr-3">
-                        <a class="nav-link dropdown-toggle text-black" href="#" id="all-products-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">All Products</a>
-                        <div class="dropdown-menu border-0" aria-labelledby="all-products-link">
-                            <a href="{% url 'products' %}?sort=price&direction=asc" class="dropdown-item">By Price</a>
-                            <a href="{% url 'products' %}?sort=rating&direction=desc" class="dropdown-item">By Rating</a>
-                            <a href="{% url 'products' %}?sort=category&direction=asc" class="dropdown-item">By Category</a>
-                            <a href="{% url 'products' %}" class="dropdown-item">All Products</a>
-                        </div>
+                    <li class="nav-item mr-3">
+                        <a class="nav-link text-black" href="{% url 'products' %}">All Products</a>
                     </li>
                     <li class="nav-item dropdown mr-3">
                         <a class="nav-link dropdown-toggle text-black" href="#" id="supplements-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Supplements</a>
