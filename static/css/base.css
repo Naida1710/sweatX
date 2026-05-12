@@ -138,10 +138,10 @@ input[name='q']::placeholder {
     pointer-events: auto;
     width: 100%;
     max-width: 100%;
-    animation: toast-slide-down 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: toast-slide-down 0.5s cubic-bezier(0.16, 1, 0.3, 1), toast-glow-pulse 2.5s ease-in-out infinite 0.5s;
     border: none;
     border-radius: 0;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18), 0 0 25px rgba(245, 39, 169, 0.35);
     margin-bottom: 0.75rem;
 }
 
@@ -153,6 +153,15 @@ input[name='q']::placeholder {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes toast-glow-pulse {
+    0%, 100% {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18), 0 0 25px rgba(245, 39, 169, 0.35);
+    }
+    50% {
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18), 0 0 45px rgba(245, 39, 169, 0.65);
     }
 }
 
@@ -175,6 +184,7 @@ input[name='q']::placeholder {
     font-size: 1.05rem;
     letter-spacing: 0.02em;
     text-transform: uppercase;
+    text-shadow: 0 0 12px rgba(245, 39, 169, 0.6);
 }
 
 .custom-toast .toast-header .close {
@@ -194,7 +204,7 @@ input[name='q']::placeholder {
 }
 
 .custom-toast .toast-capper {
-    height: 4px;
+    height: 6px;
     background: linear-gradient(90deg, #F527A9, #FF79C6);
 }
 
