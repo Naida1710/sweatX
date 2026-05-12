@@ -1,0 +1,318 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_title %}- About{% endblock %}
+
+{% block extra_css %}
+<style>
+    .about-page {
+        background: #07111e;
+    }
+
+    .about-hero {
+        background: linear-gradient(180deg, #07111e 0%, #03060b 100%);
+        padding: 6rem 1.5rem 5rem;
+        text-align: center;
+        color: #fff;
+    }
+
+    .about-hero-inner {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .about-hero h1 {
+        font-size: 3.4rem;
+        font-weight: 800;
+        letter-spacing: 0.01em;
+        line-height: 1.1;
+        margin: 0 0 1.5rem;
+    }
+
+    .about-hero p {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.78);
+        margin: 0;
+    }
+
+    .about-story {
+        background: #1a1a1a;
+        padding: 5rem 1.5rem;
+        color: #fff;
+    }
+
+    .about-story-inner {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .about-story h2 {
+        font-size: 2.4rem;
+        font-weight: 800;
+        margin: 0 0 2rem;
+        letter-spacing: 0.01em;
+    }
+
+    .about-story p {
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: rgba(255,255,255,0.82);
+        margin: 0 0 1.4rem;
+    }
+
+    .about-story p:last-child {
+        margin-bottom: 0;
+    }
+
+    .about-principles {
+        background: #07111e;
+        padding: 5rem 1.5rem;
+        color: #fff;
+    }
+
+    .about-principles-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .about-principles h2 {
+        font-size: 2.4rem;
+        font-weight: 800;
+        text-align: center;
+        margin: 0 0 3rem;
+        letter-spacing: 0.01em;
+    }
+
+    .about-principles-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .about-principle-card {
+        background: #050505;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .about-principle-icon {
+        font-size: 1.8rem;
+        color: #F527A9;
+    }
+
+    .about-principle-card h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 0;
+    }
+
+    .about-principle-card p {
+        font-size: 0.98rem;
+        line-height: 1.65;
+        color: rgba(255,255,255,0.88);
+        margin: 0;
+    }
+
+    .about-cta {
+        background: linear-gradient(180deg, #03060b 0%, #07111e 100%);
+        padding: 5rem 1.5rem;
+        text-align: center;
+        color: #fff;
+    }
+
+    .about-cta-inner {
+        max-width: 720px;
+        margin: 0 auto;
+    }
+
+    .about-cta h2 {
+        font-size: 2.6rem;
+        font-weight: 800;
+        margin: 0 0 1.2rem;
+    }
+
+    .about-cta p {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: rgba(255,255,255,0.78);
+        margin: 0 0 2.2rem;
+    }
+
+    .about-cta-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        min-width: 240px;
+        min-height: 62px;
+        padding: 0.95rem 1.4rem;
+        font-size: 1.15rem;
+        font-weight: 700;
+        text-decoration: none;
+        background: linear-gradient(90deg, #F527A9, #FF79C6);
+        color: #fff;
+        box-shadow: 0 18px 35px rgba(245, 39, 169, 0.22);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .about-cta-btn:hover {
+        color: #fff;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 22px 45px rgba(245, 39, 169, 0.3);
+    }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .reveal-on-load {
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal-on-load.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        .about-hero {
+            padding: 4rem 1.25rem 3.5rem;
+        }
+        .about-hero h1 {
+            font-size: 2.2rem;
+        }
+        .about-hero p {
+            font-size: 1.05rem;
+        }
+        .about-story,
+        .about-principles,
+        .about-cta {
+            padding: 3.5rem 1.25rem;
+        }
+        .about-story h2,
+        .about-principles h2 {
+            font-size: 1.8rem;
+        }
+        .about-cta h2 {
+            font-size: 2rem;
+        }
+        .about-principles-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block page_header %}
+    <div class="container header-container">
+        <div class="row">
+            <div class="col"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="about-page">
+
+    <section class="about-hero reveal-on-load">
+        <div class="about-hero-inner">
+            <h1>Built for athletes who mean it</h1>
+            <p>sweatX is where training meets intention. We help you find the right program, fuel your goals with quality supplements, and show up consistently — without the noise.</p>
+        </div>
+    </section>
+
+    <section class="about-story reveal-on-scroll">
+        <div class="about-story-inner">
+            <h2>Why sweatX exists</h2>
+            <p>Fitness should be personal. Most platforms throw the same generic plans at everyone, regardless of whether you're chasing strength, training for a marathon, or rebuilding after a setback. We didn't want to add to that noise.</p>
+            <p>sweatX was built around one idea: the right plan beats the popular plan. Take our quiz, get matched to a program that fits your goal, and pair it with supplements that actually support what you're doing — not what's trending this week.</p>
+            <p>We're a small team obsessed with the details — the kind of detail that turns 12 weeks of effort into real progress. No shortcuts. No empty promises. Just clean supplements, structured programs, and a community that shows up.</p>
+        </div>
+    </section>
+
+    <section class="about-principles reveal-on-scroll">
+        <div class="about-principles-inner">
+            <h2>What we stand for</h2>
+            <div class="about-principles-grid">
+
+                <div class="about-principle-card">
+                    <div class="about-principle-icon"><i class="fas fa-bullseye"></i></div>
+                    <h3>Personalised over popular</h3>
+                    <p>We don't sell one-size-fits-all. Every program is matched to your goal, every supplement chosen for a reason.</p>
+                </div>
+
+                <div class="about-principle-card">
+                    <div class="about-principle-icon"><i class="fas fa-flask"></i></div>
+                    <h3>Quality, no shortcuts</h3>
+                    <p>Clean supplements. Real ingredients. No proprietary blends or filler. If it's in our store, we'd take it ourselves.</p>
+                </div>
+
+                <div class="about-principle-card">
+                    <div class="about-principle-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Built for progress</h3>
+                    <p>Structured programs, smart pacing, and the supplements to back them up. Consistency beats intensity — and we make consistency easy.</p>
+                </div>
+
+                <div class="about-principle-card">
+                    <div class="about-principle-icon"><i class="fas fa-users"></i></div>
+                    <h3>An athlete's mindset</h3>
+                    <p>We're not here for quick wins or perfect aesthetics. We're here for the work — and for the people who show up to do it.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="about-cta reveal-on-scroll">
+        <div class="about-cta-inner">
+            <h2>Ready to start?</h2>
+            <p>Take the quiz, get matched to a program built around your goal, and get 10% off your first order as a sweatX Athlete.</p>
+            <a href="{% url 'training_quiz' %}" class="about-cta-btn">Discover my plan <span>&rarr;</span></a>
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+            const loadElements = document.querySelectorAll('.reveal-on-load');
+            loadElements.forEach(function (element) {
+                element.classList.add('is-visible');
+            });
+        }, 50);
+
+        const elements = document.querySelectorAll('.reveal-on-scroll');
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        elements.forEach(function (element) {
+            observer.observe(element);
+        });
+    });
+</script>
+{% endblock %}

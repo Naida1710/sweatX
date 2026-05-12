@@ -49,6 +49,11 @@ def index(request):
     return render(request, 'home/index.html', context)
 
 
+def about(request):
+    """ A view to return the about us page """
+    return render(request, 'home/about.html')
+
+
 def starter_plan(request):
     quiz_answers = request.session.get('quiz_answers', {})
     selected_goal = quiz_answers.get('goal')
