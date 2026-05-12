@@ -495,7 +495,7 @@ input[name='q']::placeholder {
     position: relative;
 }
 
-.nav-link.nav-link-active::after {
+.nav-link.nav-link-active:not(.dropdown-toggle)::after {
     content: "";
     position: absolute;
     left: 1rem;
@@ -504,4 +504,8 @@ input[name='q']::placeholder {
     height: 3px;
     background: linear-gradient(90deg, #F527A9, #FF79C6);
     border-radius: 2px;
+}
+
+.nav-link.dropdown-toggle.nav-link-active {
+    box-shadow: inset 0 -3px 0 0 #F527A9;
 }

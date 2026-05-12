@@ -75,7 +75,7 @@
             <div class="col">
                 <ul class="navbar-nav flex-row align-items-center">
                     <li class="nav-item mr-3">
-                        <a class="nav-link text-black {% if request.path == '/products/' %}nav-link-active{% endif %}" href="{% url 'products' %}">All Products</a>
+                        <a class="nav-link text-black {% if request.path == '/products/' and not request.GET.category %}nav-link-active{% endif %}" href="{% url 'products' %}">All Products</a>
                     </li>
                     <li class="nav-item dropdown mr-3">
                         <a class="nav-link dropdown-toggle text-black {% if request.path == '/products/' and request.GET.category and request.GET.category != 'programs' %}nav-link-active{% endif %}" href="#" id="supplements-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Supplements</a>
