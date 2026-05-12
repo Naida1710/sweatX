@@ -44,7 +44,18 @@ def bag_contents(request):
         delivery = 0
         free_delivery_delta = 0
 
-    grand_total = delivery + total
+    grand_total_before_discount = delivery + total
+    member_discount = 0
+    is_member = False
+
+    if request.user.is_authenticated:
+        is_member = True
+        member_discount = round(
+            grand_total_before_discount * Decimal(settings.MEMBER_DISCOUNT_PERCENTAGE) / Decimal(100),
+            2
+        )
+
+    grand_total = grand_total_before_discount - member_discount
 
     context = {
         'bag_items': bag_items,
@@ -54,6 +65,9 @@ def bag_contents(request):
         'free_delivery_delta': free_delivery_delta,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'grand_total': grand_total,
+        'is_member': is_member,
+        'member_discount': member_discount,
+        'grand_total_before_discount': grand_total_before_discount,
     }
 
     return context
