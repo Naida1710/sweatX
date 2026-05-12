@@ -78,7 +78,7 @@
                         <a class="nav-link text-black {% if request.path == '/products/' %}nav-link-active{% endif %}" href="{% url 'products' %}">All Products</a>
                     </li>
                     <li class="nav-item dropdown mr-3">
-                        <a class="nav-link dropdown-toggle text-black" href="#" id="supplements-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Supplements</a>
+                        <a class="nav-link dropdown-toggle text-black {% if request.path == '/products/' and request.GET.category and request.GET.category != 'programs' %}nav-link-active{% endif %}" href="#" id="supplements-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Supplements</a>
                         <div class="dropdown-menu border-0" aria-labelledby="supplements-link">
                             <a href="{% url 'products' %}?category=PREWORKOUT" class="dropdown-item">Pre-Workout</a>
                             <a href="{% url 'products' %}?category=PROTEIN" class="dropdown-item">Protein</a>
@@ -90,7 +90,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown mr-3">
-                        <a class="nav-link dropdown-toggle text-black" href="#" id="program-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
+                        <a class="nav-link dropdown-toggle text-black {% if request.GET.category == 'programs' or request.path == '/quizzes/training-quiz/' or request.path == '/quizzes/quiz-result/' %}nav-link-active{% endif %}" href="#" id="program-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
                         <div class="dropdown-menu border-0" aria-labelledby="program-link">
                             <a href="{% url 'training_quiz' %}" class="dropdown-item">Discover my plan</a>
                             <a href="{% url 'products' %}?category=programs" class="dropdown-item">All Programs</a>
