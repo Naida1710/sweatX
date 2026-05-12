@@ -7,6 +7,7 @@ from .models import Order, OrderLineItem
 from products.models import Product
 from profiles.models import UserProfile
 
+from decimal import Decimal
 import json
 import stripe
 import time
@@ -108,6 +109,12 @@ class StripeWH_Handler:
         else:
             order = None
             try:
+                member_discount = 0
+                if username != 'AnonymousUser':
+                    # buyer was authenticated -> apply the same discount calc
+                    pre_discount_total = Decimal(grand_total) / Decimal('0.9')
+                    member_discount = round(pre_discount_total - Decimal(grand_total), 2)
+
                 order = Order.objects.create(
                     full_name=shipping_details.name,
                     user_profile=profile,
@@ -122,6 +129,7 @@ class StripeWH_Handler:
                     grand_total=grand_total,
                     original_bag=bag,
                     stripe_pid=pid,
+                    member_discount=member_discount,
                 )
                 for item_id, item_data in json.loads(bag).items():
                     product = Product.objects.get(id=item_id)
