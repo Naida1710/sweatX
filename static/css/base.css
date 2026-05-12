@@ -125,9 +125,35 @@ input[name='q']::placeholder {
 
 .message-container {
     position: fixed;
-    top: 72px;
-    right: 15px;
+    top: 130px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 99999999999;
+    width: 90%;
+    max-width: 480px;
+    pointer-events: none;
+}
+
+.message-container .toast {
+    pointer-events: auto;
+    width: 100%;
+    max-width: 100%;
+    animation: toast-slide-down 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+    margin-bottom: 0.75rem;
+}
+
+@keyframes toast-slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .custom-toast {
@@ -138,50 +164,45 @@ input[name='q']::placeholder {
     height: 2px;
 }
 
-/* from CSS-tricks.com: https://css-tricks.com/snippets/css/css-triangle/ */
-
-.arrow-up {
-    width: 0; 
-    height: 0; 
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent; 
-    border-bottom: 10px solid black;
-    position: absolute;
-    top: -10px;
-    right: 36px;
+.custom-toast .toast-header {
+    background: #000;
+    color: #fff;
+    border-bottom: none;
+    padding: 0.85rem 1.2rem;
 }
 
-/* Convenience classes - colors copied from Bootstrap */
-.arrow-primary {
-    border-bottom-color: #007bff !important;
+.custom-toast .toast-header strong {
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
 }
 
-.arrow-secondary {
-    border-bottom-color: #6c757d !important;
+.custom-toast .toast-header .close {
+    color: #fff;
+    opacity: 0.85;
+    text-shadow: none;
 }
 
-.arrow-success {
-    border-bottom-color: #28a745 !important;
+.custom-toast .toast-header .close:hover {
+    opacity: 1;
 }
 
-.arrow-danger {
-    border-bottom-color: #dc3545 !important;
+.custom-toast .toast-body {
+    background: #fff;
+    padding: 1.2rem;
+    font-size: 0.95rem;
 }
 
-.arrow-warning {
-    border-bottom-color: #ffc107 !important;
+.custom-toast .toast-capper {
+    height: 4px;
+    background: linear-gradient(90deg, #F527A9, #FF79C6);
 }
 
-.arrow-info {
-    border-bottom-color: #17a2b8 !important;
-}
-
-.arrow-light {
-    border-bottom-color: #f8f9fa !important;
-}
-
-.arrow-dark {
-    border-bottom-color: #343a40 !important;
+.toast-capper.bg-success,
+.toast-capper.bg-danger,
+.toast-capper.bg-info,
+.toast-capper.bg-warning {
+    background: linear-gradient(90deg, #F527A9, #FF79C6) !important;
 }
 
 .bag-notification-wrapper {
