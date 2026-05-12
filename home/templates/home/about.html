@@ -36,6 +36,30 @@
         margin: 0;
     }
 
+    .about-image {
+        background: #fff;
+        padding: 0 1.5rem 5rem;
+        text-align: center;
+    }
+
+    .about-image-inner {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .about-image img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 768px) {
+        .about-image {
+            padding: 0 1.25rem 3.5rem;
+        }
+    }
+
     .about-story {
         background: #fff;
         padding: 5rem 1.5rem;
@@ -233,6 +257,12 @@
         <div class="about-hero-inner">
             <h1>Built for athletes who mean it</h1>
             <p>sweatX is where training meets intention. We help you find the right program, fuel your goals with quality supplements, and show up consistently — without the noise.</p>
+        </div>
+    </section>
+
+    <section class="about-image reveal-on-scroll">
+        <div class="about-image-inner">
+            <img src="/media/sweatx-laptop.png" alt="sweatX dashboard on a laptop">
         </div>
     </section>
 
