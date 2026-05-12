@@ -173,6 +173,10 @@
         font-size: 0.9rem;
         margin: 0.6rem 0 0;
     }
+    .bag-totals-card .member-discount-line {
+        color: #F527A9;
+        font-weight: 600;
+    }
 
     .bag-actions {
         margin-top: 2rem;
@@ -322,6 +326,9 @@
                     <div class="bag-totals-card">
                         <p class="totals-line">Bag Total: ${{ total|floatformat:2 }}</p>
                         <p class="totals-line">Delivery: ${{ delivery|floatformat:2 }}</p>
+                        {% if is_member %}
+                            <p class="totals-line member-discount-line">Member discount (10%): -${{ member_discount|floatformat:2 }}</p>
+                        {% endif %}
                         <hr class="totals-divider">
                         <p class="grand-total">Grand Total: ${{ grand_total|floatformat:2 }}</p>
                         {% if free_delivery_delta > 0 %}

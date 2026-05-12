@@ -97,6 +97,11 @@ select option[value=""] {
     color: #F527A9;
 }
 
+.member-discount-line {
+    color: #F527A9;
+    font-weight: 600;
+}
+
 .btn-pink-checkout {
     background: linear-gradient(90deg, #F527A9, #FF79C6);
     color: #fff;

@@ -61,11 +61,17 @@
                     <div class="col-7 offset-2">
                         <p class="my-0">Order Total:</p>
                         <p class="my-0">Delivery:</p>
+                        {% if is_member %}
+                            <p class="my-0 member-discount-line">Member discount (10%):</p>
+                        {% endif %}
                         <p class="my-0 grand-total-row">Grand Total:</p>
                     </div>
                     <div class="col-3">
                         <p class="my-0">${{ total | floatformat:2 }}</p>
                         <p class="my-0">${{ delivery | floatformat:2 }}</p>
+                        {% if is_member %}
+                            <p class="my-0 member-discount-line">-${{ member_discount|floatformat:2 }}</p>
+                        {% endif %}
                         <p class="my-0 grand-total-row"><strong>${{ grand_total | floatformat:2 }}</strong></p>
                     </div>
                 </div>
