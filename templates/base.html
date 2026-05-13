@@ -41,13 +41,13 @@
             background: white;
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-            border-bottom: 5px solid #43e97b;
+            border-bottom: 5px solid #F527A9;
             animation: slideInUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .deals-popup-content { padding: 25px; position: relative; }
         .close-deals { position: absolute; top: 10px; right: 15px; border: none; background: none; font-size: 22px; color: #ccc; cursor: pointer; outline: none !important; }
-        .icon-circle { width: 50px; height: 50px; background: #f0fdf4; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 20px; }
-        .btn-mint { background: linear-gradient(45deg, #43e97b, #38f9d7); color: white !important; border: none; font-weight: 800; }
+        .icon-circle { width: 50px; height: 50px; background: #fde7f4; color: #F527A9; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto; font-size: 20px; }
+        .btn-pink { background: linear-gradient(45deg, #F527A9, #FF79C6); color: white !important; border: none; font-weight: 800; }
         @keyframes slideInUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 
@@ -232,7 +232,7 @@
             <h5 class="font-weight-bold" style="color: #111;">10% OFF EVERY ORDER</h5>
             <p class="small text-muted">Sign up as a sweatX Athlete and get 10% off automatically on every purchase. No codes, no limits.</p>
 
-            <a href="{% url 'account_signup' %}" class="btn btn-sm btn-mint rounded-pill px-4 py-2 shadow-sm">Become a member <span>&rarr;</span></a>
+            <a href="{% url 'account_signup' %}" class="btn btn-sm btn-pink rounded-pill px-4 py-2 shadow-sm">Become a member <span>&rarr;</span></a>
         </div>
     </div>
 </div>
