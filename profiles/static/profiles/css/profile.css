@@ -32,6 +32,8 @@
     box-shadow: 0 10px 25px rgba(245, 39, 169, 0.22);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     letter-spacing: 0.02em;
+    border-radius: 50rem;
+    text-transform: uppercase;
 }
 
 .profile-starter-cta:hover {
