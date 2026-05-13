@@ -30,9 +30,11 @@
             <div class="col-12 col-lg-4 mb-4">
                 <div class="card border-0 shadow-sm p-4" style="border-radius: 20px;">
                     <div class="text-center mb-4">
-                        <div class="mx-auto" style="width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(45deg, #43e97b, #38f9d7); padding: 4px;">
-                            <div class="bg-white w-100 h-100 rounded-circle d-flex align-items-center justify-content-center overflow-hidden">
-                                <i class="fas fa-user fa-3x text-muted"></i>
+                        <div class="mx-auto profile-avatar-ring">
+                            <div class="profile-avatar-inner">
+                                <span class="profile-avatar-initials">
+                                    {% if user.first_name and user.last_name %}{{ user.first_name|slice:":1"|upper }}{{ user.last_name|slice:":1"|upper }}{% elif user.first_name %}{{ user.first_name|slice:":1"|upper }}{% elif user.email %}{{ user.email|slice:":1"|upper }}{% else %}{{ user.username|slice:":1"|upper }}{% endif %}
+                                </span>
                             </div>
                         </div>
                         <h4 class="mt-3 font-weight-bold mb-0">{{ user.get_full_name|default:user.username }}</h4>
