@@ -178,7 +178,7 @@
             <h2>Get to know yourself</h2>
             <p class="starter-body">Before you train, before you shop, take 2 minutes to figure out what you actually want. Strength? Energy? Weight loss? Mobility? There's no wrong answer — but knowing it changes everything.</p>
             <p class="starter-time"><i class="fas fa-clock"></i>~2 minutes</p>
-            <a href="{% url 'training_quiz' %}" class="starter-cta">Take the quiz <span>&rarr;</span></a>
+            <a href="{% url 'training_quiz' %}" class="starter-cta" target="_blank" rel="noopener">Take the quiz <span>&rarr;</span></a>
         </div>
 
         <div class="starter-card reveal-on-scroll">
@@ -186,7 +186,7 @@
             <h2>Find your program</h2>
             <p class="starter-body">Now you know your goal. Today, see the programs we've built around it. No commitment — just browse. Get a feel for what training with intention looks like.</p>
             <p class="starter-time"><i class="fas fa-clock"></i>~5 minutes</p>
-            <a href="{% url 'products' %}?category=programs" class="starter-cta">View programs <span>&rarr;</span></a>
+            <a href="{% url 'products' %}?category=programs" class="starter-cta" target="_blank" rel="noopener">View programs <span>&rarr;</span></a>
         </div>
 
         <div class="starter-card reveal-on-scroll">
@@ -194,7 +194,7 @@
             <h2>Fuel matters</h2>
             <p class="starter-body">Training without fueling is half the work. Learn what supplements actually support what you're doing — from pre-workout energy to recovery protein. Quality over quantity.</p>
             <p class="starter-time"><i class="fas fa-clock"></i>~10 minutes</p>
-            <a href="{% url 'products' %}?category=PROTEIN" class="starter-cta">Browse supplements <span>&rarr;</span></a>
+            <a href="{% url 'products' %}?category=PROTEIN" class="starter-cta" target="_blank" rel="noopener">Browse supplements <span>&rarr;</span></a>
         </div>
 
         <div class="starter-card reveal-on-scroll">
@@ -202,7 +202,7 @@
             <h2>Read the reviews</h2>
             <p class="starter-body">Don't take our word for it. See what other sweatX athletes say about the programs and supplements they use. Real reviews from real people — the kind of social proof that matters.</p>
             <p class="starter-time"><i class="fas fa-clock"></i>~5 minutes</p>
-            <a href="{% url 'reviews' %}" class="starter-cta">Read reviews <span>&rarr;</span></a>
+            <a href="{% url 'reviews' %}" class="starter-cta" target="_blank" rel="noopener">Read reviews <span>&rarr;</span></a>
         </div>
 
         <div class="starter-card reveal-on-scroll">
@@ -213,7 +213,7 @@
             {% if user.is_authenticated %}
                 <p class="starter-member-line"><i class="fas fa-check"></i>You're already a sweatX member.</p>
             {% else %}
-                <a href="{% url 'account_signup' %}" class="starter-cta">Become a member <span>&rarr;</span></a>
+                <a href="{% url 'account_signup' %}" class="starter-cta" target="_blank" rel="noopener">Become a member <span>&rarr;</span></a>
             {% endif %}
         </div>
 
@@ -222,7 +222,7 @@
             <h2>Plan your first order</h2>
             <p class="starter-body">Now that you know your goal, your program, and your supplements, build your first shopping list. Take your time. Don't go overboard. Start with the basics that match what you'll actually use.</p>
             <p class="starter-time"><i class="fas fa-clock"></i>~10 minutes</p>
-            <a href="{% url 'products' %}" class="starter-cta">Shop now <span>&rarr;</span></a>
+            <a href="{% url 'products' %}" class="starter-cta" target="_blank" rel="noopener">Shop now <span>&rarr;</span></a>
         </div>
 
         <div class="starter-card reveal-on-scroll">
@@ -230,7 +230,7 @@
             <h2>Start your sweatX journey</h2>
             <p class="starter-body">You've explored, learned, planned. Now do. Complete your first order, open your program, and take step 1 of the real work. Whatever your goal is — strength, energy, longevity — this is where it begins.</p>
             <p class="starter-time"><i class="fas fa-clock"></i>as long as it takes</p>
-            <a href="{% url 'view_bag' %}" class="starter-cta">Go to my bag <span>&rarr;</span></a>
+            <a href="{% url 'view_bag' %}" class="starter-cta" target="_blank" rel="noopener">Go to my bag <span>&rarr;</span></a>
         </div>
 
         <p class="starter-closing">That's it. Seven steps, one at a time. You're ready.</p>
