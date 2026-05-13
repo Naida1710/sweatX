@@ -1,4 +1,8 @@
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
+from .models import StarterPlanProgress
 
 
 def index(request):
@@ -58,10 +62,39 @@ def starter_plan(request):
     quiz_answers = request.session.get('quiz_answers', {})
     selected_goal = quiz_answers.get('goal')
 
+    completed_steps = []
+    if request.user.is_authenticated:
+        completed_steps = list(
+            StarterPlanProgress.objects.filter(user=request.user).values_list('step_number', flat=True)
+        )
+
     context = {
         'selected_goal': selected_goal,
+        'completed_steps': completed_steps,
     }
     return render(request, 'home/starter_plan.html', context)
+
+
+@require_POST
+@login_required
+def complete_starter_step(request, step_number):
+    """ Mark a starter plan step as complete for the logged-in user """
+    if step_number < 1 or step_number > 7:
+        return JsonResponse({'error': 'Invalid step number'}, status=400)
+
+    StarterPlanProgress.objects.get_or_create(
+        user=request.user,
+        step_number=step_number,
+    )
+
+    completed_steps = list(
+        StarterPlanProgress.objects.filter(user=request.user).values_list('step_number', flat=True)
+    )
+
+    return JsonResponse({
+        'success': True,
+        'completed_steps': completed_steps,
+    })
 
 
 def handler404(request, exception):

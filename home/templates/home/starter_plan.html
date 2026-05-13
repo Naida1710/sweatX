@@ -42,11 +42,66 @@
         padding: 2rem 1.5rem 4rem;
     }
 
+    .starter-layout {
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 1.5rem;
+        align-items: start;
+        position: relative;
+    }
+
+    .starter-progress-bar {
+        position: sticky;
+        top: 150px;
+        width: 12px;
+        margin-left: auto;
+        height: calc(100vh - 200px);
+        max-height: 600px;
+        background: #fff;
+        border: 2px solid #F527A9;
+        border-radius: 6px;
+        overflow: visible;
+    }
+
+    .starter-progress-fill {
+        width: 100%;
+        background: linear-gradient(180deg, #F527A9, #FF79C6);
+        border-radius: 4px;
+        transition: height 0.6s ease;
+    }
+
+    .starter-progress-arrow {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 0;
+        border-left: 12px solid transparent;
+        border-right: 12px solid transparent;
+        border-top: 18px solid #F527A9;
+        transition: top 0.6s ease;
+    }
+
     .starter-card {
         background: #fff;
         box-shadow: 0 2px 12px rgba(0,0,0,0.07);
         padding: 2rem;
         margin-bottom: 1.5rem;
+    }
+
+    .starter-card.is-completed {
+        border-left: 4px solid #F527A9;
+        position: relative;
+    }
+
+    .starter-card.is-completed::before {
+        content: "✓";
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        color: #F527A9;
+        font-weight: 800;
+        font-size: 1.4rem;
     }
 
     .starter-card .starter-badge {
@@ -150,6 +205,12 @@
         .starter-card h2 {
             font-size: 1.35rem;
         }
+        .starter-layout {
+            grid-template-columns: 1fr;
+        }
+        .starter-progress-bar {
+            display: none;
+        }
     }
 </style>
 {% endblock %}
@@ -173,67 +234,79 @@
 
     <section class="starter-steps">
 
-        <div class="starter-card reveal-on-scroll">
-            <p class="starter-badge">Step 1</p>
-            <h2>Get to know yourself</h2>
-            <p class="starter-body">Before you train, before you shop, take 2 minutes to figure out what you actually want. Strength? Energy? Weight loss? Mobility? There's no wrong answer — but knowing it changes everything.</p>
-            <p class="starter-time"><i class="fas fa-clock"></i>~2 minutes</p>
-            <a href="{% url 'training_quiz' %}" class="starter-cta" target="_blank" rel="noopener">Take the quiz <span>&rarr;</span></a>
-        </div>
+        <div class="starter-layout">
 
-        <div class="starter-card reveal-on-scroll">
-            <p class="starter-badge">Step 2</p>
-            <h2>Find your program</h2>
-            <p class="starter-body">Now you know your goal. Today, see the programs we've built around it. No commitment — just browse. Get a feel for what training with intention looks like.</p>
-            <p class="starter-time"><i class="fas fa-clock"></i>~5 minutes</p>
-            <a href="{% url 'products' %}?category=programs" class="starter-cta" target="_blank" rel="noopener">View programs <span>&rarr;</span></a>
-        </div>
+            <div class="starter-progress-bar">
+                <div class="starter-progress-fill" data-completed="{{ completed_steps|length }}"></div>
+                <div class="starter-progress-arrow"></div>
+            </div>
 
-        <div class="starter-card reveal-on-scroll">
-            <p class="starter-badge">Step 3</p>
-            <h2>Fuel matters</h2>
-            <p class="starter-body">Training without fueling is half the work. Learn what supplements actually support what you're doing — from pre-workout energy to recovery protein. Quality over quantity.</p>
-            <p class="starter-time"><i class="fas fa-clock"></i>~10 minutes</p>
-            <a href="{% url 'products' %}?category=PROTEIN" class="starter-cta" target="_blank" rel="noopener">Browse supplements <span>&rarr;</span></a>
-        </div>
+            <div class="starter-cards">
 
-        <div class="starter-card reveal-on-scroll">
-            <p class="starter-badge">Step 4</p>
-            <h2>Read the reviews</h2>
-            <p class="starter-body">Don't take our word for it. See what other sweatX athletes say about the programs and supplements they use. Real reviews from real people — the kind of social proof that matters.</p>
-            <p class="starter-time"><i class="fas fa-clock"></i>~5 minutes</p>
-            <a href="{% url 'reviews' %}" class="starter-cta" target="_blank" rel="noopener">Read reviews <span>&rarr;</span></a>
-        </div>
+                <div class="starter-card reveal-on-scroll{% if 1 in completed_steps %} is-completed{% endif %}" data-step="1">
+                    <p class="starter-badge">Step 1</p>
+                    <h2>Get to know yourself</h2>
+                    <p class="starter-body">Before you train, before you shop, take 2 minutes to figure out what you actually want. Strength? Energy? Weight loss? Mobility? There's no wrong answer — but knowing it changes everything.</p>
+                    <p class="starter-time"><i class="fas fa-clock"></i>~2 minutes</p>
+                    <a href="{% url 'training_quiz' %}" class="starter-cta" target="_blank" rel="noopener" data-step="1">Take the quiz <span>&rarr;</span></a>
+                </div>
 
-        <div class="starter-card reveal-on-scroll">
-            <p class="starter-badge">Step 5</p>
-            <h2>Make it official</h2>
-            <p class="starter-body">Ready to commit? Set yourself up properly. Create your free sweatX Athlete account — it saves your delivery details for faster checkout AND unlocks 10% off every order. Forever.</p>
-            <p class="starter-time"><i class="fas fa-clock"></i>~2 minutes</p>
-            {% if user.is_authenticated %}
-                <p class="starter-member-line"><i class="fas fa-check"></i>You're already a sweatX member.</p>
-            {% else %}
-                <a href="{% url 'account_signup' %}" class="starter-cta" target="_blank" rel="noopener">Become a member <span>&rarr;</span></a>
-            {% endif %}
-        </div>
+                <div class="starter-card reveal-on-scroll{% if 2 in completed_steps %} is-completed{% endif %}" data-step="2">
+                    <p class="starter-badge">Step 2</p>
+                    <h2>Find your program</h2>
+                    <p class="starter-body">Now you know your goal. Today, see the programs we've built around it. No commitment — just browse. Get a feel for what training with intention looks like.</p>
+                    <p class="starter-time"><i class="fas fa-clock"></i>~5 minutes</p>
+                    <a href="{% url 'products' %}?category=programs" class="starter-cta" target="_blank" rel="noopener" data-step="2">View programs <span>&rarr;</span></a>
+                </div>
 
-        <div class="starter-card reveal-on-scroll">
-            <p class="starter-badge">Step 6</p>
-            <h2>Plan your first order</h2>
-            <p class="starter-body">Now that you know your goal, your program, and your supplements, build your first shopping list. Take your time. Don't go overboard. Start with the basics that match what you'll actually use.</p>
-            <p class="starter-time"><i class="fas fa-clock"></i>~10 minutes</p>
-            <a href="{% url 'products' %}" class="starter-cta" target="_blank" rel="noopener">Shop now <span>&rarr;</span></a>
-        </div>
+                <div class="starter-card reveal-on-scroll{% if 3 in completed_steps %} is-completed{% endif %}" data-step="3">
+                    <p class="starter-badge">Step 3</p>
+                    <h2>Fuel matters</h2>
+                    <p class="starter-body">Training without fueling is half the work. Learn what supplements actually support what you're doing — from pre-workout energy to recovery protein. Quality over quantity.</p>
+                    <p class="starter-time"><i class="fas fa-clock"></i>~10 minutes</p>
+                    <a href="{% url 'products' %}?category=PROTEIN" class="starter-cta" target="_blank" rel="noopener" data-step="3">Browse supplements <span>&rarr;</span></a>
+                </div>
 
-        <div class="starter-card reveal-on-scroll">
-            <p class="starter-badge">Step 7</p>
-            <h2>Start your sweatX journey</h2>
-            <p class="starter-body">You've explored, learned, planned. Now do. Complete your first order, open your program, and take step 1 of the real work. Whatever your goal is — strength, energy, longevity — this is where it begins.</p>
-            <p class="starter-time"><i class="fas fa-clock"></i>as long as it takes</p>
-            <a href="{% url 'view_bag' %}" class="starter-cta" target="_blank" rel="noopener">Go to my bag <span>&rarr;</span></a>
-        </div>
+                <div class="starter-card reveal-on-scroll{% if 4 in completed_steps %} is-completed{% endif %}" data-step="4">
+                    <p class="starter-badge">Step 4</p>
+                    <h2>Read the reviews</h2>
+                    <p class="starter-body">Don't take our word for it. See what other sweatX athletes say about the programs and supplements they use. Real reviews from real people — the kind of social proof that matters.</p>
+                    <p class="starter-time"><i class="fas fa-clock"></i>~5 minutes</p>
+                    <a href="{% url 'reviews' %}" class="starter-cta" target="_blank" rel="noopener" data-step="4">Read reviews <span>&rarr;</span></a>
+                </div>
 
-        <p class="starter-closing">That's it. Seven steps, one at a time. You're ready.</p>
+                <div class="starter-card reveal-on-scroll{% if 5 in completed_steps %} is-completed{% endif %}" data-step="5">
+                    <p class="starter-badge">Step 5</p>
+                    <h2>Make it official</h2>
+                    <p class="starter-body">Ready to commit? Set yourself up properly. Create your free sweatX Athlete account — it saves your delivery details for faster checkout AND unlocks 10% off every order. Forever.</p>
+                    <p class="starter-time"><i class="fas fa-clock"></i>~2 minutes</p>
+                    {% if user.is_authenticated %}
+                        <p class="starter-member-line"><i class="fas fa-check"></i>You're already a sweatX member.</p>
+                    {% else %}
+                        <a href="{% url 'account_signup' %}" class="starter-cta" target="_blank" rel="noopener" data-step="5">Become a member <span>&rarr;</span></a>
+                    {% endif %}
+                </div>
+
+                <div class="starter-card reveal-on-scroll{% if 6 in completed_steps %} is-completed{% endif %}" data-step="6">
+                    <p class="starter-badge">Step 6</p>
+                    <h2>Plan your first order</h2>
+                    <p class="starter-body">Now that you know your goal, your program, and your supplements, build your first shopping list. Take your time. Don't go overboard. Start with the basics that match what you'll actually use.</p>
+                    <p class="starter-time"><i class="fas fa-clock"></i>~10 minutes</p>
+                    <a href="{% url 'products' %}" class="starter-cta" target="_blank" rel="noopener" data-step="6">Shop now <span>&rarr;</span></a>
+                </div>
+
+                <div class="starter-card reveal-on-scroll{% if 7 in completed_steps %} is-completed{% endif %}" data-step="7">
+                    <p class="starter-badge">Step 7</p>
+                    <h2>Start your sweatX journey</h2>
+                    <p class="starter-body">You've explored, learned, planned. Now do. Complete your first order, open your program, and take step 1 of the real work. Whatever your goal is — strength, energy, longevity — this is where it begins.</p>
+                    <p class="starter-time"><i class="fas fa-clock"></i>as long as it takes</p>
+                    <a href="{% url 'view_bag' %}" class="starter-cta" target="_blank" rel="noopener" data-step="7">Go to my bag <span>&rarr;</span></a>
+                </div>
+
+                <p class="starter-closing">That's it. Seven steps, one at a time. You're ready.</p>
+
+            </div>
+        </div>
 
     </section>
 
@@ -259,5 +332,78 @@
             observer.observe(element);
         });
     });
+
+    (function () {
+        const isAuthenticated = {{ user.is_authenticated|yesno:"true,false" }};
+        const completedSteps = {{ completed_steps|default:"[]"|safe }};
+        const csrfToken = '{{ csrf_token }}';
+
+        function updateProgressBar() {
+            const cards = document.querySelectorAll('.starter-card');
+            const totalSteps = cards.length;
+            const completedCount = document.querySelectorAll('.starter-card.is-completed').length;
+            const fill = document.querySelector('.starter-progress-fill');
+            const arrow = document.querySelector('.starter-progress-arrow');
+            if (!fill || !arrow) return;
+
+            const fillPercent = (completedCount / totalSteps) * 100;
+            fill.style.height = fillPercent + '%';
+
+            let arrowPercent = fillPercent;
+            if (completedCount < totalSteps) {
+                arrowPercent = ((completedCount + 0.5) / totalSteps) * 100;
+            } else {
+                arrowPercent = 100;
+            }
+            arrow.style.top = arrowPercent + '%';
+        }
+
+        function markStepComplete(stepNumber) {
+            const card = document.querySelector('.starter-card[data-step="' + stepNumber + '"]');
+            if (card && !card.classList.contains('is-completed')) {
+                card.classList.add('is-completed');
+                updateProgressBar();
+            }
+
+            if (isAuthenticated) {
+                fetch('/starter-plan/complete/' + stepNumber + '/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                        'Content-Type': 'application/json',
+                    },
+                });
+            }
+        }
+
+        function showSigninToast() {
+            if (window.starterSigninToastShown) return;
+            window.starterSigninToastShown = true;
+
+            const toast = document.createElement('div');
+            toast.style.cssText = 'position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #1a1a1a; color: #fff; padding: 1rem 2rem; z-index: 99999; box-shadow: 0 12px 40px rgba(0,0,0,0.3); font-size: 0.95rem;';
+            toast.innerHTML = 'Sign in to save your progress &rarr;';
+            document.body.appendChild(toast);
+            setTimeout(function () {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.5s';
+                setTimeout(function () { toast.remove(); }, 500);
+            }, 3500);
+        }
+
+        document.querySelectorAll('.starter-cta[data-step]').forEach(function (cta) {
+            cta.addEventListener('click', function (e) {
+                const stepNumber = parseInt(cta.getAttribute('data-step'), 10);
+
+                if (!isAuthenticated) {
+                    showSigninToast();
+                }
+
+                markStepComplete(stepNumber);
+            });
+        });
+
+        updateProgressBar();
+    })();
 </script>
 {% endblock %}
