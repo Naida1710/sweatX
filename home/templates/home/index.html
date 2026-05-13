@@ -459,6 +459,19 @@
         margin-top: 1rem;
     }
 
+    .newsletter-modal-skip-link {
+        display: inline-block;
+        margin-top: 1rem;
+        color: #888;
+        font-size: 0.9rem;
+        text-decoration: underline;
+    }
+
+    .newsletter-modal-skip-link:hover {
+        color: #F527A9;
+        text-decoration: underline;
+    }
+
     @media (max-width: 991px) {
         .hero-sweatx {
             min-height: calc(100vh - 116px);
@@ -780,14 +793,29 @@
             </div>
 
             <div class="modal-body pt-2">
-                <h3>Your free 7-step starter plan is ready</h3>
-                <p class="mb-4">
-                    Welcome to sweatX. Your 7-step starter plan is ready to help you kick off your journey with a stronger routine.
-                </p>
+                {% if user.is_authenticated %}
+                    <h3>Your free 7-step starter plan is ready</h3>
+                    <p class="mb-4">
+                        Welcome to sweatX. Your 7-step starter plan is ready to help you kick off your journey with a stronger routine.
+                    </p>
 
-                <a href="{% url 'starter_plan' %}" class="newsletter-modal-btn">
-                    View my starter plan
-                </a>
+                    <a href="{% url 'starter_plan' %}" class="newsletter-modal-btn">
+                        View my starter plan
+                    </a>
+                {% else %}
+                    <h3>Your starter plan is almost ready</h3>
+                    <p class="mb-4">
+                        We've got your starter plan waiting. Create your free sweatX Athlete account to save your progress and unlock 10% off every order — forever.
+                    </p>
+
+                    <a href="{% url 'account_signup' %}" class="newsletter-modal-btn">
+                        Create my account
+                    </a>
+
+                    <a href="{% url 'starter_plan' %}" class="newsletter-modal-skip-link">
+                        Or skip and view the plan anyway &rarr;
+                    </a>
+                {% endif %}
 
                 <p class="newsletter-modal-note">
                     You’ll also receive sweatX updates, fitness tips, and product drops by email.
