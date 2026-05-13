@@ -1,5 +1,159 @@
 {% extends "base.html" %}
 
+{% block extra_title %}- Starter Plan{% endblock %}
+
+{% block extra_css %}
+<style>
+    .starter-page {
+        background: #fff;
+    }
+
+    .starter-hero {
+        text-align: center;
+        padding: 4rem 1.5rem 2rem;
+    }
+
+    .starter-hero h1 {
+        font-size: 2.6rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin: 0 0 1.25rem;
+        letter-spacing: 0.01em;
+    }
+
+    .starter-hero p {
+        max-width: 720px;
+        margin: 0 auto 1rem;
+        font-size: 1.1rem;
+        line-height: 1.65;
+        color: #555;
+    }
+
+    .starter-hero .starter-hero-note {
+        font-size: 0.9rem;
+        color: #888;
+        font-style: italic;
+        margin-top: 0.5rem;
+    }
+
+    .starter-steps {
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+    }
+
+    .starter-card {
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+        padding: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .starter-card .starter-badge {
+        display: inline-block;
+        color: #F527A9;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        font-size: 0.85rem;
+        margin: 0 0 0.6rem;
+    }
+
+    .starter-card h2 {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin: 0 0 1rem;
+    }
+
+    .starter-card p.starter-body {
+        font-size: 1.05rem;
+        line-height: 1.65;
+        color: #555;
+        margin: 0 0 1.2rem;
+    }
+
+    .starter-card .starter-time {
+        font-size: 0.9rem;
+        color: #888;
+        font-style: italic;
+        margin: 0 0 1.4rem;
+    }
+
+    .starter-card .starter-time i {
+        margin-right: 0.4rem;
+    }
+
+    .starter-cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding: 0.85rem 1.5rem;
+        background: linear-gradient(90deg, #F527A9, #FF79C6);
+        color: #fff;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 10px 25px rgba(245, 39, 169, 0.22);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .starter-cta:hover {
+        color: #fff;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 14px 32px rgba(245, 39, 169, 0.32);
+    }
+
+    .starter-member-line {
+        color: #F527A9;
+        font-style: italic;
+        font-weight: 600;
+        margin: 0;
+    }
+
+    .starter-member-line i {
+        margin-right: 0.4rem;
+    }
+
+    .starter-closing {
+        text-align: center;
+        padding: 2rem 1.5rem 1rem;
+        font-style: italic;
+        color: #888;
+    }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+        .starter-hero {
+            padding: 3rem 1.25rem 1.5rem;
+        }
+        .starter-hero h1 {
+            font-size: 2rem;
+        }
+        .starter-steps {
+            padding: 1.5rem 1.25rem 3rem;
+        }
+        .starter-card {
+            padding: 1.5rem;
+        }
+        .starter-card h2 {
+            font-size: 1.35rem;
+        }
+    }
+</style>
+{% endblock %}
+
 {% block page_header %}
 <div class="container header-container">
     <div class="row">
@@ -9,52 +163,101 @@
 {% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="text-center mb-5">
+<div class="starter-page">
+
+    <section class="starter-hero">
         <h1>Your sweatX Starter Plan</h1>
-        <p>Welcome to your first week with sweatX.</p>
-    </div>
+        <p>Not sure where to begin? Confused or overwhelmed? This 7-step plan walks you through sweatX one step at a time — go at your own pace, finish in a day or take a week. No commitment, no pressure. Just one small action per step to help you find your fit.</p>
+        <p class="starter-hero-note">Save this page. Come back any time to pick up where you left off.</p>
+    </section>
 
-    {% if selected_goal %}
-        <div class="alert alert-light text-center mb-4">
-            Personalised for your goal:
-            <strong>{{ selected_goal|title }}</strong>
+    <section class="starter-steps">
+
+        <div class="starter-card reveal-on-scroll">
+            <p class="starter-badge">Step 1</p>
+            <h2>Get to know yourself</h2>
+            <p class="starter-body">Before you train, before you shop, take 2 minutes to figure out what you actually want. Strength? Energy? Weight loss? Mobility? There's no wrong answer — but knowing it changes everything.</p>
+            <p class="starter-time"><i class="fas fa-clock"></i>~2 minutes</p>
+            <a href="{% url 'training_quiz' %}" class="starter-cta">Take the quiz <span>&rarr;</span></a>
         </div>
-    {% endif %}
 
-    <div class="card p-4 mb-3">
-        <h3>Step 1</h3>
-        <p>Full body workout and hydration focus.</p>
-    </div>
+        <div class="starter-card reveal-on-scroll">
+            <p class="starter-badge">Step 2</p>
+            <h2>Find your program</h2>
+            <p class="starter-body">Now you know your goal. Today, see the programs we've built around it. No commitment — just browse. Get a feel for what training with intention looks like.</p>
+            <p class="starter-time"><i class="fas fa-clock"></i>~5 minutes</p>
+            <a href="{% url 'products' %}?category=programs" class="starter-cta">View programs <span>&rarr;</span></a>
+        </div>
 
-    <div class="card p-4 mb-3">
-        <h3>Step 2</h3>
-        <p>Light movement, stretching, and recovery.</p>
-    </div>
+        <div class="starter-card reveal-on-scroll">
+            <p class="starter-badge">Step 3</p>
+            <h2>Fuel matters</h2>
+            <p class="starter-body">Training without fueling is half the work. Learn what supplements actually support what you're doing — from pre-workout energy to recovery protein. Quality over quantity.</p>
+            <p class="starter-time"><i class="fas fa-clock"></i>~10 minutes</p>
+            <a href="{% url 'products' %}?category=PROTEIN" class="starter-cta">Browse supplements <span>&rarr;</span></a>
+        </div>
 
-    <div class="card p-4 mb-3">
-        <h3>Step 3</h3>
-        <p>Strength session and protein-focused nutrition.</p>
-    </div>
+        <div class="starter-card reveal-on-scroll">
+            <p class="starter-badge">Step 4</p>
+            <h2>Read the reviews</h2>
+            <p class="starter-body">Don't take our word for it. See what other sweatX athletes say about the programs and supplements they use. Real reviews from real people — the kind of social proof that matters.</p>
+            <p class="starter-time"><i class="fas fa-clock"></i>~5 minutes</p>
+            <a href="{% url 'reviews' %}" class="starter-cta">Read reviews <span>&rarr;</span></a>
+        </div>
 
-    <div class="card p-4 mb-3">
-        <h3>Step 4</h3>
-        <p>Core work and mobility routine.</p>
-    </div>
+        <div class="starter-card reveal-on-scroll">
+            <p class="starter-badge">Step 5</p>
+            <h2>Make it official</h2>
+            <p class="starter-body">Ready to commit? Set yourself up properly. Create your free sweatX Athlete account — it saves your delivery details for faster checkout AND unlocks 10% off every order. Forever.</p>
+            <p class="starter-time"><i class="fas fa-clock"></i>~2 minutes</p>
+            {% if user.is_authenticated %}
+                <p class="starter-member-line"><i class="fas fa-check"></i>You're already a sweatX member.</p>
+            {% else %}
+                <a href="{% url 'account_signup' %}" class="starter-cta">Become a member <span>&rarr;</span></a>
+            {% endif %}
+        </div>
 
-    <div class="card p-4 mb-3">
-        <h3>Step 5</h3>
-        <p>Conditioning session and recovery support.</p>
-    </div>
+        <div class="starter-card reveal-on-scroll">
+            <p class="starter-badge">Step 6</p>
+            <h2>Plan your first order</h2>
+            <p class="starter-body">Now that you know your goal, your program, and your supplements, build your first shopping list. Take your time. Don't go overboard. Start with the basics that match what you'll actually use.</p>
+            <p class="starter-time"><i class="fas fa-clock"></i>~10 minutes</p>
+            <a href="{% url 'products' %}" class="starter-cta">Shop now <span>&rarr;</span></a>
+        </div>
 
-    <div class="card p-4 mb-3">
-        <h3>Step 6</h3>
-        <p>Low-intensity activity and wellness habits.</p>
-    </div>
+        <div class="starter-card reveal-on-scroll">
+            <p class="starter-badge">Step 7</p>
+            <h2>Start your sweatX journey</h2>
+            <p class="starter-body">You've explored, learned, planned. Now do. Complete your first order, open your program, and take step 1 of the real work. Whatever your goal is — strength, energy, longevity — this is where it begins.</p>
+            <p class="starter-time"><i class="fas fa-clock"></i>as long as it takes</p>
+            <a href="{% url 'view_bag' %}" class="starter-cta">Go to my bag <span>&rarr;</span></a>
+        </div>
 
-    <div class="card p-4 mb-3">
-        <h3>Step 7</h3>
-        <p>Reflection day and next-step planning.</p>
-    </div>
+        <p class="starter-closing">That's it. Seven steps, one at a time. You're ready.</p>
+
+    </section>
+
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const elements = document.querySelectorAll('.reveal-on-scroll');
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        elements.forEach(function (element) {
+            observer.observe(element);
+        });
+    });
+</script>
 {% endblock %}
