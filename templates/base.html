@@ -168,6 +168,29 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 {% include 'includes/mobile_top_header.html' %}
+
+                <div class="collapse navbar-collapse" id="main-nav">
+                    <ul class="navbar-nav flex-column w-100">
+                        <li class="nav-item">
+                            <a class="nav-link text-black px-2 py-2 border-bottom" href="{% url 'products' %}">All Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black px-2 py-2 border-bottom" href="{% url 'products' %}?category=PROTEIN">All Supplements</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black px-2 py-2 border-bottom" href="{% url 'products' %}?category=programs">All Programs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black px-2 py-2 border-bottom" href="{% url 'training_quiz' %}">Discover my plan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black px-2 py-2 border-bottom" href="{% url 'about' %}">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black px-2 py-2" href="{% url 'reviews' %}">Reviews</a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
 

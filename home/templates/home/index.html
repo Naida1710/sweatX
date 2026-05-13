@@ -789,7 +789,7 @@
         <div class="modal-content text-center p-3 p-md-4">
             <div class="modal-header">
                 <h5 class="modal-title w-100" id="newsletterSuccessModalLabel">Thanks for subscribing!</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div class="modal-body pt-2">
@@ -834,12 +834,7 @@
         const subscribed = urlParams.get('subscribed');
 
         if (subscribed === '1') {
-            const modalElement = document.getElementById('newsletterSuccessModal');
-
-            if (modalElement && typeof bootstrap !== 'undefined') {
-                const newsletterModal = new bootstrap.Modal(modalElement);
-                newsletterModal.show();
-            }
+            $('#newsletterSuccessModal').modal('show');
 
             if (window.history.replaceState) {
                 const cleanUrl = window.location.pathname;
