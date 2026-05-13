@@ -44,42 +44,30 @@
 
     .starter-layout {
         display: grid;
-        grid-template-columns: 60px 1fr;
+        grid-template-columns: 100px 1fr;
         gap: 1.5rem;
-        align-items: start;
+        align-items: stretch;
         position: relative;
     }
 
     .starter-progress-bar {
-        position: sticky;
-        top: 150px;
-        width: 12px;
+        width: 60px;
         margin-left: auto;
-        height: calc(100vh - 200px);
-        max-height: 600px;
         background: #fff;
-        border: 2px solid #F527A9;
-        border-radius: 6px;
-        overflow: visible;
+        border: 3px solid #F527A9;
+        border-radius: 8px;
+        position: relative;
+        align-self: stretch;
     }
 
     .starter-progress-fill {
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
         background: linear-gradient(180deg, #F527A9, #FF79C6);
-        border-radius: 4px;
+        border-radius: 5px;
         transition: height 0.6s ease;
-    }
-
-    .starter-progress-arrow {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 0;
-        border-left: 12px solid transparent;
-        border-right: 12px solid transparent;
-        border-top: 18px solid #F527A9;
-        transition: top 0.6s ease;
     }
 
     .starter-card {
@@ -238,7 +226,6 @@
 
             <div class="starter-progress-bar">
                 <div class="starter-progress-fill" data-completed="{{ completed_steps|length }}"></div>
-                <div class="starter-progress-arrow"></div>
             </div>
 
             <div class="starter-cards">
@@ -343,19 +330,10 @@
             const totalSteps = cards.length;
             const completedCount = document.querySelectorAll('.starter-card.is-completed').length;
             const fill = document.querySelector('.starter-progress-fill');
-            const arrow = document.querySelector('.starter-progress-arrow');
-            if (!fill || !arrow) return;
+            if (!fill) return;
 
             const fillPercent = (completedCount / totalSteps) * 100;
             fill.style.height = fillPercent + '%';
-
-            let arrowPercent = fillPercent;
-            if (completedCount < totalSteps) {
-                arrowPercent = ((completedCount + 0.5) / totalSteps) * 100;
-            } else {
-                arrowPercent = 100;
-            }
-            arrow.style.top = arrowPercent + '%';
         }
 
         function markStepComplete(stepNumber) {
