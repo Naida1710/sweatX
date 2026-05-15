@@ -8,3 +8,4 @@ staticfiles/
 CLAUDE.md
 audit_report.md
 media/review_images/
+heroku_logs.txt
