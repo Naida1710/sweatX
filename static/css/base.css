@@ -519,3 +519,26 @@ input[name='q']::placeholder {
 .nav-link.dropdown-toggle.nav-link-active {
     box-shadow: inset 0 -3px 0 0 #F527A9;
 }
+
+.btn-pink {
+    background: linear-gradient(135deg, #F527A9 0%, #FF79C6 100%);
+    color: white;
+    border: none;
+}
+
+.btn-pink:hover, .btn-pink:active, .btn-pink:focus {
+    background: linear-gradient(135deg, #FF79C6 0%, #F527A9 100%);
+    color: white;
+}
+
+.btn-outline-pink {
+    background: white;
+    color: #F527A9 !important;
+    border: 1px solid #F527A9;
+}
+
+.btn-outline-pink:hover, .btn-outline-pink:active, .btn-outline-pink:focus {
+    background: linear-gradient(135deg, #F527A9 0%, #FF79C6 100%);
+    color: white !important;
+    border: 1px solid #F527A9;
+}
