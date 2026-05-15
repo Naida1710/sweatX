@@ -568,3 +568,34 @@ input[name='q']::placeholder {
 .product-card .card-footer {
     padding: 0 16px 16px 16px;
 }
+
+.sort-select-wrapper {
+    max-width: 280px;
+    margin-left: auto;
+}
+
+.sort-select {
+    border: 1px solid #efefef;
+    padding: 8px 12px;
+    height: auto;
+    font-size: 14px;
+    color: #262626;
+    background-color: white;
+    transition: all 0.2s ease;
+}
+
+.sort-select:hover {
+    border-color: #FF79C6;
+}
+
+.sort-select:focus {
+    border-color: #F527A9;
+    box-shadow: 0 0 0 3px rgba(245, 39, 169, 0.15);
+    outline: none;
+}
+
+.sort-select-active {
+    border-color: #F527A9;
+    color: #F527A9;
+    font-weight: 600;
+}
