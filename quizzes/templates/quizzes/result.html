@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block page_header %}
 <div class="container header-container">
@@ -9,27 +10,129 @@
 {% endblock %}
 
 {% block content %}
+<section class="quiz-result-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+                <div class="quiz-result-card">
+                    <p class="quiz-result-label">We recommend</p>
+                    <h1 class="quiz-result-title">{{ product.name }}</h1>
+                    <p class="quiz-result-price">${{ product.price }}</p>
 
-<div class="container mt-5 mb-5">
-    <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-6">
-            <div class="card shadow border-0 p-4 text-center">
-                <h2 class="mb-3">Your Recommended Program</h2>
-                <h3 class="mb-4">{{ result_level }} Program</h3>
+                    <div class="quiz-result-image-wrap">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="quiz-result-image">
+                        {% else %}
+                            <img src="{% static 'images/noimage.png' %}" alt="{{ product.name }}" class="quiz-result-image">
+                        {% endif %}
+                    </div>
 
-                <p><strong>Training location:</strong> {{ location }}</p>
-                <p><strong>Main goal:</strong> {{ goal }}</p>
-                <p><strong>Extra motivation:</strong> {{ motivation }}</p>
-                <p><strong>Training focus:</strong> {{ training_focus }}/100</p>
+                    <p class="quiz-result-blurb">{{ blurb }}</p>
 
-                <div class="mt-4">
-                    <a href="{% url 'products' %}?category=programs" class="btn btn-dark rounded-0 px-4 py-2">
-                        View Programs
-                    </a>
+                    <div class="quiz-result-cta-wrap">
+                        <a href="{% url 'product_detail' product.id %}" class="quiz-result-cta">
+                            View this program <span>&rarr;</span>
+                        </a>
+                        <a href="{% url 'training_quiz' %}?step=1" class="quiz-result-retake">Retake quiz</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
+<style>
+    .quiz-result-section {
+        background: #0f0f0f;
+        min-height: 100vh;
+        padding: 60px 0;
+    }
+    .quiz-result-card {
+        background: #1a1a1a;
+        border-radius: 0;
+        padding: 48px 40px;
+        text-align: center;
+        color: #fff;
+        border: 1px solid #2a2a2a;
+    }
+    .quiz-result-label {
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        font-size: 0.85rem;
+        color: #FF79C6;
+        margin-bottom: 12px;
+    }
+    .quiz-result-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+        color: #fff;
+    }
+    .quiz-result-price {
+        font-size: 1.5rem;
+        color: #F527A9;
+        font-weight: 600;
+        margin-bottom: 32px;
+    }
+    .quiz-result-image-wrap {
+        max-width: 420px;
+        margin: 0 auto 32px auto;
+    }
+    .quiz-result-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .quiz-result-blurb {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #ddd;
+        max-width: 640px;
+        margin: 0 auto 40px auto;
+    }
+    .quiz-result-cta-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    .quiz-result-cta {
+        display: inline-block;
+        background: linear-gradient(135deg, #F527A9 0%, #FF79C6 100%);
+        color: white;
+        padding: 14px 36px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.25s ease;
+    }
+    .quiz-result-cta:hover {
+        background: linear-gradient(135deg, #FF79C6 0%, #F527A9 100%);
+        color: white;
+        text-decoration: none;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(245, 39, 169, 0.3);
+    }
+    .quiz-result-cta span {
+        margin-left: 8px;
+    }
+    .quiz-result-retake {
+        color: #aaa;
+        text-decoration: underline;
+        font-size: 0.9rem;
+    }
+    .quiz-result-retake:hover {
+        color: #FF79C6;
+    }
+
+    @media (max-width: 576px) {
+        .quiz-result-card {
+            padding: 32px 20px;
+        }
+        .quiz-result-title {
+            font-size: 1.75rem;
+        }
+    }
+</style>
 {% endblock %}
