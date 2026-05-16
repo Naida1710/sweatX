@@ -7,6 +7,7 @@ QUESTIONS = [
         "question": "What is your primary goal?",
         "type": "radio",
         "layout": "cards",
+        "image": "1.jpg",
         "options": [
             ("build_strength", "Build strength and muscle"),
             ("run_further", "Run further and improve endurance"),
@@ -19,6 +20,7 @@ QUESTIONS = [
         "question": "How would you describe your fitness experience?",
         "type": "radio",
         "layout": "list",
+        "image": "2.jpg",
         "options": [
             ("never_or_starting", "Never trained or just starting out"),
             ("on_and_off", "Some experience, on and off"),
@@ -55,6 +57,7 @@ QUESTIONS = [
         "question": "What does your current cardio look like?",
         "type": "radio",
         "layout": "list",
+        "image": "3.jpg",
         "options": [
             ("winded_stairs", "I get winded climbing stairs"),
             ("walk_30min", "I can walk 30 minutes comfortably"),
@@ -91,6 +94,7 @@ QUESTIONS = [
         "question": "What equipment do you have access to?",
         "type": "radio",
         "layout": "list",
+        "image": "5.jpg",
         "options": [
             ("body_only", "Just my body and a mat"),
             ("some_weights", "Some dumbbells or resistance bands"),
@@ -103,6 +107,7 @@ QUESTIONS = [
         "question": "How would you rate your running ability?",
         "type": "radio",
         "layout": "list",
+        "image": "6.jpg",
         "options": [
             ("cant_run", "I can't run more than a minute"),
             ("jog_short", "I can jog for 10-15 minutes"),
@@ -127,6 +132,7 @@ QUESTIONS = [
         "question": "How would you describe your motivation?",
         "type": "radio",
         "layout": "list",
+        "image": "7.jpg",
         "options": [
             ("need_structure", "I need a structured plan to stick with it"),
             ("get_stronger", "I want to get visibly stronger"),
@@ -139,6 +145,7 @@ QUESTIONS = [
         "question": "Which sounds more appealing right now?",
         "type": "radio",
         "layout": "cards",
+        "image": "8.jpg",
         "options": [
             ("build_muscle", "Building visible muscle and feeling stronger"),
             ("finish_line", "Crossing a finish line and proving endurance"),
@@ -150,6 +157,7 @@ QUESTIONS = [
         "question": "Do you currently experience any of these?",
         "type": "radio",
         "layout": "list",
+        "image": "9.jpg",
         "options": [
             ("joint_pain", "Joint pain or recovery issues"),
             ("inconsistent", "Difficulty staying consistent"),
@@ -162,6 +170,7 @@ QUESTIONS = [
         "question": "How important is rapid visible progress?",
         "type": "radio",
         "layout": "list",
+        "image": "10.jpg",
         "options": [
             ("very_important", "Very important - I want to see results fast"),
             ("patient", "Somewhat important - I'm patient"),
@@ -174,6 +183,7 @@ QUESTIONS = [
         "question": "What's your biggest barrier to training?",
         "type": "radio",
         "layout": "list",
+        "image": "11.jpg",
         "options": [
             ("dont_know_start", "I don't know where to start"),
             ("get_bored", "I get bored easily"),

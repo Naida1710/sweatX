@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block page_header %}
 <div class="container header-container">
@@ -21,6 +22,13 @@
                         </div>
                     </div>
 
+                    <div class="quiz-body {% if question_data.image %}quiz-body-with-image{% endif %}">
+                    {% if question_data.image %}
+                        <div class="quiz-image-wrap">
+                            <img src="{% static 'quizzes/images/'|add:question_data.image %}" alt="" class="quiz-image">
+                        </div>
+                    {% endif %}
+                    <div class="quiz-content">
                     <h2 class="quiz-question">{{ question_data.question }}</h2>
 
                     <form method="POST" id="quiz-form" novalidate>
@@ -85,6 +93,8 @@
                             {% endif %}
                         </div>
                     </form>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -126,6 +136,43 @@
     }
     .quiz-progress-wrap {
         margin-bottom: 40px;
+    }
+    .quiz-body {
+        width: 100%;
+    }
+    .quiz-body-with-image {
+        display: grid;
+        grid-template-columns: 320px 1fr;
+        gap: 32px;
+        align-items: start;
+    }
+    .quiz-image-wrap {
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid #2a2a2a;
+    }
+    .quiz-image {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+    .quiz-content {
+        min-width: 0;
+    }
+
+    @media (max-width: 768px) {
+        .quiz-body-with-image {
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+        .quiz-image-wrap {
+            max-height: 220px;
+            overflow: hidden;
+        }
+        .quiz-image {
+            object-fit: cover;
+            height: 220px;
+        }
     }
     .quiz-step-label {
         text-transform: uppercase;
