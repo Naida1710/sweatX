@@ -6,6 +6,7 @@ QUESTIONS = [
         "key": "primary_goal",
         "question": "What is your primary goal?",
         "type": "radio",
+        "layout": "cards",
         "options": [
             ("build_strength", "Build strength and muscle"),
             ("run_further", "Run further and improve endurance"),
@@ -17,6 +18,7 @@ QUESTIONS = [
         "key": "experience",
         "question": "How would you describe your fitness experience?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("never_or_starting", "Never trained or just starting out"),
             ("on_and_off", "Some experience, on and off"),
@@ -28,6 +30,7 @@ QUESTIONS = [
         "key": "training_location",
         "question": "Where do you prefer to train?",
         "type": "radio",
+        "layout": "grid",
         "options": [
             ("home", "At home"),
             ("gym", "At a gym"),
@@ -39,6 +42,7 @@ QUESTIONS = [
         "key": "time_per_week",
         "question": "How much time can you dedicate per week?",
         "type": "radio",
+        "layout": "grid",
         "options": [
             ("1_3", "1-3 hours (just starting)"),
             ("3_5", "3-5 hours"),
@@ -50,6 +54,7 @@ QUESTIONS = [
         "key": "cardio_baseline",
         "question": "What does your current cardio look like?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("winded_stairs", "I get winded climbing stairs"),
             ("walk_30min", "I can walk 30 minutes comfortably"),
@@ -61,6 +66,7 @@ QUESTIONS = [
         "key": "pushups",
         "question": "How many push-ups can you do in one set?",
         "type": "radio",
+        "layout": "grid",
         "options": [
             ("0_5", "0-5"),
             ("6_15", "6-15"),
@@ -72,6 +78,7 @@ QUESTIONS = [
         "key": "program_history",
         "question": "Have you completed a structured workout program before?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("never", "Never"),
             ("started_quit", "Started one but didn't finish"),
@@ -83,6 +90,7 @@ QUESTIONS = [
         "key": "equipment",
         "question": "What equipment do you have access to?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("body_only", "Just my body and a mat"),
             ("some_weights", "Some dumbbells or resistance bands"),
@@ -94,6 +102,7 @@ QUESTIONS = [
         "key": "running_ability",
         "question": "How would you rate your running ability?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("cant_run", "I can't run more than a minute"),
             ("jog_short", "I can jog for 10-15 minutes"),
@@ -105,6 +114,7 @@ QUESTIONS = [
         "key": "training_time",
         "question": "When do you train best?",
         "type": "radio",
+        "layout": "grid",
         "options": [
             ("morning", "Early morning"),
             ("lunch", "Lunch break"),
@@ -116,6 +126,7 @@ QUESTIONS = [
         "key": "motivation",
         "question": "How would you describe your motivation?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("need_structure", "I need a structured plan to stick with it"),
             ("get_stronger", "I want to get visibly stronger"),
@@ -127,6 +138,7 @@ QUESTIONS = [
         "key": "appeal",
         "question": "Which sounds more appealing right now?",
         "type": "radio",
+        "layout": "cards",
         "options": [
             ("build_muscle", "Building visible muscle and feeling stronger"),
             ("finish_line", "Crossing a finish line and proving endurance"),
@@ -137,6 +149,7 @@ QUESTIONS = [
         "key": "current_state",
         "question": "Do you currently experience any of these?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("joint_pain", "Joint pain or recovery issues"),
             ("inconsistent", "Difficulty staying consistent"),
@@ -148,6 +161,7 @@ QUESTIONS = [
         "key": "progress_priority",
         "question": "How important is rapid visible progress?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("very_important", "Very important - I want to see results fast"),
             ("patient", "Somewhat important - I'm patient"),
@@ -159,6 +173,7 @@ QUESTIONS = [
         "key": "biggest_barrier",
         "question": "What's your biggest barrier to training?",
         "type": "radio",
+        "layout": "list",
         "options": [
             ("dont_know_start", "I don't know where to start"),
             ("get_bored", "I get bored easily"),

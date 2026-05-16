@@ -27,7 +27,7 @@
                         {% csrf_token %}
 
                         {% if question_data.type == "radio" %}
-                            <div class="quiz-options">
+                            <div class="quiz-options quiz-options-{{ question_data.layout|default:'list' }}">
                                 {% for value, label in question_data.options %}
                                     <label class="quiz-option" for="{{ question_data.key }}_{{ forloop.counter }}">
                                         <input
@@ -157,6 +157,40 @@
         flex-direction: column;
         gap: 12px;
         margin-bottom: 24px;
+    }
+    .quiz-options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 24px;
+    }
+    .quiz-options-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .quiz-options-cards .quiz-option {
+        padding: 24px 24px;
+        font-size: 1.05rem;
+    }
+    .quiz-options-cards .quiz-option-text {
+        font-size: 1.05rem;
+        font-weight: 500;
+    }
+    .quiz-options-grid .quiz-option {
+        padding: 18px 16px;
+        justify-content: center;
+        text-align: center;
+    }
+    .quiz-options-grid .quiz-radio {
+        margin-right: 10px;
+    }
+
+    @media (max-width: 576px) {
+        .quiz-options-grid {
+            grid-template-columns: 1fr;
+        }
     }
     .quiz-option {
         display: flex;
