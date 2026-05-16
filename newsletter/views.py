@@ -34,8 +34,14 @@ def subscribe_newsletter(request):
 
         if is_duplicate:
             email = request.POST.get('email', '').lower().strip()
-            NewsletterSubscriber.objects.filter(email=email).update(wants_starter_plan=True)
-            messages.info(request, "You're already on the list — your starter plan is ready.")
+            NewsletterSubscriber.objects.filter(
+                email=email
+            ).update(wants_starter_plan=True)
+            messages.info(
+                request,
+                "You're already on the list — "
+                "your starter plan is ready."
+            )
             return redirect(f"{reverse('home')}?subscribed=1")
 
         messages.error(request, 'Please enter a valid email address.')

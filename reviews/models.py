@@ -11,11 +11,15 @@ class Review(models.Model):
         (5, '5 Stars'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='reviews'
+    )
     title = models.CharField(max_length=100)
     comment = models.TextField()
     rating = models.IntegerField(choices=RATING_CHOICES)
-    image = models.ImageField(upload_to='review_images/', blank=True, null=True)
+    image = models.ImageField(
+        upload_to='review_images/', blank=True, null=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=True)
 
@@ -33,8 +37,12 @@ class Review(models.Model):
 
 
 class ReviewComment(models.Model):
-    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review_comments')
+    review = models.ForeignKey(
+        Review, on_delete=models.CASCADE, related_name='comments'
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='review_comments'
+    )
     comment = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=True)
@@ -58,8 +66,12 @@ class ReviewVote(models.Model):
         ('dislike', 'Dislike'),
     ]
 
-    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='votes')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review_votes')
+    review = models.ForeignKey(
+        Review, on_delete=models.CASCADE, related_name='votes'
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name='review_votes'
+    )
     vote_type = models.CharField(max_length=10, choices=VOTE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -76,8 +88,13 @@ class ReviewCommentVote(models.Model):
         ('dislike', 'Dislike'),
     ]
 
-    comment = models.ForeignKey(ReviewComment, on_delete=models.CASCADE, related_name='votes')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='review_comment_votes')
+    comment = models.ForeignKey(
+        ReviewComment, on_delete=models.CASCADE, related_name='votes'
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name='review_comment_votes'
+    )
     vote_type = models.CharField(max_length=10, choices=VOTE_CHOICES)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -85,4 +102,7 @@ class ReviewCommentVote(models.Model):
         unique_together = ('comment', 'user')
 
     def __str__(self):
-        return f"{self.user.username} - {self.vote_type} - comment {self.comment.id}"
+        return (
+            f"{self.user.username} - {self.vote_type} "
+            f"- comment {self.comment.id}"
+        )

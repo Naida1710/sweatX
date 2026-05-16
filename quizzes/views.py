@@ -232,7 +232,9 @@ def training_quiz(request):
         "step": step,
         "total_steps": total_steps,
         "question_data": current_question,
-        "saved_value": answers.get(question_key, current_question.get("default", "")),
+        "saved_value": answers.get(
+            question_key, current_question.get("default", "")
+        ),
         "progress_percent": int((step / total_steps) * 100),
     }
 
@@ -358,9 +360,22 @@ def quiz_result(request):
     }
 
     program_blurbs = {
-        "beginner": "Based on your answers, you're ready to build a strong foundation. This 8-week home program is designed for people just starting out, using bodyweight movements that progress at your pace.",
-        "strength": "Your answers show you're ready to push harder. This 12-week strength program is built for people who want visible muscle and measurable strength gains.",
-        "marathon": "You're built for endurance. This 16-week marathon training plan will guide you from where you are now to crossing the finish line with confidence.",
+        "beginner": (
+            "Based on your answers, you're ready to build a strong "
+            "foundation. This 8-week home program is designed for "
+            "people just starting out, using bodyweight movements "
+            "that progress at your pace."
+        ),
+        "strength": (
+            "Your answers show you're ready to push harder. This "
+            "12-week strength program is built for people who want "
+            "visible muscle and measurable strength gains."
+        ),
+        "marathon": (
+            "You're built for endurance. This 16-week marathon "
+            "training plan will guide you from where you are now to "
+            "crossing the finish line with confidence."
+        ),
     }
 
     scores = {
@@ -375,7 +390,11 @@ def quiz_result(request):
     try:
         product = Product.objects.get(name=winner_name)
     except Product.DoesNotExist:
-        messages.error(request, "We had trouble loading your recommended program. Please browse our programs directly.")
+        messages.error(
+            request,
+            "We had trouble loading your recommended program. "
+            "Please browse our programs directly."
+        )
         return redirect("products")
 
     context = {

@@ -51,7 +51,9 @@ def bag_contents(request):
     if request.user.is_authenticated:
         is_member = True
         member_discount = round(
-            grand_total_before_discount * Decimal(settings.MEMBER_DISCOUNT_PERCENTAGE) / Decimal(100),
+            grand_total_before_discount
+            * Decimal(settings.MEMBER_DISCOUNT_PERCENTAGE)
+            / Decimal(100),
             2
         )
 

@@ -33,9 +33,11 @@ def review_list(request):
     context = {
         'reviews': reviews,
         'form': ReviewForm() if request.user.is_authenticated else None,
-        'comment_form': ReviewCommentForm() if request.user.is_authenticated else None,
+        'comment_form': (
+            ReviewCommentForm() if request.user.is_authenticated else None
+        ),
         'user_liked_reviews': user_liked_reviews,
-        'user_liked_comments': user_liked_comments, # Added this
+        'user_liked_comments': user_liked_comments,  # Added this
     }
     return render(request, 'reviews/review_list.html', context)
 

@@ -3,7 +3,10 @@ from django.contrib.auth.models import User
 
 
 class StarterPlanProgress(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='starter_plan_progress')
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name='starter_plan_progress'
+    )
     step_number = models.PositiveSmallIntegerField()
     completed_at = models.DateTimeField(auto_now_add=True)
 
