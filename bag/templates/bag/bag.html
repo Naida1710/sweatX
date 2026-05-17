@@ -372,7 +372,7 @@
 {{ block.super }}
 {% include 'products/includes/quantity_input_script.html' %}
 
-<script type="text/javascript">
+<script>
     $('.update-link').click(function(e) {
         var form = $(this).closest('.bag-item-qty').find('.update-form');
         form.submit();

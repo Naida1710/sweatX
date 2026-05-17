@@ -79,7 +79,7 @@
                     </li>
                     <li class="nav-item dropdown mr-3">
                         <a class="nav-link dropdown-toggle text-black {% if request.path == '/products/' and request.GET.category and request.GET.category != 'programs' %}nav-link-active{% endif %}" href="#" id="supplements-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Supplements</a>
-                        <div class="dropdown-menu border-0" aria-labelledby="supplements-link">
+                        <div class="dropdown-menu border-0" role="menu" aria-labelledby="supplements-link">
                             <a href="{% url 'products' %}?category=PREWORKOUT" class="dropdown-item">Pre-Workout</a>
                             <a href="{% url 'products' %}?category=PROTEIN" class="dropdown-item">Protein</a>
                             <a href="{% url 'products' %}?category=CREATINE" class="dropdown-item">Creatine</a>
@@ -91,7 +91,7 @@
                     </li>
                     <li class="nav-item dropdown mr-3">
                         <a class="nav-link dropdown-toggle text-black {% if request.GET.category == 'programs' or request.path == '/quizzes/training-quiz/' or request.path == '/quizzes/quiz-result/' %}nav-link-active{% endif %}" href="#" id="program-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Program</a>
-                        <div class="dropdown-menu border-0" aria-labelledby="program-link">
+                        <div class="dropdown-menu border-0" role="menu" aria-labelledby="program-link">
                             <a href="{% url 'training_quiz' %}" class="dropdown-item">Discover my plan</a>
                             <a href="{% url 'products' %}?category=programs" class="dropdown-item">All Programs</a>
                         </div>
@@ -111,7 +111,7 @@
                         <a class="text-black nav-link" href="#" id="search-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-search fa-lg"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right border-0 p-3" aria-labelledby="search-toggle" style="min-width: 320px;">
+                        <div class="dropdown-menu dropdown-menu-right border-0 p-3" role="menu" aria-labelledby="search-toggle" style="min-width: 320px;">
                             <form method="GET" action="{% url 'products' %}">
                                 <div class="input-group">
                                     <input class="form-control border border-black rounded-0" type="text" name="q" placeholder="Search our site" required>
@@ -136,7 +136,7 @@
                                 {% endif %}
                             </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right border-0" aria-labelledby="user-options">
+                        <div class="dropdown-menu dropdown-menu-right border-0" role="menu" aria-labelledby="user-options">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
                                     <a href="{% url 'add_product' %}" class="dropdown-item">Product Management</a>
@@ -167,7 +167,9 @@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                {% include 'includes/mobile_top_header.html' %}
+                <ul class="list-inline mb-0">
+                    {% include 'includes/mobile_top_header.html' %}
+                </ul>
 
                 <div class="collapse navbar-collapse" id="main-nav">
                     <ul class="navbar-nav flex-column w-100">
@@ -199,7 +201,7 @@
 
         <div id="delivery-banner" class="row text-center">
             <div class="col bg-black text-white">
-                <h4 class="logo-font my-1">Free delivery on orders over ${{ free_delivery_threshold }}!</h4>
+                <h3 class="logo-font my-1">Free delivery on orders over ${{ free_delivery_threshold }}!</h3>
             </div>
         </div>
     </header>
@@ -235,7 +237,7 @@
             <div class="icon-circle mb-2">
                 <i class="fas fa-percent"></i>
             </div>
-            <h5 class="font-weight-bold" style="color: #111;">10% OFF EVERY ORDER</h5>
+            <h4 class="font-weight-bold" style="color: #111;">10% OFF EVERY ORDER</h4>
             <p class="small text-muted">Sign up as a sweatX Athlete and get 10% off automatically on every purchase. No codes, no limits.</p>
 
             <a href="{% url 'account_signup' %}" class="btn btn-sm btn-pink rounded-pill px-4 py-2 shadow-sm">Become a member <span>&rarr;</span></a>
@@ -245,7 +247,7 @@
 {% endif %}
 
     {% block postloadjs %}
-    <script type="text/javascript">
+    <script>
         $('.toast').toast('show');
 
         // Logic for Welcome Bubble

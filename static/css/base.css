@@ -787,7 +787,7 @@ input[name='q']::placeholder {
     padding-bottom: 0;
 }
 
-.newsletter-modal .btn-close {
+.newsletter-modal .close {
     filter: invert(1);
     opacity: 0.9;
 }
