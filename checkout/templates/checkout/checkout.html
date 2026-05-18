@@ -147,11 +147,12 @@
         </div>
     </div>
     <div id="loading-overlay">
-        <h1 class="text-light logo-font loading-spinner">
+        <div class="text-light logo-font loading-spinner" role="status" aria-live="polite">
+            <span class="sr-only">Processing payment</span>
             <span class="icon">
                 <i class="fas fa-3x fa-sync-alt fa-spin"></i>
             </span>
-        </h1>
+        </div>
     </div>
 {% endblock %}
 
