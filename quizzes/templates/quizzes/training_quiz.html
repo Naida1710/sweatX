@@ -1,127 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
-</div>
-{% endblock %}
-
-{% block content %}
-<section class="quiz-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-lg-8">
-                <div class="quiz-card">
-                    <div class="quiz-progress-wrap">
-                        <p class="quiz-step-label">Question {{ step }} of {{ total_steps }}</p>
-                        <div class="quiz-progress-bar">
-                            <div class="quiz-progress-fill" style="width: {{ progress_percent }}%;"></div>
-                        </div>
-                    </div>
-
-                    <div class="quiz-body {% if question_data.image %}quiz-body-with-image{% endif %}">
-                    {% if question_data.image %}
-                        <div class="quiz-image-wrap">
-                            <img src="{% static 'quizzes/images/'|add:question_data.image %}" alt="" class="quiz-image">
-                        </div>
-                    {% endif %}
-                    <div class="quiz-content">
-                    <h2 class="quiz-question">{{ question_data.question }}</h2>
-
-                    <form method="POST" id="quiz-form" novalidate>
-                        {% csrf_token %}
-
-                        {% if question_data.type == "radio" %}
-                            <div class="quiz-options quiz-options-{{ question_data.layout|default:'list' }}">
-                                {% for value, label in question_data.options %}
-                                    <label class="quiz-option" for="{{ question_data.key }}_{{ forloop.counter }}">
-                                        <input
-                                            type="radio"
-                                            name="{{ question_data.key }}"
-                                            id="{{ question_data.key }}_{{ forloop.counter }}"
-                                            value="{{ value }}"
-                                            class="quiz-radio"
-                                            {% if saved_value == value %}checked{% endif %}
-                                        >
-                                        <span class="quiz-option-text">{{ label }}</span>
-                                    </label>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-
-                        {% if question_data.type == "range" %}
-                            <div class="quiz-range-wrap">
-                                <p class="quiz-range-helptext">{{ question_data.help_text }}</p>
-                                <div class="quiz-range-labels">
-                                    <span>{{ question_data.left_label }}</span>
-                                    <span>{{ question_data.right_label }}</span>
-                                </div>
-                                <input
-                                    type="range"
-                                    class="quiz-range"
-                                    name="{{ question_data.key }}"
-                                    id="{{ question_data.key }}"
-                                    min="{{ question_data.min }}"
-                                    max="{{ question_data.max }}"
-                                    value="{{ saved_value|default:question_data.default }}"
-                                    oninput="updateRangeValue(this.value)"
-                                >
-                                <p class="quiz-range-value">Selected: <span id="range-value">{{ saved_value|default:question_data.default }}</span></p>
-                            </div>
-                        {% endif %}
-
-                        <p id="quiz-error" class="quiz-error" style="display: none;">Please select an answer before continuing.</p>
-
-                        <div class="quiz-actions">
-                            {% if step > 1 %}
-                                <button type="submit" name="action" value="back" class="quiz-btn-back">&larr; Back</button>
-                            {% else %}
-                                <span></span>
-                            {% endif %}
-
-                            {% if step < total_steps %}
-                                <button type="submit" name="action" value="continue" class="quiz-btn-continue" onclick="return validateAnswer('{{ question_data.key }}', '{{ question_data.type }}')">
-                                    Continue &rarr;
-                                </button>
-                            {% else %}
-                                <button type="submit" name="action" value="continue" class="quiz-btn-continue" onclick="return validateAnswer('{{ question_data.key }}', '{{ question_data.type }}')">
-                                    See My Result &rarr;
-                                </button>
-                            {% endif %}
-                        </div>
-                    </form>
-                    </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<script>
-    function validateAnswer(questionKey, questionType) {
-        const errorEl = document.getElementById("quiz-error");
-        if (questionType === "range") {
-            errorEl.style.display = "none";
-            return true;
-        }
-        const selected = document.querySelector('input[name="' + questionKey + '"]:checked');
-        if (!selected) {
-            errorEl.style.display = "block";
-            return false;
-        }
-        errorEl.style.display = "none";
-        return true;
-    }
-    function updateRangeValue(value) {
-        const rangeValue = document.getElementById("range-value");
-        if (rangeValue) rangeValue.textContent = value;
-    }
-</script>
-
+{% block extra_css %}
 <style>
     .quiz-section {
         background: #0f0f0f;
@@ -358,4 +238,126 @@
         }
     }
 </style>
+{% endblock %}
+
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<section class="quiz-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="quiz-card">
+                    <div class="quiz-progress-wrap">
+                        <p class="quiz-step-label">Question {{ step }} of {{ total_steps }}</p>
+                        <div class="quiz-progress-bar">
+                            <div class="quiz-progress-fill" style="width: {{ progress_percent }}%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-body {% if question_data.image %}quiz-body-with-image{% endif %}">
+                    {% if question_data.image %}
+                        <div class="quiz-image-wrap">
+                            <img src="{% static 'quizzes/images/'|add:question_data.image %}" alt="" class="quiz-image">
+                        </div>
+                    {% endif %}
+                    <div class="quiz-content">
+                    <h1 class="quiz-question">{{ question_data.question }}</h1>
+
+                    <form method="POST" id="quiz-form" novalidate>
+                        {% csrf_token %}
+
+                        {% if question_data.type == "radio" %}
+                            <div class="quiz-options quiz-options-{{ question_data.layout|default:'list' }}">
+                                {% for value, label in question_data.options %}
+                                    <label class="quiz-option" for="{{ question_data.key }}_{{ forloop.counter }}">
+                                        <input
+                                            type="radio"
+                                            name="{{ question_data.key }}"
+                                            id="{{ question_data.key }}_{{ forloop.counter }}"
+                                            value="{{ value }}"
+                                            class="quiz-radio"
+                                            {% if saved_value == value %}checked{% endif %}
+                                        >
+                                        <span class="quiz-option-text">{{ label }}</span>
+                                    </label>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+                        {% if question_data.type == "range" %}
+                            <div class="quiz-range-wrap">
+                                <p class="quiz-range-helptext">{{ question_data.help_text }}</p>
+                                <div class="quiz-range-labels">
+                                    <span>{{ question_data.left_label }}</span>
+                                    <span>{{ question_data.right_label }}</span>
+                                </div>
+                                <input
+                                    type="range"
+                                    class="quiz-range"
+                                    name="{{ question_data.key }}"
+                                    id="{{ question_data.key }}"
+                                    min="{{ question_data.min }}"
+                                    max="{{ question_data.max }}"
+                                    value="{{ saved_value|default:question_data.default }}"
+                                    oninput="updateRangeValue(this.value)"
+                                >
+                                <p class="quiz-range-value">Selected: <span id="range-value">{{ saved_value|default:question_data.default }}</span></p>
+                            </div>
+                        {% endif %}
+
+                        <p id="quiz-error" class="quiz-error" style="display: none;">Please select an answer before continuing.</p>
+
+                        <div class="quiz-actions">
+                            {% if step > 1 %}
+                                <button type="submit" name="action" value="back" class="quiz-btn-back">&larr; Back</button>
+                            {% else %}
+                                <span></span>
+                            {% endif %}
+
+                            {% if step < total_steps %}
+                                <button type="submit" name="action" value="continue" class="quiz-btn-continue" onclick="return validateAnswer('{{ question_data.key }}', '{{ question_data.type }}')">
+                                    Continue &rarr;
+                                </button>
+                            {% else %}
+                                <button type="submit" name="action" value="continue" class="quiz-btn-continue" onclick="return validateAnswer('{{ question_data.key }}', '{{ question_data.type }}')">
+                                    See My Result &rarr;
+                                </button>
+                            {% endif %}
+                        </div>
+                    </form>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function validateAnswer(questionKey, questionType) {
+        const errorEl = document.getElementById("quiz-error");
+        if (questionType === "range") {
+            errorEl.style.display = "none";
+            return true;
+        }
+        const selected = document.querySelector('input[name="' + questionKey + '"]:checked');
+        if (!selected) {
+            errorEl.style.display = "block";
+            return false;
+        }
+        errorEl.style.display = "none";
+        return true;
+    }
+    function updateRangeValue(value) {
+        const rangeValue = document.getElementById("range-value");
+        if (rangeValue) rangeValue.textContent = value;
+    }
+</script>
 {% endblock %}
