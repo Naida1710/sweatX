@@ -5,37 +5,39 @@
 
 {% block content %}
     <div class="overlay"></div>
-    <div class="container header-container">
-        <div class="row">
-            <div class="col-12 text-center my-5 py-5">
-                <div class="display-1 font-weight-bold text-white mb-0" style="font-size: 8rem; opacity: 0.1; position: absolute; left: 50%; transform: translateX(-50%); z-index: -1;">
-                    404
-                </div>
-                
-                <div class="mt-5">
-                    <i class="fas fa-exclamation-triangle fa-5x text-pink mb-4" style="color: #F527A9;"></i>
-                    <h1 class="logo-font text-white display-4">MISSED THE MARK?</h1>
-                    <p class="lead text-white-50 mx-auto" style="max-width: 500px;">
-                        The page you are looking for doesn't exist or has been moved. 
-                        Don't let it ruin your workout—get back on track below.
-                    </p>
-                </div>
+    <div style="background: #0f0f0f; min-height: 100vh; position: relative; z-index: 1;">
+        <div class="container header-container">
+            <div class="row">
+                <div class="col-12 text-center my-5 py-5">
+                    <div class="display-1 font-weight-bold text-white mb-0" style="font-size: 8rem; opacity: 0.1; position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: -1;">
+                        404
+                    </div>
+                    
+                    <div class="mt-5">
+                        <i class="fas fa-exclamation-triangle fa-5x text-pink mb-4" style="color: #F527A9;"></i>
+                        <h1 class="logo-font text-white display-4">MISSED THE MARK?</h1>
+                        <p class="lead text-white-50 mx-auto" style="max-width: 500px;">
+                            The page you are looking for doesn't exist or has been moved. 
+                            Don't let it ruin your workout—get back on track below.
+                        </p>
+                    </div>
 
-                <div class="mt-5">
-                    <a href="{% url 'home' %}" class="btn btn-black rounded-0 btn-lg px-5 text-uppercase mr-md-2 mb-3">
-                        <i class="fas fa-home mr-2"></i> Home
-                    </a>
-                    <a href="{% url 'products' %}" class="btn btn-outline-white rounded-0 btn-lg px-5 text-uppercase mb-3" style="border-color: #F527A9; color: #fff;">
-                        <i class="fas fa-shopping-bag mr-2"></i> Shop Gear
-                    </a>
-                </div>
+                    <div class="mt-5">
+                        <a href="{% url 'home' %}" class="btn btn-black rounded-0 btn-lg px-5 text-uppercase mr-md-2 mb-3">
+                            <i class="fas fa-home mr-2"></i> Home
+                        </a>
+                        <a href="{% url 'products' %}" class="btn btn-outline-white rounded-0 btn-lg px-5 text-uppercase mb-3" style="border-color: #F527A9; color: #fff;">
+                            <i class="fas fa-shopping-bag mr-2"></i> Shop Now
+                        </a>
+                    </div>
 
-                <div class="mt-5 pt-5">
-                    <p class="text-muted small text-uppercase letter-spacing">Need help finding something?</p>
-                    <div class="d-flex justify-content-center gap-3">
-                        <a href="{% url 'products' %}?category=PREWORKOUT" class="text-white-50 mx-2 small">Pre-Workout</a>
-                        <a href="{% url 'products' %}?category=programs" class="text-white-50 mx-2 small">Training Plans</a>
-                        <a href="{% url 'profile' %}" class="text-white-50 mx-2 small">My Profile</a>
+                    <div class="mt-5 pt-5">
+                        <p class="text-muted small text-uppercase letter-spacing">Need help finding something?</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'products' %}?category=PREWORKOUT" class="text-white-50 mx-2 small">Pre-Workout</a>
+                            <a href="{% url 'products' %}?category=programs" class="text-white-50 mx-2 small">Training Plans</a>
+                            <a href="{% url 'profile' %}" class="text-white-50 mx-2 small">My Profile</a>
+                        </div>
                     </div>
                 </div>
             </div>
