@@ -1,15 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block page_header %}
-<div class="container header-container">
-    <div class="row">
-        <div class="col"></div>
-    </div>
-</div>
-{% endblock %}
-
-{% block content %}
+{% block extra_css %}
 <style>
     /* UI Branding & Feed Layout */
     .reviews-page { background-color: #fafafa; min-height: 100vh; position: relative; z-index: 1; }
@@ -76,7 +68,7 @@
     background: radial-gradient(circle, rgba(255,255,255,0.15), transparent 70%);
 }
 
-.review-cta-card h3 {
+.review-cta-card h2 {
     font-weight: 700;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
@@ -135,17 +127,28 @@
 }
 
 </style>
+{% endblock %}
 
+{% block page_header %}
+<div class="container header-container">
+    <div class="row">
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
 <div class="reviews-page py-5">
     <div class="container" style="max-width: 550px;">
         
         <div class="mb-4 px-2 text-center">
-            <h4 class="font-weight-bold mb-1">Sweat X Community Feed</h4>
+            <h1 class="sr-only">Sweat X Community Feed</h1>
+            <p class="h4 font-weight-bold mb-1">Sweat X Community Feed</p>
             <small class="text-muted">Join the journey and share your progress</small>
         </div>
 
         <div class="review-cta-card">
-            <h3>Leave a Review</h3>
+            <h2 class="h3">Leave a Review</h2>
             <p>Loved your Sweat X experience? Share your feedback with the community.</p>
             {% if request.user.is_authenticated %}
                 <button class="btn btn-primary rounded-pill px-5 shadow-sm" data-toggle="modal" data-target="#addReviewModal">
@@ -282,7 +285,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg">
             <div class="modal-header">
-                <h5 class="modal-title font-weight-bold">Share Your Experience</h5>
+                <h2 class="modal-title font-weight-bold h5">Share Your Experience</h2>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body p-4">
