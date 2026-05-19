@@ -1,8 +1,8 @@
 <li class="list-inline-item">
-    <a class="text-black nav-link d-block d-lg-none" href="#" id="mobile-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="text-black nav-link d-block d-xl-none" href="#" id="mobile-search" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="Search">
         <div class="text-center">
-            <div><i class="fas fa-search fa-lg"></i></div>
-            <p class="my-0">Search</p>
+            <div><i class="fas fa-search fa-lg" aria-hidden="true"></i></div>
+            <p class="my-0 d-none d-sm-block">Search</p>
         </div>
     </a>
     <div class="dropdown-menu border-0 w-100 p-3 rounded-0 my-0" role="menu" aria-labelledby="mobile-search">
@@ -21,15 +21,15 @@
     </div>
 </li>
 <li class="list-inline-item dropdown">
-    <a class="text-black nav-link d-block d-lg-none" href="#" id="user-options-mobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <a class="text-black nav-link d-block d-xl-none" href="#" id="user-options-mobile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="My Account">
         <div class="text-center">
-            <div><i class="fas fa-user fa-lg"></i></div>
+            <div><i class="fas fa-user fa-lg" aria-hidden="true"></i></div>
             {% if request.user.is_authenticated %}
-<div class="user-bubble">
+<div class="user-bubble d-none d-sm-inline-block">
     Hi, {{ request.user.username }}
 </div>
 {% else %}
-<p class="my-0">My Account</p>
+<p class="my-0 d-none d-sm-block">My Account</p>
 {% endif %}
         </div>
     </a>
@@ -47,10 +47,10 @@
     </div>
 </li>
 <li class="list-inline-item">
-    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-lg-none" href="{% url 'view_bag' %}">
+    <a class="{% if grand_total %}text-primary font-weight-bold{% else %}text-black{% endif %} nav-link d-block d-xl-none" href="{% url 'view_bag' %}" aria-label="Shopping bag">
         <div class="text-center">
-            <div><i class="fas fa-shopping-bag fa-lg"></i></div>
-            <p class="my-0">
+            <div><i class="fas fa-shopping-bag fa-lg" aria-hidden="true"></i></div>
+            <p class="my-0 d-none d-sm-block">
                 {% if grand_total %}
                     ${{ grand_total|floatformat:2 }}
                 {% else %}

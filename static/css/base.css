@@ -407,7 +407,7 @@ input[name='q']::placeholder {
 
 
 /* fixed top navbar only on medium and up */
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
     .fixed-top-desktop-only {
         position: fixed;
         top: 0;
@@ -426,13 +426,32 @@ input[name='q']::placeholder {
 }
 
 /* pad the top a bit when navbar is collapsed on mobile */
-@media (max-width: 991px) {
+@media (max-width: 1199.98px) {
     .header-container {
         padding-top: 220px;
     }
 
     body {
         height: calc(100vh - 220px);
+    }
+}
+
+/* Keep the mobile action-icon row compact alongside the hamburger toggle */
+@media (max-width: 1199.98px) {
+    .navbar .list-inline.mb-0 {
+        display: flex;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+    .navbar .list-inline.mb-0 .nav-link {
+        padding: 0.25rem 0.5rem;
+    }
+    .navbar .list-inline.mb-0 .list-inline-item:not(:last-child) {
+        margin-right: 0.25rem;
+    }
+    .navbar .list-inline.mb-0 .user-bubble {
+        padding: 2px 8px;
+        font-size: 0.75rem;
     }
 }
 
