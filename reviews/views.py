@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.views.decorators.http import require_POST
 
 from .forms import ReviewCommentForm, ReviewForm
@@ -50,7 +52,11 @@ def add_review(request):
         review = form.save(commit=False)
         review.user = request.user
         review.save()
-        messages.success(request, 'Thanks! Your review has been submitted.')
+        messages.success(
+            request,
+            'Thanks! Your review has been submitted.',
+            extra_tags='no-bag-preview',
+        )
     return redirect('reviews')
 
 
@@ -65,7 +71,11 @@ def edit_review(request, review_id):
     form = ReviewForm(request.POST, request.FILES, instance=review)
     if form.is_valid():
         form.save()
-        messages.success(request, 'Your review has been updated.')
+        messages.success(
+            request,
+            'Your review has been updated.',
+            extra_tags='no-bag-preview',
+        )
     return redirect('reviews')
 
 
@@ -75,7 +85,11 @@ def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
     if review.user == request.user:
         review.delete()
-        messages.success(request, 'Your review has been deleted.')
+        messages.success(
+            request,
+            'Your review has been deleted.',
+            extra_tags='no-bag-preview',
+        )
     return redirect('reviews')
 
 
@@ -89,8 +103,12 @@ def add_review_comment(request, review_id):
         comment.review = review
         comment.user = request.user
         comment.save()
-        messages.success(request, 'Your comment has been added.')
-    return redirect('reviews')
+        messages.success(
+            request,
+            'Your comment has been added.',
+            extra_tags='no-bag-preview',
+        )
+    return HttpResponseRedirect(reverse('reviews') + f'#review-{review_id}')
 
 
 @login_required
@@ -109,7 +127,7 @@ def vote_review(request, review_id, vote_type):
         else:
             vote.vote_type = vote_type
             vote.save()
-    return redirect('reviews')
+    return HttpResponseRedirect(reverse('reviews') + f'#review-{review_id}')
 
 
 @login_required
@@ -128,27 +146,37 @@ def vote_review_comment(request, comment_id, vote_type):
         else:
             vote.vote_type = vote_type
             vote.save()
-    return redirect('reviews')
+    return HttpResponseRedirect(reverse('reviews') + f'#comment-{comment_id}')
 
 
 @login_required
 @require_POST
 def edit_review_comment(request, comment_id):
     comment = get_object_or_404(ReviewComment, id=comment_id)
+    review_id = comment.review_id
     if comment.user == request.user:
         text = request.POST.get('comment', '').strip()
         if text:
             comment.comment = text
             comment.save()
-            messages.success(request, 'Comment updated.')
-    return redirect('reviews')
+            messages.success(
+                request,
+                'Comment updated.',
+                extra_tags='no-bag-preview',
+            )
+    return HttpResponseRedirect(reverse('reviews') + f'#review-{review_id}')
 
 
 @login_required
 @require_POST
 def delete_review_comment(request, comment_id):
     comment = get_object_or_404(ReviewComment, id=comment_id)
+    review_id = comment.review_id
     if comment.user == request.user:
         comment.delete()
-        messages.success(request, 'Comment deleted.')
-    return redirect('reviews')
+        messages.success(
+            request,
+            'Comment deleted.',
+            extra_tags='no-bag-preview',
+        )
+    return HttpResponseRedirect(reverse('reviews') + f'#review-{review_id}')

@@ -33,7 +33,10 @@
     .review-comment { margin: 0; color: #262626; line-height: 1.5; }
 
     /* Comments Section */
-    .comments-wrapper { padding: 12px 16px; background-color: #f9f9f9; border-top: 1px solid #efefef; }
+    .comments-wrapper { padding: 12px 16px; background-color: #f0f0f0; border-top: 1px solid #e0e0e0; }
+    .comment-item { padding: 8px 12px; background: #fff; border-radius: 8px; margin-bottom: 8px; }
+    .comment-item:last-child { margin-bottom: 0; }
+    .edit-form-inline { display: flex; align-items: center; gap: 6px; }
     .comment-meta { font-size: 12px; color: #8e8e8e; display: flex; gap: 12px; margin-top: 4px; align-items: center; }
     .comment-meta button, .comment-meta form button { background: none !important; border: none !important; padding: 0 !important; font-weight: 600; color: #8e8e8e; cursor: pointer; }
 
@@ -163,7 +166,7 @@
 
         {% if reviews %}
             {% for review in reviews %}
-                <div class="review-card">
+                <div class="review-card" id="review-{{ review.id }}">
                     <div class="review-header">
                         <div class="review-author-info d-flex align-items-center">
                             <div class="review-avatar">
@@ -248,17 +251,26 @@
                     <div class="comments-wrapper">
                         {% for comment in review.comments.all %}
                             {% if comment.approved %}
-                            <div class="comment-item d-flex justify-content-between mb-2">
+                            <div class="comment-item d-flex justify-content-between mb-2" id="comment-{{ comment.id }}">
                                 <div class="flex-grow-1">
                                     <span class="username mr-1">{{ comment.user.username }}</span>
                                     <span id="comment-text-{{ comment.id }}">{{ comment.comment }}</span>
-                                    
+
                                     <div class="comment-meta">
                                         {% if request.user == comment.user %}
                                             <button type="button" class="btn-edit" onclick="toggleEdit('{{ comment.id }}')">Edit</button>
                                             <form method="POST" action="{% url 'delete_review_comment' comment.id %}" class="d-inline">
                                                 {% csrf_token %}
                                                 <button type="submit" class="btn-delete">Delete</button>
+                                            </form>
+                                            <form method="POST"
+                                                  action="{% url 'edit_review_comment' comment.id %}"
+                                                  id="edit-form-{{ comment.id }}"
+                                                  class="edit-form-inline d-none mt-1">
+                                                {% csrf_token %}
+                                                <input type="text" name="comment" value="{{ comment.comment }}" class="insta-input flex-grow-1" required>
+                                                <button type="submit" class="post-btn">Save</button>
+                                                <button type="button" class="post-btn" onclick="toggleEdit('{{ comment.id }}')">Cancel</button>
                                             </form>
                                         {% endif %}
                                     </div>
