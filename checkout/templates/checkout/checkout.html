@@ -2,6 +2,10 @@
 {% load static %}
 {% load bag_tools %}
 
+{% block extra_title %}- Checkout{% endblock %}
+
+{% block meta_description %}Complete your sweatX order securely with Stripe.{% endblock %}
+
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
@@ -40,9 +44,9 @@
                         <div class="col-2 mb-1">
                             <a href="{% url 'product_detail' item.product.id %}">
                                 {% if item.product.image %}
-                                    <img class="w-100" src="{{ item.product.image.url }}" alt="{{ product.name }}">
+                                    <img class="w-100" src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                 {% else %}
-                                    <img class="w-100" src="{% static 'images/noimage.png' %}" alt="{{ product.name }}">
+                                    <img class="w-100" src="{% static 'images/noimage.png' %}" alt="">
                                 {% endif %}
                             </a>
                         </div>
@@ -115,7 +119,7 @@
                     <fieldset class="px-3">
                         <legend class="fieldset-label small text-black px-2 w-auto">Payment</legend>
                         <!-- A Stripe card element will go here -->
-                        <div class="mb-3" id="card-element"></div>
+                        <div class="mb-3" id="card-element" aria-label="Card details"></div>
 
                         <!-- Used to display form errors -->
                         <div class="mb-3 text-danger" id="card-errors" role="alert"></div>
@@ -125,19 +129,19 @@
                     <div class="submit-button text-right mt-5 mb-2">                    
 						<a href="{% url 'view_bag' %}" class="btn btn-outline-black rounded-0">
 							<span class="icon">
-								<i class="fas fa-chevron-left"></i>
+								<i class="fas fa-chevron-left" aria-hidden="true"></i>
 							</span>
 							<span class="font-weight-bold">Adjust Bag</span>
 						</a>
-						<button id="submit-button" class="btn btn-pink-checkout rounded-0">
+						<button type="submit" id="submit-button" class="btn btn-pink-checkout rounded-0">
 							<span class="font-weight-bold">Complete Order</span>
 							<span class="icon">
-								<i class="fas fa-lock"></i>
+								<i class="fas fa-lock" aria-hidden="true"></i>
 							</span>
 						</button>
 						<p class="small text-danger my-0">
 							<span class="icon">
-								<i class="fas fa-exclamation-circle"></i>
+								<i class="fas fa-exclamation-circle" aria-hidden="true"></i>
 							</span>
 							<span>Your card will be charged <strong>${{ grand_total|floatformat:2 }}</strong></span>
 						</p>
