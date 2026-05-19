@@ -50,7 +50,12 @@
                     <div class="col-12 col-md-6 order-md-first">
                         <p class="text-muted mt-3 text-center text-md-left">
                             {% if search_term or current_categories or current_sorting != 'None_None' %}
-                                <span class="small"><a href="{% url 'products' %}">Products Home</a> | </span>
+                                {% if request.GET.category == 'programs' or request.GET.category == 'PREWORKOUT,PROTEIN,CREATINE,RECOVERY,STACKS' %}
+                                {% elif request.GET.category %}
+                                    <span class="small"><a href="{% url 'products' %}?category=PREWORKOUT,PROTEIN,CREATINE,RECOVERY,STACKS">All Supplements</a> | </span>
+                                {% else %}
+                                    <span class="small"><a href="{% url 'products' %}">All Products</a> | </span>
+                                {% endif %}
                             {% endif %}
                             {{ products|length }} Products{% if search_term %} found for <strong>"{{ search_term }}"</strong>{% endif %}
                         </p>
