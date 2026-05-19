@@ -34,7 +34,7 @@
                 <div class="row mt-1 mb-2">
                     <div class="col-12 col-md-6 my-auto order-md-last d-flex justify-content-center justify-content-md-end">
                         <div class="sort-select-wrapper w-100">
-                            <select id="sort-selector" class="custom-select custom-select-sm rounded-0 sort-select{% if current_sorting != 'None_None' %} sort-select-active{% endif %}">
+                            <select id="sort-selector" aria-label="Sort products by" class="custom-select custom-select-sm rounded-0 sort-select{% if current_sorting != 'None_None' %} sort-select-active{% endif %}">
                                 <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by...</option>
                                 <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price (low to high)</option>
                                 <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price (high to low)</option>
@@ -130,9 +130,9 @@
         </div>
     </div>
     <div class="btt-button shadow-sm rounded-0 border border-black">
-        <a class="btt-link d-flex h-100">
-            <i class="fas fa-arrow-up text-black mx-auto my-auto"></i>
-        </a>	
+        <button type="button" class="btt-link d-flex h-100" aria-label="Back to top">
+            <i class="fas fa-arrow-up text-black mx-auto my-auto" aria-hidden="true"></i>
+        </button>
     </div>
 {% endblock %}
 

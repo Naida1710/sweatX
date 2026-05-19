@@ -2,6 +2,10 @@
 {% load static %}
 {% load bag_tools %}
 
+{% block extra_title %}- Shopping Bag{% endblock %}
+
+{% block meta_description %}Review and update items in your sweatX shopping bag before checkout.{% endblock %}
+
 {% block extra_css %}
 <style>
     .bag-page {
@@ -54,7 +58,7 @@
         font-size: 0.9rem;
     }
     .bag-item-info .item-sku {
-        color: #888;
+        color: #6c757d;
         font-size: 0.8rem;
     }
     .bag-item-info .item-each {
@@ -274,7 +278,7 @@
                                 {% if item.product.image %}
                                     <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                 {% else %}
-                                    <img src="{% static 'images/noimage.png' %}" alt="{{ item.product.name }}">
+                                    <img src="{% static 'images/noimage.png' %}" alt="">
                                 {% endif %}
                             </div>
                             <div class="bag-item-info">
@@ -288,22 +292,25 @@
                                     {% csrf_token %}
                                     <div class="input-group">
                                         <div class="input-group-prepend">
-                                            <button class="decrement-qty"
-                                                data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}">
+                                            <button type="button" class="decrement-qty"
+                                                data-item_id="{{ item.item_id }}" id="decrement-qty_{{ item.item_id }}"
+                                                aria-label="Decrease quantity for {{ item.product.name }}">
                                                 <span>
-                                                    <i class="fas fa-minus fa-sm"></i>
+                                                    <i class="fas fa-minus fa-sm" aria-hidden="true"></i>
                                                 </span>
                                             </button>
                                         </div>
                                         <input class="qty_input" type="number"
                                             name="quantity" value="{{ item.quantity }}" min="1" max="99"
                                             data-item_id="{{ item.item_id }}"
-                                            id="id_qty_{{ item.item_id }}">
+                                            id="id_qty_{{ item.item_id }}"
+                                            aria-label="Quantity for {{ item.product.name }}">
                                         <div class="input-group-append">
-                                            <button class="increment-qty"
-                                                data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}">
+                                            <button type="button" class="increment-qty"
+                                                data-item_id="{{ item.item_id }}" id="increment-qty_{{ item.item_id }}"
+                                                aria-label="Increase quantity for {{ item.product.name }}">
                                                 <span>
-                                                    <i class="fas fa-plus fa-sm"></i>
+                                                    <i class="fas fa-plus fa-sm" aria-hidden="true"></i>
                                                 </span>
                                             </button>
                                         </div>
@@ -313,8 +320,8 @@
                                     </div>
                                 </form>
                                 <div class="qty-links">
-                                    <a class="update-link"><small>Update</small></a>
-                                    <a class="remove-item" id="remove_{{ item.item_id }}" data-product_size="{{ item.size }}"><small>Remove</small></a>
+                                    <button type="button" class="update-link"><small>Update</small></button>
+                                    <button type="button" class="remove-item" id="remove_{{ item.item_id }}" data-product_size="{{ item.size }}"><small>Remove</small></button>
                                 </div>
                             </div>
                             <div class="bag-item-subtotal">
